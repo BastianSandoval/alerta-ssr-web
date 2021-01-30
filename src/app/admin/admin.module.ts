@@ -6,6 +6,7 @@ import { MaterialModule } from '@shared/modules/material/material.module';
 import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
 import { FormAddDogComponent } from './components/form-add-dog/form-add-dog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent
@@ -20,4 +21,5 @@ const component = [
     ReactiveFormsModule
   ]
 })
+
 export class AdminModule { }
