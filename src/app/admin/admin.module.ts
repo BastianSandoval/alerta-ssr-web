@@ -5,12 +5,18 @@ import { AdminComponent } from './admin.component';
 import { MaterialModule } from '@shared/modules/material/material.module';
 
 
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
+
+/* const component=[ AdminComponent] */
+
 @NgModule({
-  declarations: [AdminComponent],
+  declarations: [AdminComponent, SidebarComponent,],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MaterialModule
   ]
 })
+
 export class AdminModule { }
