@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
+import { ListDogsScreenComponent } from './screens/list-dogs-screen/list-dogs-screen.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
         path: '',
         redirectTo: 'list-dogs',
         pathMatch: 'full'
+      },
+      {
+        path: 'list-dogs',
+        component: ListDogsScreenComponent
       },
       {
         path: 'add-dog',
