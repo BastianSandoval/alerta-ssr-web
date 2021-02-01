@@ -1,0 +1,16 @@
+.body {
+    background-color: white;
+    padding-left: 10vh;
+}
+
+@media only screen and (max-width: 700px) {
+    .body {
+        background-color: white;
+        padding-left: 1vh;
+    }
+}
+
+.tittle {
+    padding: 10vh 2vh;
+    color: rgba(0, 0, 0, 0.541);
+}
