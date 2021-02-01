@@ -6,10 +6,14 @@ import { MaterialModule } from '@shared/modules/material/material.module';
 import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
 import { FormAddDogComponent } from './components/form-add-dog/form-add-dog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { EditDogScreenComponent } from './screens/edit-dog-screen/edit-dog-screen.component';
+import { FormEditDogComponent } from './components/form-edit-dog/form-edit-dog.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 const component = [
-  AdminComponent, AddDogScreenComponent, FormAddDogComponent
+  AdminComponent, AddDogScreenComponent, FormAddDogComponent,SidebarComponent,
+   EditDogScreenComponent, FormEditDogComponent
 ]
 
 @NgModule({
