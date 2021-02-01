@@ -1,0 +1,38 @@
+.cabezera {
+    background-color: rgb(234, 238, 226);
+}
+
+.btn {
+    background-color: rgb(158, 172, 136);
+    color: white;
+    margin-right: 5px;
+    border: none;
+}
+
+.btn:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+.btnDanger {
+    background-color: rgb(206, 122, 122);
+}
+
+.btnRight {
+    text-align: end;
+}
+
+.btn1:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+@media only screen and (max-width: 1000px) {
+    .text-end {
+        text-align: left!important;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .nextPage {
+        margin-left: 0px!important;
+    }
+}
