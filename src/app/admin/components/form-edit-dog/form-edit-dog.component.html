@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
+        <div class="container-fluid pt-4">
+            <form [formGroup]="checkoutForm">
+                <div class="row">
+                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
+                        <label for="nameDog" class="fw-bolder">NOMBRE PERRO</label>
+                        <input id="nameDog" type="text" class="form-control" formControlName="nameDog" placeholder="Nombre perro" aria-label="nameDog">
+                        <div id='mensaje'>
+                            <small id="nameDogHelp" class="form-text text-muted" *ngIf="(nameDog?.dirty || nameDog?.touched) && nameDog?.invalid && nameDog?.errors?.required"> Requerido  </small>
+                        </div>
+                    </div>
+                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
+                        <label for="nameOwner" class="fw-bolder">NOMBRE DUEÑO</label>
+                        <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" placeholder="Nombre y Apellido" aria-label="Nombre y Apellido">
+                        <div id="mensaje">
+                            <small id="nameOwnerHelp" class="form-text text-muted" *ngIf="(nameOwner?.dirty || nameOwner?.touched) && nameOwner?.invalid && nameOwner?.errors?.required"> Requerido</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
+                        <label for="raza" class="fw-bolder">RAZA</label>
+                        <select id="raza" class="form-select" formControlName="raza" type="text">
+                            <option value="" selected disabled hidden>Raza</option>
+                            <option>Puddle</option>
+                            <option>Cocker</option>
+                            <option>Pastor Aleman</option>  
+                        </select>
+                        <div id="mensaje">
+                            <small id="razaHelp" class="form-text text-muted" *ngIf="(raza?.dirty || raza?.touched) && raza?.invalid && raza?.errors?.required"> Requerido</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn my-4 shadow" [disabled]="!checkoutForm.valid" style="min-width: 20vh;">
+                        Editar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
