@@ -49,17 +49,11 @@
                             <td>Nombre Dueño</td>
                             <td>Raza</td>
                             <td class="text-center">
-                                <button type="button" class="btn rounded-pill btn-sm" style="min-width: 8vh;">
-                                    Ver
-                                </button>
-                            </td>
+                                <app-modal-image></app-modal-image>                            </td>
                             <td class="btnRight">
-                                <button class="btn rounded-pill btn-sm" routerLink="/admin/edit" style="min-width: 8vh;">
-                                    Editar
-                                </button>
-                                <button type="button" class="btn btnDanger rounded-pill btn-sm" style="min-width: 8vh;">
-                                    Eliminar
-                                </button>
+                                <app-modal-delete></app-modal-delete>
+                                <a class="btn rounded-pill editar" routerLink="/admin/edit-dog"  >Editar</a> 
+                                
                             </td>
                         </tr>
                     </tbody>
