@@ -1,0 +1,33 @@
+/* .btn-edit{
+    background:rgb(188, 199, 171);
+    color: rgb(236, 233, 233);
+    padding-left: 6vh;
+    padding-right: 6vh;
+    margin-bottom: 3vh ;
+    margin-top:0px;
+    border:none;
+}   */  
+
+.btn-cancelar{
+    background: rgb(233, 143, 84);
+    color: rgb(236, 233, 233);
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border:none;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+.btn-editar{
+    background: rgb(173, 185, 154);
+    color: rgb(236, 233, 233);
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-left: 30px;
+    border:none;
+    cursor: pointer;
+}
