@@ -33,9 +33,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn my-4 shadow" [disabled]="!checkoutForm.valid" style="min-width: 20vh;">
-                        Editar
-                    </button>
+                    <button type="submit" class=" my-4 btn shadow" data-bs-toggle="modal" data-bs-target="#edit" [disabled]="!checkoutForm.valid" >Editar </button>
+                    <app-modal-edit></app-modal-edit>
                 </div>
             </form>
         </div>
