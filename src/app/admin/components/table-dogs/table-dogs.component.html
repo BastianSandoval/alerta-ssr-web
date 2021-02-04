@@ -42,17 +42,18 @@
                             <th scope="col" class="text-center ">ACCIÓN</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngFor="let dog of dogs">
                         <tr>
-                            <td>Nombre Perro</td>
-                            <td>Nombre Dueño</td>
-                            <td>Raza</td>
+                            <td>{{dog.nameDog}}</td>
+                            <td>{{dog.nameOwner}}</td>
+                            <td>{{dog.breed}}</td>
                             <td class="text-center">
-                                <app-modal-image></app-modal-image>                            </td>
+                                <app-modal-image></app-modal-image>
+                            </td>
                             <td class="btnRight">
                                 <app-modal-delete></app-modal-delete>
-                                <a class="btn rounded-pill editar" routerLink="/admin/edit-dog"  >Editar</a> 
-                                
+                                <a class="btn rounded-pill editar" routerLink="/admin/edit-dog">Editar</a>
+
                             </td>
                         </tr>
                     </tbody>
