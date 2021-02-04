@@ -18,16 +18,21 @@ export class HttpService {
   constructor(private httpClient: HttpClient) {
     this.baseUrl = environment.baseUrl;
 
-    this.httpOptions = {
+    /* this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Access-Control-Allow-Origin': '*'
+      })
+    }; */
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/xml'
       })
     };
   }
 
   public get<type>(path: string){
-    return this.httpClient.get<type>(this.baseUrl + path, this.httpOptions)
+    return this.httpClient.get<type>(this.baseUrl + path)
       .pipe( map((data: any) => {
         return data.message as type;
       }));
