@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
+import { Dog } from '../../../core/models/dog.model';
+import { DogService } from '../../../core/services/dogs/dogs.service';
 
 @Component({
   selector: 'app-table-dogs',
@@ -9,8 +11,11 @@ import { BreedProviderService } from '../../../core/providers/breed-provider/bre
 export class TableDogsComponent implements OnInit {
 
   breeds?: string[];
+  dogs?: Dog[];
 
-  constructor(private breedProvider: BreedProviderService) { }
+  constructor(private breedProvider: BreedProviderService, private dogService: DogService) {
+    this.dogs = dogService.dog;
+   }
 
   async ngOnInit(): Promise<void> {
     try {
