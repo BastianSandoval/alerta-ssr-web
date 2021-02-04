@@ -16,7 +16,6 @@ export class SidebarComponent implements OnInit {
   }
 
   public getUrl(): string{
-    console.log( this.router.url)
     return this.router.url;
 
   }
