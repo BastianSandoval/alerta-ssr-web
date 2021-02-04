@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
 
 @Component({
   selector: 'app-table-dogs',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableDogsComponent implements OnInit {
 
-  constructor() { }
+  breeds?: string[];
 
-  ngOnInit(): void {
+  constructor(private breedProvider: BreedProviderService) { }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      this.breeds = await this.breedProvider.getBreed();
+    } catch (error) {
+      console.log(error)
+    }
   }
-
+  
+  
 }
