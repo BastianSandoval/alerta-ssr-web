@@ -17,4 +17,11 @@ export class BreedProviderService {
         return breeds;
       })).toPromise();
   } 
+
+  public getBreedImage(breed: any): Promise<any> {
+    return this.httpService.get<any>('/breed/' + breed + '/images/random')
+
+    .toPromise();
+  } 
+
 }
