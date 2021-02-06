@@ -11,10 +11,13 @@ import { DogService } from '../../../core/services/dogs/dogs.service';
 export class TableDogsComponent implements OnInit {
 
   breeds?: string[];
-  dogs?: Dog[];
+  dogs: Dog[];
+  filterBreed!: string;
+  dogSelected: any;
 
   constructor(private breedProvider: BreedProviderService, private dogService: DogService) {
     this.dogs = dogService.dog;
+    this.dogSelected = null;
    }
 
   async ngOnInit(): Promise<void> {
@@ -22,7 +25,15 @@ export class TableDogsComponent implements OnInit {
       this.breeds = await this.breedProvider.getBreed();
     } catch (error) {
       console.log(error)
-    }
+    };
+  }
+
+  breedFilter(event:any) {
+    this.filterBreed = event.target.value;
+  }
+
+  clearFilter(event:any) {
+    this.filterBreed = '';
   }
   
   
