@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-modal-image',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal-image.component.css']
 })
 export class ModalImageComponent implements OnInit {
+
+  @Input()
+  image!: any;
 
   constructor() { }
 
