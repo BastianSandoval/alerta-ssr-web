@@ -14,6 +14,8 @@ export class TableDogsComponent implements OnInit {
   dogs: Dog[];
   filterBreed!: string;
   dogSelected: any;
+  value!: string;
+  filterDog!: string;
 
   constructor(private breedProvider: BreedProviderService, private dogService: DogService) {
     this.dogs = dogService.dog;
@@ -32,8 +34,21 @@ export class TableDogsComponent implements OnInit {
     this.filterBreed = event.target.value;
   }
 
-  clearFilter(event:any) {
+  clearFilter() {
     this.filterBreed = '';
+    this.filterDog = '';
+  }
+
+  onValue(value: string) {
+    this.value = value;
+  }
+
+  onEnter(value: string) {
+    this.filterDog = value;
+  }
+
+  searchButton() {
+    this.filterDog = this.value;
   }
   
   
