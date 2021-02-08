@@ -16,10 +16,14 @@ export class TableDogsComponent implements OnInit {
   dogSelected: any;
   value!: string;
   filterDog!: string;
+  idSelected: any;
+  nameDogSelected: any;
 
   constructor(private breedProvider: BreedProviderService, private dogService: DogService) {
     this.dogs = dogService.dog;
     this.dogSelected = null;
+    this.idSelected = null;
+    this.nameDogSelected = null;
    }
 
   async ngOnInit(): Promise<void> {
