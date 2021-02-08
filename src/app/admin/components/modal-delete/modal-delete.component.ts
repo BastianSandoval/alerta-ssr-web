@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DogService } from '@core/services/dogs/dogs.service';
 
 @Component({
   selector: 'app-modal-delete',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalDeleteComponent implements OnInit {
 
-  constructor() { }
+
+  @Input() nameDog!: string;
+  @Input() id!: string;
+  constructor(
+    private dogService: DogService) {}
 
   ngOnInit(): void {
   }
 
+  deleteDog(id: string){
+    this.dogService.deleteDog(id)
+    /* console.log(id) */
+  }
 }
