@@ -49,7 +49,8 @@
                                 <app-modal-image [image]="dogSelected?.image"></app-modal-image>
                             </td>
                             <td class="btnRight">
-                                <app-modal-delete></app-modal-delete>
+                                <button class="btn rounded-pill eliminar-table" (click)="idSelected = dog._id" (click)="nameDogSelected=dog.nameDog" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
+                                <app-modal-delete [id]="idSelected" [nameDog]= "nameDogSelected"></app-modal-delete>
                                 <a class="btn rounded-pill editar" routerLink="/admin/edit-dog">Editar</a>
                             </td>
                         </tr>

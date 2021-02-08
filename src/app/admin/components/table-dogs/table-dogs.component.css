@@ -57,3 +57,14 @@
     cursor: pointer;
     border: none;
 }
+
+.eliminar-table{
+    background: rgb(233, 143, 84);
+    color: rgb(236, 233, 233);
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 1px;
+    padding-bottom: 1px;
+     margin-right: 8px; 
+    border:none;
+}
