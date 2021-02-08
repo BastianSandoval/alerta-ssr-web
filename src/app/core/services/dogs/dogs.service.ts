@@ -15,6 +15,17 @@ constructor() {}
  public addDog(newDog: Dog){
    this.dog.push(newDog) 
 } 
+public deleteDog(id:string){
+  var indice: number;
+    for (var i = 0; i< this.dog.length; i++){
+      if(this.dog[i]._id == id){
+        indice = this.dog.indexOf(this.dog[i]);
+        /* console.log(indice) */
+        return this.dog.splice(indice, 1);
+      }
+    }
+    return 
+}
 
   dog: Dog[] = [
     {
