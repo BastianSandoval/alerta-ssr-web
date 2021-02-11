@@ -1,18 +1,18 @@
 <div class="row justify-content-center">
     <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
-            <form [formGroup]="checkoutForm">
+            <form [formGroup]="checkoutForm" (ngSubmit)="saveDog($event)">
                 <div class="row">
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDog" class="fw-bolder">NOMBRE PERRO</label>
-                        <input id="nameDog" type="text" class="form-control" formControlName="nameDog" placeholder="Nombre perro" aria-label="nameDog">
+                        <input id="nameDog" type="text" class="form-control" formControlName="nameDog" placeholder="{{wantedDog?.nameDog}}" aria-label="nameDog">
                         <div id='mensaje'>
                             <small id="nameDogHelp" class="form-text text-muted" *ngIf="(nameDog?.dirty || nameDog?.touched) && nameDog?.invalid && nameDog?.errors?.required"> Requerido  </small>
                         </div>
                     </div>
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameOwner" class="fw-bolder">NOMBRE DUEÑO</label>
-                        <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" placeholder="Nombre y Apellido" aria-label="Nombre y Apellido">
+                        <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" placeholder="{{wantedDog?.nameOwner}}" aria-label="Nombre y Apellido">
                         <div id="mensaje">
                             <small id="nameOwnerHelp" class="form-text text-muted" *ngIf="(nameOwner?.dirty || nameOwner?.touched) && nameOwner?.invalid && nameOwner?.errors?.required"> Requerido</small>
                         </div>
@@ -20,21 +20,21 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="raza" class="fw-bolder">RAZA</label>
-                        <select id="raza" class="form-select" formControlName="raza" type="text">
-                            <option value="" selected disabled hidden>Raza</option>
-                            <option>Puddle</option>
-                            <option>Cocker</option>
-                            <option>Pastor Aleman</option>  
+                        <label for="breed" class="fw-bolder">RAZA</label>
+                        <select id="breed" class="form-select" formControlName="breed" type="text">
+                            
+                            <option value="{{wantedDog?.breed}}" selected disabled hidden >Seleccione una raza</option>
+                            <option *ngFor="let breed of breeds" class="text-uppercase"> {{breed}} </option>
+
                         </select>
                         <div id="mensaje">
-                            <small id="razaHelp" class="form-text text-muted" *ngIf="(raza?.dirty || raza?.touched) && raza?.invalid && raza?.errors?.required"> Requerido</small>
+                            <small id="breedHelp" class="form-text text-muted" *ngIf="(breed?.dirty || breed?.touched) && breed?.invalid && breed?.errors?.required"> Requerido</small>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class=" my-4 btn shadow" data-bs-toggle="modal" data-bs-target="#edit" [disabled]="!checkoutForm.valid" >Editar </button>
-                    <app-modal-edit></app-modal-edit>
+                    <button type="submit" class=" my-4 btn shadow" (click)="generateNewDog()" data-bs-toggle="modal" data-bs-target="#edit" [disabled]="!checkoutForm.valid" >Editar </button>
+                    <app-modal-edit [id] = "wantedDog?._id " [nameDog]= "wantedDog?.nameDog" [newDog] = "newDog1"></app-modal-edit>
                 </div>
             </form>
         </div>

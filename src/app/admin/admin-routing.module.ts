@@ -25,7 +25,7 @@ const routes: Routes = [
         component: AddDogScreenComponent
       },
       {
-        path: 'edit-dog',
+        path: 'edit-dog/:id',
         component: EditDogScreenComponent
       }
 

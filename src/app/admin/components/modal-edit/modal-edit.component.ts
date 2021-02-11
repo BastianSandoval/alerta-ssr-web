@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Dog } from '@core/models/dog.model';
+import { DogService } from '@core/services/dogs/dogs.service';
 
 @Component({
   selector: 'app-modal-edit',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalEditComponent implements OnInit {
 
-  constructor() { }
+  @Input() nameDog!: any;
+  @Input() id!: any;
+  @Input() newDog: any
+  
+
+  constructor(
+    private dogService: DogService
+  ){ }
 
   ngOnInit(): void {
+  }
+
+  editDog(id: string, newDog: any){
+    this.dogService.editDog(id,newDog);
   }
 
 }

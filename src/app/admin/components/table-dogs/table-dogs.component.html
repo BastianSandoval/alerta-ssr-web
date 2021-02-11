@@ -51,7 +51,8 @@
                             <td class="btnRight" scope="col">
                                 <button class="btn rounded-pill eliminar-table" (click)="idSelected = dog._id" (click)="nameDogSelected=dog.nameDog" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                 <app-modal-delete [id]="idSelected" [nameDog]= "nameDogSelected"></app-modal-delete>
-                                <a class="btn rounded-pill editar" routerLink="/admin/edit-dog">Editar</a>
+
+                                <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-dog', dog._id]">Editar</a>                
                             </td>
                         </tr>
                     </tbody>
@@ -62,9 +63,9 @@
                     <div class="ms-auto p-2 bd-highlight nextPage">
                         Ítems por página:
                         <select id="page" type="text" class="btn btn1 btn-sm">
-                            <option selected>7</option>
-                            <option>6</option>
-                            <option>5</option>                          
+                            <option selected>1</option>
+                            <option>2</option>
+                            <option>3</option>                          
                         </select>
                     </div>
                     <div class="p-0 p-lg-2">
