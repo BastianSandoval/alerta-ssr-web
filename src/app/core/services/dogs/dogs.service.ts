@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Dog } from '../../models/dog.model';
@@ -10,7 +11,7 @@ import { HttpService } from '../http/http.service';
 })
 export class DogService {
 
-constructor() {}
+constructor(private router: Router) {}
 
  public addDog(newDog: Dog){
    this.dog.push(newDog) 
@@ -20,12 +21,43 @@ public deleteDog(id:string){
     for (var i = 0; i< this.dog.length; i++){
       if(this.dog[i]._id == id){
         indice = this.dog.indexOf(this.dog[i]);
-        /* console.log(indice) */
+        /* this.router.navigate(['./admin/products']);  */
         return this.dog.splice(indice, 1);
       }
     }
     return 
 }
+
+  public editDog(id: string, newDog: Dog){
+    for (var i = 0; i< this.dog.length; i++){
+      if(this.dog[i]._id === id){
+        this.dog[i].nameDog = newDog.nameDog;
+        this.dog[i].nameOwner = newDog.nameOwner;
+        this.dog[i].breed = newDog.breed;
+        this.dog[i].image = newDog.image;
+        console.log(this.dog[i]) 
+      }
+    }
+    return 
+  }
+  
+
+  getDogById(id:string){
+    for (var i = 0; i< this.dog.length; i++){
+      if(this.dog[i]._id === id){
+        console.log('holaa');
+        console.log(this.dog[i]);
+        return this.dog[i];
+      }
+    }   
+    return this.dog[i]; // ??? 
+  }
+
+  getAllDogs(){
+    return this.dog
+  }
+
+
 
   dog: Dog[] = [
     {
