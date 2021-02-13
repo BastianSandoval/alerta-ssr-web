@@ -11,11 +11,14 @@ import { HttpService } from '../http/http.service';
 })
 export class DogService {
 
-constructor(private router: Router) {}
+constructor(
+  private router: Router,
+  ) {}
 
  public addDog(newDog: Dog){
    this.dog.push(newDog) 
 } 
+
 public deleteDog(id:string){
   var indice: number;
     for (var i = 0; i< this.dog.length; i++){
@@ -25,7 +28,7 @@ public deleteDog(id:string){
         return this.dog.splice(indice, 1);
       }
     }
-    return 
+    return null;
 }
 
   public editDog(id: string, newDog: Dog){
@@ -35,10 +38,11 @@ public deleteDog(id:string){
         this.dog[i].nameOwner = newDog.nameOwner;
         this.dog[i].breed = newDog.breed;
         this.dog[i].image = newDog.image;
-        console.log(this.dog[i]) 
+        console.log(this.dog[i]);
+        return this.dog[i];
       }
     }
-    return 
+    return null;
   }
   
 
@@ -56,8 +60,6 @@ public deleteDog(id:string){
   getAllDogs(){
     return this.dog
   }
-
-
 
   dog: Dog[] = [
     {
