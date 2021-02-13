@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Dog } from '@core/models/dog.model';
 import { BreedProviderService } from '@core/providers/breed-provider/breed-provider.service';
+import { NotificationService } from '@core/services/notification/notification.service';
+import { ToastrService } from 'ngx-toastr';
 import { DogService} from '../../../core/services/dogs/dogs.service';
 @Component({
   selector: 'app-form-add-dog',
@@ -15,8 +17,11 @@ export class FormAddDogComponent implements OnInit {
   image?: string;
 
   constructor(
+    private toastr: ToastrService,
     private breedProvider: BreedProviderService,
     private dogService: DogService,
+    private notificationService: NotificationService,
+        
     ){
     this.checkoutForm = this.createFormGroup();
     }
@@ -43,7 +48,7 @@ export class FormAddDogComponent implements OnInit {
   
    public async addDog(){
     await this.getImage()
-    let dog: Dog = {
+    let dog: Dog | null= {
 
       _id: Math.random().toString(),
       nameDog: this.checkoutForm.get('nameDog')?.value,
@@ -51,9 +56,22 @@ export class FormAddDogComponent implements OnInit {
       breed: this.checkoutForm.get('breed')?.value,
       image: this.image!
     };
-    this.dogService.addDog(dog)
-     // console.log(dog);
-    ;
+
+    /*  if(dog === null){
+      console.log(dog)
+      this.notificationService.error('Hubo un error al añadir al perro intente nuevamente');
+      return
+    }   */
+
+    try {
+      this.dogService.addDog(dog!);
+      if(dog !== null){
+        this.notificationService.success('Nuevo perro añadido con éxito');
+      } 
+    } catch (error) {
+      this.notificationService.error('Hubo un error al añadir al perro intente nuevamente');
+    }
+  
   }
    async getImage(){
     try {
