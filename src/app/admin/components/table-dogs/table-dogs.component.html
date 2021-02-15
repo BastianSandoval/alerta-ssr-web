@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 col-lg-11 ">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container-fluid ps-0 pe-lg-0">
+                <form class="container-fluid ps-0 pe-lg-0">
                     <div class="col-8 col-lg-4 py-2 py-lg-0 pe-0">
                         <input class="form-control border-0" type="search" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" placeholder="Buscar perro" aria-label="Search" size="80" style="background-color:rgb(234, 238, 226)">
                     </div>
@@ -11,18 +11,18 @@
                             <i class="lupa fas fa-search fa-1x "></i>
                         </button>
                     </div>
-                    <div class="col-12 col-lg-3 ps-1">
-                        <select id="raza" type="text" (change)="breedFilter($event)" class="btn btn-secondary btn1  me-auto my-2 my-lg-0 d-block">
-                            <option selected disabled value>Filtrar por raza</option>
+                    <div class="col-7 col-sm-4 col-md-4 col-lg-3 col-xl-2 ps-lg-1">
+                        <select id="raza" type="text" (change)="breedFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
+                            <option selected disabled value id="1">Filtrar por raza</option>
                             <option *ngFor="let dog of dogs | breedRepeat" value="{{dog.breed}}">{{dog.breed}}</option>    
                         </select>
                     </div>
-                    <div id="limpiar" class="col-12 col-lg-4 text-end">
-                        <button type="button" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                    <div id="limpiar" class="col-12 col-sm-4 col-lg-5 text-end">
+                        <button type="reset" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
                             Limpiar tabla
                         </button>
                     </div>
-                </div>
+                </form>
             </nav>
         </div>
     </div>
@@ -50,9 +50,9 @@
                             </td>
                             <td class="btnRight" scope="col">
                                 <button class="btn rounded-pill eliminar-table" (click)="idSelected = dog._id" (click)="nameDogSelected=dog.nameDog" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
-                                <app-modal-delete [id]="idSelected" [nameDog]= "nameDogSelected"></app-modal-delete>
+                                <app-modal-delete [id]="idSelected" [nameDog]="nameDogSelected"></app-modal-delete>
 
-                                <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-dog', dog._id]">Editar</a>                
+                                <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-dog', dog._id]">Editar</a>
                             </td>
                         </tr>
                     </tbody>
