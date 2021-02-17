@@ -1,24 +1,29 @@
-.ver{
-    background:  rgb(158, 172, 136);
+.ver {
+    background: rgb(158, 172, 136);
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;
     padding-top: 1px;
     padding-bottom: 1px;
     cursor: pointer;
-    border:none;
+    border: none;
 }
 
-.btn-cerrar{
-    background:rgb(116, 168, 129);
+.btn-cerrar {
+    background: rgb(173, 185, 154);
     color: rgb(236, 233, 233);
     padding-left: 6vh;
     padding-right: 6vh;
-    margin-bottom: 3vh ;
-    margin-top:0px;
-    border:none;
+    margin-bottom: 3vh;
+    margin-top: 0px;
+    border: none;
     cursor: pointer;
 }
-.footer{
+
+.btn-cerrar:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+.footer {
     text-align: center;
 }
