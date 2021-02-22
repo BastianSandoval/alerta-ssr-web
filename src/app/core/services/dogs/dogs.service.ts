@@ -90,6 +90,55 @@ public deleteDog(id:string){
       image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
       breed: 'hound-blood',
     },
+    {
+      _id: '5',
+      nameDog: '5',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
+    {
+      _id: '6',
+      nameDog: '6',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
+    {
+      _id: '7',
+      nameDog: '7',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
+    {
+      _id: '8',
+      nameDog: '8',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
+    {
+      _id: '9',
+      nameDog: '9',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
+    {
+      _id: '10',
+      nameDog: '10',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
+    {
+      _id: '11',
+      nameDog: '11',
+      nameOwner: 'Sebastian',
+      image: 'https://images.dog.ceo/breeds/hound-blood/n02088466_8039.jpg',
+      breed: 'hound-blood',
+    },
 
   ]
 

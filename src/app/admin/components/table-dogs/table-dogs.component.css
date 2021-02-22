@@ -20,10 +20,6 @@
     border: none;
 }
 
-.btnDanger {
-    background-color: rgb(206, 122, 122);
-}
-
 .btnRight {
     text-align: end;
 }
@@ -65,8 +61,12 @@
     border: none;
 }
 
+.eliminar-table:hover {
+    background: rgb(226, 97, 74);
+}
+
 .eliminar-table {
-    background: rgb(233, 143, 84);
+    background: rgb(224, 120, 102);
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;

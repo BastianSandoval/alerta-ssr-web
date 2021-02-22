@@ -39,7 +39,7 @@
                             <th scope="col" class="text-center ">ACCIÓN</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let dog of dogs | breedFilter: filterBreed | dogFilter: filterDog">
+                    <tbody *ngFor="let dog of dogsSlice | breedFilter: filterBreed | dogFilter: filterDog">
                         <tr>
                             <td scope="col">{{dog.nameDog}}</td>
                             <td scope="col">{{dog.nameOwner}}</td>
@@ -62,17 +62,17 @@
                 <div class="container-fluid ps-0">
                     <div class="ms-auto p-2 bd-highlight nextPage">
                         Ítems por página:
-                        <select id="page" type="text" class="btn btn1 btn-sm">
-                            <option selected>1</option>
-                            <option>2</option>
-                            <option>3</option>                          
+                        <select id="page" type="number" (change)="sizePage($event)" class="btn btn1 btn-sm">
+                            <option selected >7</option>
+                            <option type="number" >5</option>
+                            <option>4</option>                          
                         </select>
                     </div>
                     <div class="p-0 p-lg-2">
-                        <button type="button" class="btn  btn1 rounded-circle">
+                        <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i class="fas fa-angle-left"></i>
                         </button> 1 - 4 de 4
-                        <button type="button" class="btn  btn1 rounded-circle">
+                        <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i class="fas fa-angle-right"></i>
                         </button>
                     </div>
