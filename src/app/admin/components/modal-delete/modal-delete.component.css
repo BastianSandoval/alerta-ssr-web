@@ -1,0 +1,53 @@
+.eliminar-table {
+    background: rgb(224, 120, 102);
+    color: rgb(236, 233, 233);
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-right: 8px;
+    border: none;
+}
+
+.btn-eliminar{
+    background: rgb(224, 120, 102);
+    color: rgb(236, 233, 233);
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 0px;
+    margin-left: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-cancelar{
+    background:  rgb(185, 197, 167);
+    color: rgb(236, 233, 233);
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 0px;
+    margin-right: 10px;
+    margin-bottom: 5vh;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-cancelar:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+.btn-eliminar:hover {
+    background: rgb(226, 97, 74);
+}
+
+.header {
+    margin-bottom: 1vh;
+}
+
+.shadow {
+    box-shadow: 0 2px 4px 0 rgba(34, 33, 33, 0.32), 0 6px 10px 0px rgba(39, 38, 38, 0.32) !important;
+  }

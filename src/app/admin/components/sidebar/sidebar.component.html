@@ -1,0 +1,47 @@
+<div class="sidebar" style="height: 100%;">
+    <div class="dogAPI text-center">
+        <h4> Dog API</h4>
+    </div>
+    <div class="perros ps-0 ps-lg-3">
+        PERROS
+    </div>
+
+    <div class="" [ngSwitch]="getUrl()">
+
+        <div class="options" *ngSwitchCase="'/admin/list-dogs'">
+            <div class="active" routerLink="/admin/list-dogs" routerLinkActive="active">
+                LISTA DE PERROS
+            </div>
+            <div class="noActive" routerLink="/admin/add-dog" routerLinkActive="active">
+                AGREGAR PERRO
+            </div>
+        </div>
+
+        <div class="options" *ngSwitchCase="'/admin/add-dog'">
+            <div class="noActive" routerLink="/admin/list-dogs" routerLinkActive="active">
+                LISTA DE PERROS
+            </div>
+            <div class="active" routerLink="/admin/add-dog" routerLinkActive="active">
+                AGREGAR PERRO
+            </div>
+        </div>
+
+        <div class="options" *ngSwitchDefault>
+            <div class="noActive" routerLink="/admin/list-dogs" routerLinkActive="active">
+                LISTA DE PERROS
+            </div>
+            <div class="active" routerLink="/admin/add-dog" routerLinkActive="active">
+                AGREGAR PERRO
+            </div>
+        </div>
+
+        <div class="options" *ngSwitchCase="'/admin/dogs-alerts'">
+            <div class="noActive" routerLink="/admin/list-dogs" routerLinkActive="active">
+                LISTA DE PERROS
+            </div>
+            <div class="active" routerLink="/admin/add-dog" routerLinkActive="active">
+                AGREGAR PERRO
+            </div>
+        </div>
+    </div>
+</div>
