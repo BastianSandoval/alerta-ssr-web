@@ -1,0 +1,105 @@
+import { Component, OnInit } from '@angular/core';
+import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
+import { Report } from '../../../core/models/report.model';
+import { ReportsService } from '../../../core/services/reports/reports.service';
+
+@Component({
+  selector: 'app-table-reports',
+  templateUrl: './table-reports.component.html',
+  styleUrls: ['./table-reports.component.css']
+})
+export class TableReportsComponent implements OnInit {
+
+  breeds?: string[];
+  reports: Report[];
+  filterBreed!: string;
+  dogSelected: any;
+  value!: string;
+  filterDog!: string;
+  idSelected: any;
+  reportSelected: any;
+  reportsSlice!: Report[];
+  sizePageTable: number = 7;
+  
+  startPage: number = 0;
+  endPage: number = 7;
+
+
+
+  constructor(private breedProvider: BreedProviderService, private dogService: ReportsService) {
+    this.reports = dogService.report;
+    this.dogSelected = null;
+    this.idSelected = null;
+    this.reportSelected = null;
+   }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      this.breeds = await this.breedProvider.getBreed();
+    } catch (error) {
+      console.log(error)
+    };
+  }
+
+  ngDoCheck(){
+    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
+
+    let prevButton = document.getElementById("prevButton");
+    let nextButton = document.getElementById("nextButton");
+
+    if (this.startPage === 0) {
+      prevButton?.setAttribute('disabled', 'disabled');
+
+    } else {
+      prevButton?.removeAttribute('disabled');
+      
+    }
+
+    if (this.endPage >= this.reports.length) {
+      nextButton?.setAttribute('disabled', 'disabled');      
+    } else {
+      nextButton?.removeAttribute('disabled');
+    }
+    
+  }
+
+
+  breedFilter(event:any) {
+    this.filterBreed = event.target.value;
+  }
+
+  clearFilter() {
+    this.filterBreed = '';
+    this.filterDog = '';
+  }
+
+  onValue(value: string) {
+    this.value = value;
+  }
+
+  onEnter(value: string) {
+    this.filterDog = value;
+  }
+
+  searchButton() {
+    this.filterDog = this.value;
+  }
+  
+  sizePage(event: any) {
+    this.sizePageTable = parseInt(event.target.value);
+    this.startPage = 0;
+    this.endPage = this.sizePageTable;
+
+  }
+
+  prevPage() {
+    this.endPage = this.startPage;
+    this.startPage = this.startPage - this.sizePageTable;
+  }
+
+  nextPage() {
+    this.startPage = this.endPage;
+    this.endPage = this.endPage + this.sizePageTable;
+  }
+  
+}
