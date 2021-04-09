@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
-import { Dog } from '../../../core/models/dog.model';
-import { DogService } from '../../../core/services/dogs/dogs.service';
+import { Report } from '../../../core/models/report.model';
+import { ReportsService } from '../../../core/services/reports/reports.service';
 
 @Component({
-  selector: 'app-table-dogs',
-  templateUrl: './table-dogs.component.html',
-  styleUrls: ['./table-dogs.component.css']
+  selector: 'app-table-reports',
+  templateUrl: './table-reports.component.html',
+  styleUrls: ['./table-reports.component.css']
 })
-export class TableDogsComponent implements OnInit {
+export class TableReportsComponent implements OnInit {
 
   breeds?: string[];
-  dogs: Dog[];
+  reports: Report[];
   filterBreed!: string;
   dogSelected: any;
   value!: string;
   filterDog!: string;
   idSelected: any;
-  nameDogSelected: any;
-  dogsSlice!: Dog[];
+  reportSelected: any;
+  reportsSlice!: Report[];
   sizePageTable: number = 7;
   
   startPage: number = 0;
@@ -26,11 +26,11 @@ export class TableDogsComponent implements OnInit {
 
 
 
-  constructor(private breedProvider: BreedProviderService, private dogService: DogService) {
-    this.dogs = dogService.dog;
+  constructor(private breedProvider: BreedProviderService, private dogService: ReportsService) {
+    this.reports = dogService.report;
     this.dogSelected = null;
     this.idSelected = null;
-    this.nameDogSelected = null;
+    this.reportSelected = null;
    }
 
   async ngOnInit(): Promise<void> {
@@ -42,7 +42,7 @@ export class TableDogsComponent implements OnInit {
   }
 
   ngDoCheck(){
-    this.dogsSlice = this.dogs.slice(this.startPage, this.endPage);
+    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
@@ -55,7 +55,7 @@ export class TableDogsComponent implements OnInit {
       
     }
 
-    if (this.endPage >= this.dogs.length) {
+    if (this.endPage >= this.reports.length) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');

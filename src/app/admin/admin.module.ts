@@ -10,16 +10,17 @@ import { EditDogScreenComponent } from './screens/edit-dog-screen/edit-dog-scree
 import { FormEditDogComponent } from './components/form-edit-dog/form-edit-dog.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ListDogsScreenComponent } from './screens/list-dogs-screen/list-dogs-screen.component';
-import { TableDogsComponent } from './components/table-dogs/table-dogs.component';
+import { TableReportsComponent } from './components/table-reports/table-reports.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { ModalEditComponent } from './components/modal-edit/modal-edit.component';
 import { ModalImageComponent } from './components/modal-image/modal-image.component';
 import { SharedModule } from '@shared/shared.module';
+import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
-  ListDogsScreenComponent, TableDogsComponent,EditDogScreenComponent,FormEditDogComponent
-  , ModalDeleteComponent, ModalEditComponent, ModalImageComponent
+  ListDogsScreenComponent, TableReportsComponent,EditDogScreenComponent,FormEditDogComponent
+  , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent
 ]
 
 @NgModule({

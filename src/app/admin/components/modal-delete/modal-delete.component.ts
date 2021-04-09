@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DogService } from '@core/services/dogs/dogs.service';
+import { ReportsService } from '@core/services/reports/reports.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
@@ -10,21 +10,21 @@ import { NotificationService } from '@core/services/notification/notification.se
 export class ModalDeleteComponent implements OnInit {
 
 
-  @Input() nameDog!: string;
+  @Input() report!: string;
   @Input() id!: string;
   constructor(
     private notificationService: NotificationService,
-    private dogService: DogService) {}
+    private reportsService: ReportsService) {}
 
   ngOnInit(): void {
   }
 
-  deleteDog(id: string){
-    if(this.dogService.deleteDog(id) === null){
-      this.notificationService.error('Error al eliminar perro intente nuevamente');
+  deleteReport(id: string){
+    if(this.reportsService.deleteReport(id) === null){
+      this.notificationService.error('Error al eliminar reporte intente nuevamente');
 
     }else{
-      this.notificationService.success('Perro eliminado exitosamente');
+      this.notificationService.success('Reporte eliminado exitosamente');
     }
 
 

@@ -1,0 +1,155 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Report } from '../../models/report.model';
+// import { HttpClient } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+// import { environment } from 'src/environments/environment';
+// import { HttpService } from '../http/http.service';
+
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ReportsService {
+
+constructor(
+  private router: Router,
+  ) {}
+
+ public addReport(newReport: Report){
+   this.report.push(newReport) 
+} 
+
+public deleteReport(id:string){
+  var indice: number;
+    for (var i = 0; i< this.report.length; i++){
+      if(this.report[i]._id == id){
+        indice = this.report.indexOf(this.report[i]);
+        /* this.router.navigate(['./admin/products']);  */
+        return this.report.splice(indice, 1);
+      }
+    }
+    return null;
+}
+
+  public editReport(id: string, newDog: Report){
+    for (var i = 0; i< this.report.length; i++){
+      if(this.report[i]._id === id){
+        // this.report[i].nameDog = newDog.nameDog;
+        // this.report[i].nameOwner = newDog.nameOwner;
+        // this.report[i].breed = newDog.breed;
+        // this.report[i].image = newDog.image;
+        console.log(this.report[i]);
+        return this.report[i];
+      }
+    }
+    return null;
+  }
+  
+
+  getReportById(id:string){
+    for (var i = 0; i< this.report.length; i++){
+      if(this.report[i]._id === id){
+        console.log('holaa');
+        console.log(this.report[i]);
+        return this.report[i];
+      }
+    }   
+    return this.report[i]; // ??? 
+  }
+
+  getAllReports(){
+    return this.report
+  }
+
+  report: Report[] = [
+    {
+      _id: "1",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+    {
+      _id: "2",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+    {
+      _id: "3",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+    {
+      _id: "4",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+    {
+      _id: "5",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+    {
+      _id: "6",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+    {
+      _id: "7",
+      title: "Robo de basura",
+      category: "Vertedero Clandestino",
+      date: new Date(),
+      location: "2 norte 1348, Viña del mar, Valparaiso",
+      validation: {
+          number: 100,
+          date: new Date(),
+      },
+      reject: 20,
+    },
+
+  ]
+
+}
+
