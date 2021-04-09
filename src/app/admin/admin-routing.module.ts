@@ -5,6 +5,7 @@ import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.c
 import { EditDogScreenComponent } from './screens/edit-dog-screen/edit-dog-screen.component';
 import { ListDogsScreenComponent } from './screens/list-dogs-screen/list-dogs-screen.component';
 
+import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
         path: '',
         redirectTo: 'list-dogs',
         pathMatch: 'full'
+      },
+      {
+        path: 'reports',
+        component: ReportsScreenComponent
       },
       {
         path: 'list-dogs',
