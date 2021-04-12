@@ -1,3 +1,19 @@
+.body {
+    background-color: white;
+    padding-left: 10vh;
+}
+
+@media only screen and (max-width: 700px) {
+    .body {
+        background-color: white;
+        padding-left: 1vh;
+    }
+}
+
+.tittle {
+    padding: 10vh 2vh;
+    color: rgba(0, 0, 0, 0.541);
+}
 .mapa {
     background: rgb(158, 172, 136);
     color: rgb(236, 233, 233);
@@ -39,4 +55,4 @@ h2{
 .btn{
     background: rgb(158, 172, 136);
 
-} 
+}

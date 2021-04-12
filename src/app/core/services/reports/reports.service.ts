@@ -66,6 +66,7 @@ public deleteReport(id:string){
   report: Report[] = [
     {
       _id: "1",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -75,9 +76,11 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
     {
       _id: "2",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -87,9 +90,11 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
     {
       _id: "3",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -99,9 +104,11 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
     {
       _id: "4",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -111,9 +118,11 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
     {
       _id: "5",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -123,9 +132,11 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
     {
       _id: "6",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -135,9 +146,11 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
     {
       _id: "7",
+      usuario:"Pablo",
       title: "Robo de basura",
       category: "Vertedero Clandestino",
       date: new Date(),
@@ -147,6 +160,7 @@ public deleteReport(id:string){
           date: new Date(),
       },
       reject: 20,
+      description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
     },
 
   ]

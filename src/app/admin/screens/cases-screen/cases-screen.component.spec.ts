@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListDogsScreenComponent } from './list-dogs-screen.component';
+import { ListDogsScreenComponent } from './cases-screen.component';
 
 describe('ListDogsScreenComponent', () => {
   let component: ListDogsScreenComponent;
