@@ -14,7 +14,7 @@
                     <div class="col-7 col-sm-4 col-md-4 col-lg-3 col-xl-2 ps-lg-1">
                         <select id="raza" type="text" (change)="breedFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
                             <option selected disabled value id="1">Buscar por categoría</option>
-                            <option *ngFor="let report of reports">{{ report.category }}</option>    
+                            <option *ngFor="let report of report">{{ report.category }}</option>    
                         </select>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-lg-6 text-end">
@@ -32,30 +32,20 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
-                            <th scope="col-2">TITULO</th>
-                            <th scope="col-2">CATEGORÍA</th>
-                            <th scope="col-1">FECHA</th>
-                            <th scope="col-2">UBICACIÓN</th>
-                            <th scope="col-2">VALIDACIONES</th>
-                            <th scope="col-1">RECHAZOS</th>
-                            <th scope="col-2">ACCIONES</th>
+                            <th width="5%" scope="col-3">NOMBRE</th>
+                            <th width="20%"  scope="col-6">DESCRIPCIÓN</th>
+                            <th width="10%" style="text-align: center;"scope="col-3 ">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let report of reportsSlice">
+                    <tbody *ngFor="let report of report">
                         <tr>
-                            <td scope="col-2">{{report.title}}</td>
                             <td scope="col-2">{{report.category}}</td>
-                            <td scope="col-1">{{report.date |date:'dd-mm-yyyy'}}</td>
-                            <td scope="col-2">{{report.location}}</td>
-                            <td scope="col-2">{{report.validation.number}}  <span style="font-size: 12px;"> última {{report.validation.date | date:'dd-mm-yyyy'}}</span></td>
-                            <td scope="col-1">{{report.reject}}</td>
+                            <td scope="col-2">{{report.description}}</td>
                             <td class="btnRight" scope="col-2">
                                 <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-dog', report._id]">Editar</a>
                                 
                                 <button class="btn rounded-pill eliminar-table" (click)="idSelected = report._id" (click)="reportSelected=report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
-                                <app-modal-delete [id]="idSelected" [report]="reportSelected"></app-modal-delete>
-
-                                
+                                <app-modal-delete [id]="idSelected" [report]="reportSelected"></app-modal-delete>   
                             </td>
                         </tr>
                     </tbody>

@@ -1,5 +1,6 @@
 export interface Report {
     _id: string;
+    usuario:string;
     title: string;
     category: string;
     date: Date;
@@ -9,4 +10,5 @@ export interface Report {
         date: Date;
     };
     reject: number;
+    description:string;
   }
