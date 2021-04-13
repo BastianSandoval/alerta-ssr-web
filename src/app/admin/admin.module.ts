@@ -19,13 +19,14 @@ import { TableCategoryComponent } from './components/table-category/table-catego
 import { CategoryScreenComponent} from './screens/category-screen/category-screen.component'
 import { CasesScreenComponent} from './screens/cases-screen/cases-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
-import { TableDonationsComponent } from './components/table-donations/table-donations.component'
+import { TableDonationsComponent } from './components/table-donations/table-donations.component';
+import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component'
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
  TableReportsComponent,EditDogScreenComponent,FormEditDogComponent
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
-  CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent
+  CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent
 ]
 
 @NgModule({
