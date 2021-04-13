@@ -9,6 +9,7 @@ import { CasesScreenComponent} from './screens/cases-screen/cases-screen.compone
 
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
+import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: 'donation',
         component: DonationScreenComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsScreenComponent
       }
     ]
   },
