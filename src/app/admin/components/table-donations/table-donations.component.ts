@@ -17,7 +17,7 @@ export class TableDonationsComponent implements OnInit {
   filterBreed!: string;
   donationSelected: any;
   value!: string;
-  filterDog!: string;
+  filterDonation!: string;
   idSelected: any;
   donationsSlice!: Donation[];
   sizePageTable: number = 7;
@@ -68,19 +68,24 @@ export class TableDonationsComponent implements OnInit {
 
   clearFilter() {
     this.filterBreed = '';
-    this.filterDog = '';
+    this.filterDonation = '';
   }
 
   onValue(value: string) {
     this.value = value;
+    if(this.value === ''){
+      this.clearFilter();
+    } else {
+      this.filterDonation = this.value;
+    }
   }
 
   onEnter(value: string) {
-    this.filterDog = value;
+    this.filterDonation = value;
   }
 
   searchButton() {
-    this.filterDog = this.value;
+    this.filterDonation = this.value;
   }
   
   sizePage(event: any) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
 import { Report } from '../../../core/models/report.model';
 import { ReportsService } from '../../../core/services/reports/reports.service';
@@ -8,14 +8,14 @@ import { ReportsService } from '../../../core/services/reports/reports.service';
   templateUrl: './table-reports.component.html',
   styleUrls: ['./table-reports.component.css']
 })
-export class TableReportsComponent implements OnInit {
+export class TableReportsComponent implements OnInit{
 
   breeds?: string[];
   reports: Report[];
   filterBreed!: string;
   dogSelected: any;
   value!: string;
-  filterDog!: string;
+  filterReport!: string;
   idSelected: any;
   reportSelected: any;
   reportsSlice!: Report[];
@@ -26,12 +26,11 @@ export class TableReportsComponent implements OnInit {
 
 
 
-  constructor(private breedProvider: BreedProviderService, private dogService: ReportsService) {
-    this.reports = dogService.report;
-    this.dogSelected = null;
-    this.idSelected = null;
+  constructor(private breedProvider: BreedProviderService, private reportsService: ReportsService) {
+    this.reports = reportsService.report;
     this.reportSelected = null;
    }
+
 
   async ngOnInit(): Promise<void> {
     try {
@@ -70,19 +69,29 @@ export class TableReportsComponent implements OnInit {
 
   clearFilter() {
     this.filterBreed = '';
-    this.filterDog = '';
+    this.filterReport= '';
   }
 
   onValue(value: string) {
     this.value = value;
+    if(this.value === ''){
+      this.clearFilter();
+    } else {
+      this.filterReport = this.value;
+    }
+    
   }
 
   onEnter(value: string) {
-    this.filterDog = value;
+    this.filterReport = value;
   }
 
   searchButton() {
-    this.filterDog = this.value;
+    if(this.value){
+      this.filterReport = this.value;
+    }else{
+      this.clearFilter();
+    }
   }
   
   sizePage(event: any) {
@@ -101,5 +110,12 @@ export class TableReportsComponent implements OnInit {
     this.startPage = this.endPage;
     this.endPage = this.endPage + this.sizePageTable;
   }
+
+  selectReport(report: Report){
+    this.reportSelected = report;
+
+  }
+
+
   
 }

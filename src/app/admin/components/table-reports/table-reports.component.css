@@ -76,3 +76,23 @@
     margin-right: 8px;
     border: none;
 }
+
+.collapse{
+    background: #F5F7F3;
+}
+
+.wrapper{
+    display: flex;
+}
+
+.wrapper h2{
+    width: 13%;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+.wrapper p{
+    max-width: 65%;
+}
+
+

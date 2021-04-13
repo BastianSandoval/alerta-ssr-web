@@ -10,25 +10,27 @@ import { ReportsService} from '../../../../core/services/reports/reports.service
 })
 export class TableCategoryComponent implements OnInit {
 
-  report: Report[];
   breeds?: string[];
+  reports: Report[];
   filterBreed!: string;
-  reportSelected: any;
+  dogSelected: any;
   value!: string;
-  filterDog!: string;
+  filterReport!: string;
   idSelected: any;
+  reportSelected: any;
   reportsSlice!: Report[];
   sizePageTable: number = 7;
   
   startPage: number = 0;
   endPage: number = 7;
 
-  constructor(private breedProvider: BreedProviderService, private reportService: ReportsService) {
-    this.report = reportService.report;
-    this.reportSelected = null;
-    this.idSelected = null;
+
+
+  constructor(private breedProvider: BreedProviderService, private reportsService: ReportsService) {
+    this.reports = reportsService.report;
     this.reportSelected = null;
    }
+
 
   async ngOnInit(): Promise<void> {
     try {
@@ -39,7 +41,7 @@ export class TableCategoryComponent implements OnInit {
   }
 
   ngDoCheck(){
-    this.reportsSlice = this.report.slice(this.startPage, this.endPage);
+    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
@@ -52,7 +54,7 @@ export class TableCategoryComponent implements OnInit {
       
     }
 
-    if (this.endPage >= this.report.length) {
+    if (this.endPage >= this.reports.length) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');
@@ -67,19 +69,29 @@ export class TableCategoryComponent implements OnInit {
 
   clearFilter() {
     this.filterBreed = '';
-    this.filterDog = '';
+    this.filterReport= '';
   }
 
   onValue(value: string) {
     this.value = value;
+    if(this.value === ''){
+      this.clearFilter();
+    } else {
+      this.filterReport = this.value;
+    }
+    
   }
 
   onEnter(value: string) {
-    this.filterDog = value;
+    this.filterReport = value;
   }
 
   searchButton() {
-    this.filterDog = this.value;
+    if(this.value){
+      this.filterReport = this.value;
+    }else{
+      this.clearFilter();
+    }
   }
   
   sizePage(event: any) {
@@ -97,6 +109,11 @@ export class TableCategoryComponent implements OnInit {
   nextPage() {
     this.startPage = this.endPage;
     this.endPage = this.endPage + this.sizePageTable;
+  }
+
+  selectReport(report: Report){
+    this.reportSelected = report;
+
   }
 
 }
