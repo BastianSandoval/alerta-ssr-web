@@ -9,17 +9,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditDogScreenComponent } from './screens/edit-dog-screen/edit-dog-screen.component';
 import { FormEditDogComponent } from './components/form-edit-dog/form-edit-dog.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ListDogsScreenComponent } from './screens/list-dogs-screen/list-dogs-screen.component';
-import { TableDogsComponent } from './components/table-dogs/table-dogs.component';
+import { TableReportsComponent } from './components/table-reports/table-reports.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { ModalEditComponent } from './components/modal-edit/modal-edit.component';
 import { ModalImageComponent } from './components/modal-image/modal-image.component';
 import { SharedModule } from '@shared/shared.module';
+import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
+import { TableCategoryComponent } from './components/table-category/table-category/table-category.component';
+import { CategoryScreenComponent} from './screens/category-screen/category-screen.component'
+import { CasesScreenComponent} from './screens/cases-screen/cases-screen.component';
+import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
+import { TableDonationsComponent } from './components/table-donations/table-donations.component';
+import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component'
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
-  ListDogsScreenComponent, TableDogsComponent,EditDogScreenComponent,FormEditDogComponent
-  , ModalDeleteComponent, ModalEditComponent, ModalImageComponent
+ TableReportsComponent,EditDogScreenComponent,FormEditDogComponent
+  , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
+  CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent
 ]
 
 @NgModule({

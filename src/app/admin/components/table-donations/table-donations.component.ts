@@ -1,36 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
-import { Dog } from '../../../core/models/dog.model';
-import { DogService } from '../../../core/services/dogs/dogs.service';
+
+import { Donation} from '../../../core/models/donation.model'
+import { DonationService } from '../../../core/services/donation/donation.service';
+
 
 @Component({
-  selector: 'app-table-dogs',
-  templateUrl: './table-dogs.component.html',
-  styleUrls: ['./table-dogs.component.css']
+  selector: 'app-table-donations',
+  templateUrl: './table-donations.component.html',
+  styleUrls: ['./table-donations.component.css']
 })
-export class TableDogsComponent implements OnInit {
+export class TableDonationsComponent implements OnInit {
 
+  donation: Donation[];
   breeds?: string[];
-  dogs: Dog[];
   filterBreed!: string;
-  dogSelected: any;
+  donationSelected: any;
   value!: string;
-  filterDog!: string;
+  filterDonation!: string;
   idSelected: any;
-  nameDogSelected: any;
-  dogsSlice!: Dog[];
+  donationsSlice!: Donation[];
   sizePageTable: number = 7;
   
   startPage: number = 0;
   endPage: number = 7;
 
-
-
-  constructor(private breedProvider: BreedProviderService, private dogService: DogService) {
-    this.dogs = dogService.dog;
-    this.dogSelected = null;
+  constructor(private breedProvider: BreedProviderService, private donationService: DonationService) {
+    this.donation = donationService.donation;
+    this.donationSelected = null;
     this.idSelected = null;
-    this.nameDogSelected = null;
    }
 
   async ngOnInit(): Promise<void> {
@@ -42,7 +40,7 @@ export class TableDogsComponent implements OnInit {
   }
 
   ngDoCheck(){
-    this.dogsSlice = this.dogs.slice(this.startPage, this.endPage);
+    this.donationsSlice = this.donation.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
@@ -55,7 +53,7 @@ export class TableDogsComponent implements OnInit {
       
     }
 
-    if (this.endPage >= this.dogs.length) {
+    if (this.endPage >= this.donation.length) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');
@@ -70,19 +68,24 @@ export class TableDogsComponent implements OnInit {
 
   clearFilter() {
     this.filterBreed = '';
-    this.filterDog = '';
+    this.filterDonation = '';
   }
 
   onValue(value: string) {
     this.value = value;
+    if(this.value === ''){
+      this.clearFilter();
+    } else {
+      this.filterDonation = this.value;
+    }
   }
 
   onEnter(value: string) {
-    this.filterDog = value;
+    this.filterDonation = value;
   }
 
   searchButton() {
-    this.filterDog = this.value;
+    this.filterDonation = this.value;
   }
   
   sizePage(event: any) {
@@ -101,5 +104,6 @@ export class TableDogsComponent implements OnInit {
     this.startPage = this.endPage;
     this.endPage = this.endPage + this.sizePageTable;
   }
-  
+
+
 }

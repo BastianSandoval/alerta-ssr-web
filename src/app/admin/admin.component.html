@@ -1,55 +1,12 @@
-<div class="custom-container" [class.container-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="container-toolbar bg-dark py-2">
-    <button (click)="snav.toggle()" class="btn btn-dark mr-3">
-      <i class="fas fa-bars"></i>
-    </button>
-    <h4 class="font-brand-secondary text-light">Dog Admin</h4>
-  </mat-toolbar>
-
-  <mat-sidenav-container class="sidenav-container bg-black" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav 
-      [mode]="mobileQuery.matches ? 'over' : 'side'" 
-      class="bg-dark"
-      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
-    >
-      <div id="accordion" style="min-width: 260px;">
-        <a id="controlPanelLink" class="list-group-item list-group-item-action bg-dark border-dark text-white active my-0" data-target="#collapseControlPanel" data-toggle="collapse" aria-expanded="false" aria-controls="collapseControlPanel">
-          Panel de control
-        </a>
-    
-        <div class="collapse my-0" id="collapseControlPanel" aria-labelledby="controlPanelLink" data-parent="#accordion">
-          <div class="list-group bg-dark px-3">
-            <a class="list-group-item list-group-item-action bg-dark text-white border-dark" [routerLink]="['statistics']" [routerLinkActive]="['active']">Estadísticas</a>
+<section id="admin">
+  <div class="container-fluid">
+      <div class="row vh-100">
+          <div id="sidebar" class="col-3 col-lg-2 px-0">
+              <app-sidebar></app-sidebar>
           </div>
-        </div>
-    
-        <a id="usersLink" class="list-group-item list-group-item-action bg-dark border-dark text-white active my-0" data-target="#collapseUsers" data-toggle="collapse" aria-expanded="false" aria-controls="collapseUsers">
-          Usuarios
-        </a>
-        
-        <div class="collapse my-0" id="collapseUsers" aria-labelledby="usersLink" data-parent="#accordion">
-          <div class="list-group bg-dark px-3">
-            <a class="list-group-item list-group-item-action bg-dark text-white border-dark" [routerLink]="['users']" [routerLinkActive]="['active']">Lista de usuarios</a>
-            <a class="list-group-item list-group-item-action bg-dark text-white border-dark" [routerLink]="['user']" [routerLinkActive]="['active']">Crear usuario</a>
+          <div class="col-9 col-lg-10 body">
+              <router-outlet></router-outlet>
           </div>
-        </div>
-      
       </div>
-      <a class="list-group-item list-group-item-action bg-dark text-info " href="#"
-        data-toggle="modal" data-target="#logOutModal"
-      >
-        Cerrar sesión
-      </a>
-      
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  <!--<shared-confirmation-modal
-    [id]="'logOutModal'"
-    [tittle]="'Cerrar sesión'"
-    [message]="'¿Estas seguro que deseas cerrar la sesión?'"
-    (confirm)="logOut()"
-  ></shared-confirmation-modal>-->
-</div>
+  </div>
+</section>

@@ -1,0 +1,58 @@
+.body {
+    background-color: white;
+    padding-left: 10vh;
+}
+
+@media only screen and (max-width: 700px) {
+    .body {
+        background-color: white;
+        padding-left: 1vh;
+    }
+}
+
+.tittle {
+    padding: 10vh 2vh;
+    color: rgba(0, 0, 0, 0.541);
+}
+.mapa {
+    background: rgb(158, 172, 136);
+    color: rgb(236, 233, 233);
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: none;
+    width:100px;
+    height: 30px;
+    top: 136px;
+    right: 360px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+.lista {
+    background: rgb(158, 172, 136);
+    color: rgb(236, 233, 233);
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: none;
+    width:100px;
+    height: 30px;
+    top: 136px;
+    left: 360px;
+    top: 300px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+h2{
+    color:#676767;
+}
+
+
+.btn{
+    background: rgb(158, 172, 136);
+
+}

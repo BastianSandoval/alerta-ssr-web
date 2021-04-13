@@ -1,0 +1,24 @@
+<section id="reports">
+    <div class="container">
+        <div class="row" style="margin-top: 6%;">
+            <div class="col-9 col-lg-10">
+                <h5 style="font-weight:normal;">REPORTES AMBIENTALES</h5>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 col-lg-12">
+                <!-- <a routerLink="/admin/reports-mapa" [queryParams]="{ type: 'news' }"
+                >Mapa</a>
+                <a routerLink="/admin/reports" [queryParams]="{ type: 'news' }"
+                >Lista</a> -->
+                <button (click)="show('mapa')" routerLink="/admin/reports-mapa" routerLinkActive="active" class="btn btn-sm mapa" >Mapa</button> 
+                <button  (click)="show('lista')" routerLink="/admin/reports" routerLinkActive="active" class="btn btn-sm lista">Lista</button>   
+                <div class="mt-5">
+                    <div *ngIf="showw; then mapa else lista"></div>
+                    <ng-template #mapa></ng-template>
+                    <ng-template #lista><app-table-reports></app-table-reports></ng-template> 
+                </div>
+            </div>   
+        </div>
+    </div>
+</section>
