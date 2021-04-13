@@ -67,8 +67,8 @@ public deleteReport(id:string){
     {
       _id: "1",
       usuario:"Pablo",
-      title: "Robo de basura",
-      category: "Vertedero Clandestino",
+      title: "Quema de camiones",
+      category: "Ambiental",
       date: new Date(),
       location: "2 norte 1348, Viña del mar, Valparaiso",
       validation: {
@@ -81,8 +81,8 @@ public deleteReport(id:string){
     {
       _id: "2",
       usuario:"Pablo",
-      title: "Robo de basura",
-      category: "Vertedero Clandestino",
+      title: "Quema de camiones",
+      category: "Bosque de Viña",
       date: new Date(),
       location: "2 norte 1348, Viña del mar, Valparaiso",
       validation: {
@@ -95,8 +95,8 @@ public deleteReport(id:string){
     {
       _id: "3",
       usuario:"Pablo",
-      title: "Robo de basura",
-      category: "Vertedero Clandestino",
+      title: "Tala de arbol",
+      category: "Bosque de Quilpue",
       date: new Date(),
       location: "2 norte 1348, Viña del mar, Valparaiso",
       validation: {
@@ -109,7 +109,7 @@ public deleteReport(id:string){
     {
       _id: "4",
       usuario:"Pablo",
-      title: "Robo de basura",
+      title: "Quema de bosque",
       category: "Vertedero Clandestino",
       date: new Date(),
       location: "2 norte 1348, Viña del mar, Valparaiso",
@@ -123,7 +123,7 @@ public deleteReport(id:string){
     {
       _id: "5",
       usuario:"Pablo",
-      title: "Robo de basura",
+      title: "Quema de bosque",
       category: "Vertedero Clandestino",
       date: new Date(),
       location: "2 norte 1348, Viña del mar, Valparaiso",
