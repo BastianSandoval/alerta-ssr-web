@@ -77,6 +77,7 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 22,
     },
     {
       _id: "2",
@@ -91,6 +92,7 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 98,
     },
     {
       _id: "3",
@@ -105,6 +107,7 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 15,
     },
     {
       _id: "4",
@@ -119,6 +122,7 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 10,
     },
     {
       _id: "5",
@@ -133,6 +137,7 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 20,
     },
     {
       _id: "6",
@@ -147,6 +152,7 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 30,
     },
     {
       _id: "7",
@@ -161,9 +167,8 @@ public deleteReport(id:string){
       },
       reject: 20,
       description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
+      numeroDenuncias: 50,
     },
-
   ]
-
 }
 

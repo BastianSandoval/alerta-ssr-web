@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { AgmCoreModule} from '@agm/core';
 
 @Component({
   selector: 'app-reports-screen',
@@ -14,6 +14,7 @@ export class ReportsScreenComponent implements OnInit {
   ) { }
 
   public showw:any
+  
 
   ngOnInit(): void {
   }

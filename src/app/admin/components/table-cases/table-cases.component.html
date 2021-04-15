@@ -35,8 +35,9 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
+                            <th scope="col-1">N° DENUNCIAS</th>
                             <th scope="col-2">TITULO</th>
-                            <th scope="col-2">CATEGORÍA</th>
+                            <th scope="col-1">CATEGORÍA</th>
                             <th scope="col-1">FECHA</th>
                             <th scope="col-2">UBICACIÓN</th>
                             <th scope="col-2">VALIDACIONES</th>
@@ -47,8 +48,9 @@
                     <tbody *ngFor="let report of reportsSlice | reportFilter: filterReport ; let index = index" >
                        
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
+                                <td scope="col-1">{{report.numeroDenuncias}}</td>
                                 <td scope="col-2">{{report.title}}</td>
-                                <td scope="col-2">{{report.category}}</td>
+                                <td scope="col-1">{{report.category}}</td>
                                 <td scope="col-1">{{report.date |date:'dd-mm-yyyy'}}</td>
                                 <td scope="col-2">{{report.location}}</td>
                                 <td scope="col-2">{{report.validation.number}}  <span style="font-size: 12px;"> última {{report.validation.date | date:'dd-mm-yyyy'}}</span></td>
@@ -110,3 +112,4 @@
         </div>
     </div>
 </section>
+

@@ -20,24 +20,32 @@ import { CategoryScreenComponent} from './screens/category-screen/category-scree
 import { CasesScreenComponent} from './screens/cases-screen/cases-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
 import { TableDonationsComponent } from './components/table-donations/table-donations.component';
-import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component'
+import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component';
+import { TableCasesComponent } from './components/table-cases/table-cases.component'
+import { MapComponent } from './components/map/map.component';
+import { AgmCoreModule} from '@agm/core'
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
  TableReportsComponent,EditDogScreenComponent,FormEditDogComponent
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
-  CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent
+  CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
+  TableCasesComponent,MapComponent
 ]
 
 @NgModule({
-  declarations: [...component],
+  declarations: [...component ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'
+    }),
+
   ]
 })
 

@@ -11,13 +11,15 @@
                 >Mapa</a>
                 <a routerLink="/admin/reports" [queryParams]="{ type: 'news' }"
                 >Lista</a> -->
-                <button (click)="show('mapa')" routerLink="/admin/reports-mapa" routerLinkActive="active" class="btn btn-sm mapa" >Mapa</button> 
-                <button  (click)="show('lista')" routerLink="/admin/reports" routerLinkActive="active" class="btn btn-sm lista">Lista</button>   
+                <button (click)="show('mapa')" routerLink="/admin/" routerLinkActive="active" class="btn btn-sm mapa" >Mapa</button> 
+                <button  (click)="show('lista')" routerLink="/admin/" routerLinkActive="active" class="btn btn-sm lista">Lista</button>   
                 <div class="mt-5">
-                    <div *ngIf="showw; then mapa else lista"></div>
-                    <ng-template #mapa></ng-template>
-                    <ng-template #lista><app-table-reports></app-table-reports></ng-template> 
-                </div>
+
+                        <div *ngIf="showw; then mapa else lista"></div>
+                        <ng-template #lista><app-table-reports></app-table-reports></ng-template> 
+                        <ng-template #mapa><app-map></app-map></ng-template>
+                    </div>
+                
             </div>   
         </div>
     </div>
