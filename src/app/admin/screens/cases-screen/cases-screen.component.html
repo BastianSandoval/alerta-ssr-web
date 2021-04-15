@@ -7,13 +7,14 @@
         </div>
         <div class="row">
             <div class="col-9 col-lg-10">
-                <button class="btn btn-sm mapa" >Mapa</button> 
-                <button class="btn btn-sm lista">Lista</button> 
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <app-table-reports></app-table-reports>
+                <button (click)="show('mapa')" routerLink="/admin/cases" routerLinkActive="active" class="btn btn-sm mapa" >Mapa</button> 
+                <button  (click)="show('lista')" routerLink="/admin/cases" routerLinkActive="active" class="btn btn-sm lista">Lista</button>   
+                <div class="mt-5">
+
+                        <div *ngIf="showw; then mapa else lista"></div>
+                        <ng-template #lista><app-table-cases></app-table-cases></ng-template> 
+                        <ng-template #mapa><app-map></app-map></ng-template>
+                </div>
             </div>
         </div>
     </div>
