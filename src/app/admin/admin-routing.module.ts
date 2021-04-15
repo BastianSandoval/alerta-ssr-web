@@ -10,6 +10,8 @@ import { CasesScreenComponent} from './screens/cases-screen/cases-screen.compone
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
 import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component';
+import { MapOperator } from 'rxjs/internal/operators/map';
+import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   {

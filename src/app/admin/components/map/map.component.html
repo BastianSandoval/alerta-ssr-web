@@ -1,0 +1,13 @@
+<agm-map [latitude]="lat" [longitude] ="lng" [zoom]="zoom" [mapTypeId]="mapTypeId" (mapClick)="mapClicked($event)">
+    <agm-marker [latitude]="lat" [longitude] ="lng" *ngIf="located">
+       <agm-info-window>
+          Caso ambiental 
+       </agm-info-window>
+    </agm-marker>
+    <agm-marker *ngFor="let pais of paises" [latitude]="pais.lat" [longitude] ="pais.lng" >
+    </agm-marker>
+ </agm-map>
+ 
+ <!-- [fitBounds]="true"
+ 
+ [agmFitBounds]="true" -->
