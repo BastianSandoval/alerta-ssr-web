@@ -13,7 +13,7 @@ export class ReportsScreenComponent implements OnInit {
     private router: Router
   ) { }
 
-  public showw:any
+  public shows:any
   
 
   ngOnInit(): void {
@@ -26,11 +26,11 @@ export class ReportsScreenComponent implements OnInit {
   
   show(boton:string){
     if (boton === 'mapa'){
-      this.showw = true;
-      return this.showw;
+      this.shows = true;
+      return this.shows;
     } else {
-      this.showw=false;
-      return this.showw;
+      this.shows=false;
+      return this.shows;
     }
   }
   

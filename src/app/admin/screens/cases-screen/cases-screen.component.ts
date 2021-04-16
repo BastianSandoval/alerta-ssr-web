@@ -11,15 +11,15 @@ export class CasesScreenComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  public showw:any
+  public shows:any
   
   show(boton:string){
     if (boton === 'mapa'){
-      this.showw = true;
-      return this.showw;
+      this.shows = true;
+      return this.shows;
     } else {
-      this.showw=false;
-      return this.showw;
+      this.shows=false;
+      return this.shows;
     }
   }
 
