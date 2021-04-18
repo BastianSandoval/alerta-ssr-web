@@ -36,7 +36,7 @@
 
  .sidebar{
     padding:0px 0px;
-    background-color: rgb(219, 224, 212);
+    background-color: #EEF2E9;
     margin:0;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .options{
-    background: rgb(188, 199, 171);
+    background: #EEF2E9;
     text-align: center;
 
 }
@@ -68,25 +68,14 @@
 
 .noActive{
     min-height: 10vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 35px;
     padding-top: 25px;
-    cursor: pointer;
 }
 
-.boton{
-    text-align: center;
-    background: rgb(188, 199, 171);
-    cursor: pointer;
+i{
+    color: #96AC78;
+    font-size: 26px;
 }
-
-.boton:hover{
-    background: green;
-    text-align: center;
-}
-
-.btn{
-    min-width: 100%;
-    min-height: 100%;
-    
-}
-
-

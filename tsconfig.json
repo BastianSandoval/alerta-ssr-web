@@ -20,6 +20,9 @@
       "es2018",
       "dom"
     ],
+    "types":[
+      "googlemaps"
+    ],
     "paths": {
       "@model/*":["src/app/core/model/*"],
       "@core/*":["src/app/core/*"],
