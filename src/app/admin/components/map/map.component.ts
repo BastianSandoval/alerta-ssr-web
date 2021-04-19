@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
 	  this.located=false;
 	  this.paises = [];
   }
-
+  
   ngOnInit(){
 	this.paises= this.paisesService.getAll();
 	this.getCurrentPosition(); 
@@ -50,4 +50,5 @@ export class MapComponent implements OnInit {
 		  this.located=true;
 	  })
   }
+  
 }
