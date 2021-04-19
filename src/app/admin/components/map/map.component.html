@@ -18,8 +18,9 @@
     </agm-marker>
     <agm-marker *ngFor="let pais of paises" 
       [latitude]="pais.lat" 
-      [longitude] ="pais.lng" >
-    </agm-marker>
+      [longitude] ="pais.lng"
+      [iconUrl]="icon" >
+    </agm-marker >
  </agm-map>
  
  <!-- [fitBounds]="true"
