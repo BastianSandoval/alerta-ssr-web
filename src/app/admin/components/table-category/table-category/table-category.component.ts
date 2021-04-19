@@ -63,12 +63,11 @@ export class TableCategoryComponent implements OnInit {
   }
 
 
-  breedFilter(event:any) {
-    this.filterBreed = event.target.value;
+  categoryFilter(event:any) {
+    this.filterReport = event.target.value;
   }
 
   clearFilter() {
-    this.filterBreed = '';
     this.filterReport= '';
   }
 
