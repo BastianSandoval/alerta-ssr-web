@@ -12,7 +12,7 @@ export class TableReportsComponent implements OnInit{
 
   breeds?: string[];
   reports: Report[];
-  filterBreed!: string;
+  filterCategory!: string;
   dogSelected: any;
   value!: string;
   filterReport!: string;
@@ -63,12 +63,12 @@ export class TableReportsComponent implements OnInit{
   }
 
 
-  breedFilter(event:any) {
-    this.filterBreed = event.target.value;
+  categoryFilter(event:any) {
+    this.filterCategory = event.target.value;
   }
 
   clearFilter() {
-    this.filterBreed = '';
+    this.filterCategory = '';
     this.filterReport= '';
   }
 
