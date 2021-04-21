@@ -17,6 +17,7 @@ export class MapComponent implements OnInit {
   zoom: number;
   mapTypeId:string;
   located:boolean;
+  icon = "./../../../../assets/icons/place.svg";
 
   paises: any[];
 
@@ -26,7 +27,7 @@ export class MapComponent implements OnInit {
 	  this.located=false;
 	  this.paises = [];
   }
-
+  
   ngOnInit(){
 	this.paises= this.paisesService.getAll();
 	this.getCurrentPosition(); 
@@ -50,4 +51,5 @@ export class MapComponent implements OnInit {
 		  this.located=true;
 	  })
   }
+  
 }

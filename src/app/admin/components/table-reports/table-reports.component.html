@@ -15,7 +15,7 @@
                         </button>
                     </div>
                     <div class="col-7 col-sm-4 col-md-4 col-lg-3 col-xl-2 ps-lg-1">
-                        <select id="raza" type="text" (change)="breedFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
+                        <select id="raza" type="text" (change)="categoryFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
                             <option selected disabled value id="1">Buscar por categoría</option>
                             <option *ngFor="let report of reports">{{ report.category }}</option>    
                         </select>
@@ -45,7 +45,7 @@
                             <th scope="col-2">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let report of reportsSlice | reportFilter: filterReport ; let index = index" >
+                    <tbody *ngFor="let report of reportsSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
                        
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
                                 <td scope="col-2">{{report.title}}</td>
