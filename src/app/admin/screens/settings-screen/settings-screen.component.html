@@ -1,28 +1,28 @@
 
 
-<div class="row justify-content-start">
-    <div class="col-11 col-lg-10">
+<div class="row justify-content-start vh-100">
+    <div class="col-12">
         <div class="container-fluid pt-4">
             <p class="mt-5 mb-5 xs title-screen">AJUSTES</p>
             <form [formGroup]="checkoutForm" (ngSubmit)="saveChange($event)">
                 <div class="row">
                     <p class="title py-3 py-lg-0 px-3 px-lg-5 xs">Ubicación</p>
-                    <div class="col-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <div class="col-5 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="actualLocation" class="fw-bolder">UBICACIÓN ACTUAL (metros)</label>
                         <input id="actualLocation" type="text" class="form-control" formControlName="actualLocation" placeholder="Ingresar radio (ej:20)" aria-label="actualLocation">
                     </div>
-                    <div class="col-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <div class="col-5 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="otherLocation" class="fw-bolder">OTRA UBICACIÓN (metros)</label>
                         <input id="otherLocation" type="text" class="form-control" formControlName="otherLocation" placeholder="Ingresar radio (ej:20)" aria-label="otherLocation">
                     </div>
                 </div>
                 <div class="row py-3 py-lg-4">
                     <p class="title py-3 py-lg-0 px-3 px-lg-5 xs">Denuncias</p>
-                    <div class="col-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <div class="col-5 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="minimalChecks" class="fw-bolder">COMPROBACIONES MÍNIMAS</label>
                         <input id="minimalChecks" type="text" class="form-control" formControlName="minimalChecks" placeholder="Ingresar radio (ej:20)" aria-label="minimalChecks">
                     </div>
-                    <div class="col-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <div class="col-5 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="minimalRejections" class="fw-bolder">RECHAZOS MÍNIMOS</label>
                         <input id="minimalRejections" type="text" class="form-control" formControlName="minimalRejections" placeholder="Ingresar radio (ej:20)" aria-label="minimalRejections">
                     </div>
