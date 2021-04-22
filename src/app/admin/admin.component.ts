@@ -32,4 +32,8 @@ export class AdminComponent implements OnInit {
 
   public logOut(): void {
   }
+
+  public showSidebar(){
+    this.show= !this.show;
+  }
 }
