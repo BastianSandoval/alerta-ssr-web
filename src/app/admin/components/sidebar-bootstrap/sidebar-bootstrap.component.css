@@ -5,11 +5,15 @@
     bottom:0;
 }
 
-.navbar{
+.navbar-active{
     background:#EEF2E9;
     /* padding-top:1px; */
 } 
 
+.navbar-noActive{
+    background:white;
+    /* padding-top:1px; */
+} 
 .dogAPI{
     padding: 10vh 5px;
     color: rgb(171, 209, 171)
@@ -47,4 +51,10 @@
 i{
     color: #96AC78;
     font-size: 26px;
+}
+
+
+.navbar-toggler{
+    position: absolute;
+    top:2%;
 }

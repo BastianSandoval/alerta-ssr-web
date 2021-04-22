@@ -38,6 +38,9 @@
     padding:0px 0px;
     background-color: #EEF2E9;
     margin:0;
+    position: fixed;
+    height: 100%;
+    width: 16%;
 }
 
 .dogAPI{
