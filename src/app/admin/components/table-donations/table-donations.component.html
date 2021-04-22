@@ -15,10 +15,10 @@
                         </button>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-lg-8 text-end">
-                        <button type="reset" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                        <!-- <button type="reset" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
                             <i class="far fa-plus-square"></i>
                             <span >Agregar</span>
-                        </button>
+                        </button> -->
                     </div>
                 </form>
             </nav>
@@ -38,7 +38,7 @@
                         <tr>
                             <td scope="col-2">{{donation.donation | currency:'CLP':'symbol-narrow':'3.0'}}</td>
                             <td class="btnRight" scope="col-2">
-                                <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-dog', donation._id]">Editar</a>
+                                <!-- <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-dog', donation._id]">Editar</a> -->
                                 
                                 <button class="btn rounded-pill eliminar-table" (click)="idSelected = donation._id" (click)="donationSelected=donation.username" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                 <app-modal-delete [id]="idSelected" [report]="donationSelected"></app-modal-delete>   
