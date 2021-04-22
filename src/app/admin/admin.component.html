@@ -4,10 +4,10 @@
             <div id="sidebar" class="col-3 col-lg-2 px-0 d-none d-sm-none d-md-block">
                 <app-sidebar></app-sidebar>
             </div>
-            <div [ngClass]="show ? 'col-9' : 'col-3'" id="sidebar" class="col-3 col-lg-2 px-0 d-block d-sm-block d-md-none">
-                <app-sidebar-bootstrap (mostrarEmitter)= "obtenerDato($event)"></app-sidebar-bootstrap>
+            <div id="sidebar" class="col-3 col-lg-2 px-0 d-block d-sm-block d-md-none">
+                <app-sidebar-bootstrap></app-sidebar-bootstrap>
             </div>
-            <div class="col-9 col-lg-10 body">
+            <div class="col-12 col-lg-10 ">
                 <router-outlet></router-outlet>
             </div>
         </div>

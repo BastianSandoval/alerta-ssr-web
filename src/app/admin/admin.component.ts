@@ -30,10 +30,6 @@ export class AdminComponent implements OnInit {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
-  obtenerDato(mostrar: boolean){
-    this.show=mostrar;
-  }
-
   public logOut(): void {
   }
 }
