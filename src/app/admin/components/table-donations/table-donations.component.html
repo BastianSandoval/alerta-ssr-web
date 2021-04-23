@@ -3,13 +3,13 @@
         <div class="col-12 col-lg-11 ">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <form class="container-fluid ps-0 pe-lg-0">
-                    <div class="col-8 col-lg-4 py-2 py-lg-0 pe-0">
+                    <div class="col-11 col-lg-4 py-2 py-lg-0 pe-0">
                         <input class="form-control border-0" list="datalistOptions" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" placeholder="Buscar monto" aria-label="Search" size="80" style="background-color:rgb(234, 238, 226)">
                             <datalist id="datalistOptions" >
                                 <option *ngFor="let donation of donationsSlice" value="{{donation.donation}}">
                             </datalist>
                     </div>
-                    <div class="col-4 col-lg-1 py-2 py-lg-0 px-0">
+                    <div class="col-1 col-lg-1 py-2 py-lg-0 px-0">
                         <button type="button" (click)="searchButton()" class="btn btn-secondary btn1 mx-3 mx-lg-3">
                             <i class="lupa fas fa-search fa-1x"></i>
                         </button>
