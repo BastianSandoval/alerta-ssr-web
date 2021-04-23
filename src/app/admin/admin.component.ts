@@ -11,6 +11,7 @@ export class AdminComponent implements OnInit {
   public mobileQuery: MediaQueryList;
   public screens: any[] = [];
   private _mobileQueryListener: () => void;
+  public show:boolean;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -19,6 +20,7 @@ export class AdminComponent implements OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+    this.show=false;
   }
 
   ngOnInit(): void {
@@ -29,5 +31,9 @@ export class AdminComponent implements OnInit {
   }
 
   public logOut(): void {
+  }
+
+  public showSidebar(){
+    this.show= !this.show;
   }
 }

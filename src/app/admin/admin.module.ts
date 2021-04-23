@@ -23,7 +23,8 @@ import { TableDonationsComponent } from './components/table-donations/table-dona
 import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component';
 import { TableCasesComponent } from './components/table-cases/table-cases.component'
 import { MapComponent } from './components/map/map.component';
-import { AgmCoreModule} from '@agm/core'
+import { AgmCoreModule} from '@agm/core';
+import { SidebarBootstrapComponent } from './components/sidebar-bootstrap/sidebar-bootstrap.component';
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
@@ -34,7 +35,7 @@ const component = [
 ]
 
 @NgModule({
-  declarations: [...component ],
+  declarations: [...component, SidebarBootstrapComponent ],
   imports: [
     CommonModule,
     AdminRoutingModule,
