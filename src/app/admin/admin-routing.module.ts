@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { TableCategoryComponent } from './components/table-category/table-category/table-category.component';
 import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
 import { CategoryScreenComponent } from './screens/category-screen/category-screen.component';
-import { EditDogScreenComponent } from './screens/edit-dog-screen/edit-dog-screen.component';
+import { EditReportsScreenComponent } from './screens/edit-reports-screen/edit-reports-screen.component';
 import { CasesScreenComponent} from './screens/cases-screen/cases-screen.component';
+import { EditCasesScreenComponent } from './screens/edit-cases-screen/edit-cases-screen.component';
+import { EditCategorysScreenComponent } from './screens/edit-categorys-screen/edit-categorys-screen.component';
+
 
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
@@ -36,8 +38,24 @@ const routes: Routes = [
         component: AddDogScreenComponent
       },
       {
-        path: 'edit-dog/:id',
-        component: EditDogScreenComponent
+        path: 'edit-report/:id',
+        component: EditReportsScreenComponent
+      },
+      {
+        path:'edit-report',
+        component: EditReportsScreenComponent
+      },
+      {
+        path:'edit-case',
+        component: EditCasesScreenComponent
+      },
+      {
+        path:'edit-category/:id',
+        component:EditCategorysScreenComponent
+      },
+      {
+        path:'edit-category',
+        component:EditCategorysScreenComponent
       },
       {
         path: 'category',

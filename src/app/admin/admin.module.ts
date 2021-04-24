@@ -6,8 +6,8 @@ import { MaterialModule } from '@shared/modules/material/material.module';
 import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
 import { FormAddDogComponent } from './components/form-add-dog/form-add-dog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditDogScreenComponent } from './screens/edit-dog-screen/edit-dog-screen.component';
-import { FormEditDogComponent } from './components/form-edit-dog/form-edit-dog.component';
+import { EditReportsScreenComponent } from './screens/edit-reports-screen/edit-reports-screen.component';
+import { FormEditReportComponent } from './components/form-edit-report/form-edit-report.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TableReportsComponent } from './components/table-reports/table-reports.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
@@ -15,7 +15,6 @@ import { ModalEditComponent } from './components/modal-edit/modal-edit.component
 import { ModalImageComponent } from './components/modal-image/modal-image.component';
 import { SharedModule } from '@shared/shared.module';
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
-import { TableCategoryComponent } from './components/table-category/table-category/table-category.component';
 import { CategoryScreenComponent} from './screens/category-screen/category-screen.component'
 import { CasesScreenComponent} from './screens/cases-screen/cases-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
@@ -25,17 +24,21 @@ import { TableCasesComponent } from './components/table-cases/table-cases.compon
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule} from '@agm/core';
 import { SidebarBootstrapComponent } from './components/sidebar-bootstrap/sidebar-bootstrap.component';
+import { EditCasesScreenComponent } from './screens/edit-cases-screen/edit-cases-screen.component';
+import { EditCategorysScreenComponent } from './screens/edit-categorys-screen/edit-categorys-screen.component';
+import { TableCategoryComponent } from './components/table-category/table-category.component';
+import { FormEditCategoryComponent } from './components/form-edit-category/form-edit-category.component';
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
- TableReportsComponent,EditDogScreenComponent,FormEditDogComponent
+ TableReportsComponent,EditReportsScreenComponent,FormEditReportComponent
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
-  TableCasesComponent,MapComponent
+  TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
 ]
 
 @NgModule({
-  declarations: [...component, SidebarBootstrapComponent ],
+  declarations: [...component],
   imports: [
     CommonModule,
     AdminRoutingModule,
