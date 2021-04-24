@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top d-sm-block d-md-none">
+<nav class="navbar navbar-light fixed-top d-sm-block d-md-block d-lg-block d-xl-none">
     <button (click)="showSidebar()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -7,13 +7,13 @@
 <section id="admin">
     <div class="container-fluid">
         <div class="row vh-100">
-            <div id="sidebar" class="col-3 col-lg-2 px-0 d-none d-sm-none d-md-block">
+            <div id="sidebar" class="col-3 col-lg-2 px-0 d-none d-sm-none d-md-none d-lg-none d-xl-block">
                 <app-sidebar></app-sidebar>
             </div>
-            <div id="sidebar" class="col-3 col-lg-2 px-0 d-block d-sm-block d-md-none">
+            <div id="sidebar" class="col-3 col-lg-2 px-0 d-block d-sm-block d-md-block d-lg-block d-xl-none">
                 <app-sidebar-bootstrap [show]="show"></app-sidebar-bootstrap>
             </div>
-            <div class="col-12 col-lg-10 pt-5">
+            <div class="col-12 col-xl-10 pt-5">
                 <router-outlet></router-outlet>
             </div>
         </div>

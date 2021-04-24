@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormEditDogComponent } from './form-edit-dog.component';
+import { FormEditDogComponent } from './form-edit-report.component';
 
 describe('FormEditDogComponent', () => {
   let component: FormEditDogComponent;

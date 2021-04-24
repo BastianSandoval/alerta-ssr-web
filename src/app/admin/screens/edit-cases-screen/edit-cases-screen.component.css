@@ -1,0 +1,19 @@
+#sidebar {
+    background-color: rgb(234, 238, 226);
+    min-height: 93vh;
+  }
+  
+  /* .tittle {
+    padding: 10vh 2vh;
+    color: rgba(0, 0, 0, 0.541);
+  } */
+  #sidebar {
+    background-color: rgb(234, 238, 226);
+    min-height: 93vh;
+  }
+  
+  .tittle {
+    padding: 10vh 4vh;
+    color: rgba(0, 0, 0, 0.541);
+  }
+  

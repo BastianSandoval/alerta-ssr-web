@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Report} from './../../../../core/models/report.model';
-import { BreedProviderService } from '../../../../core/providers/breed-provider/breed-provider.service';
-import { ReportsService} from '../../../../core/services/reports/reports.service'
+import { Report} from './../../../core/models/report.model';
+import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
+import { ReportsService} from '../../../core/services/reports/reports.service'
 
 @Component({
   selector: 'app-table-category',
@@ -23,12 +23,13 @@ export class TableCategoryComponent implements OnInit {
   
   startPage: number = 0;
   endPage: number = 7;
-
+  public mostrar:Boolean;
 
 
   constructor(private breedProvider: BreedProviderService, private reportsService: ReportsService) {
     this.reports = reportsService.report;
     this.reportSelected = null;
+    this.mostrar=false;
    }
 
 
@@ -113,6 +114,14 @@ export class TableCategoryComponent implements OnInit {
   selectReport(report: Report){
     this.reportSelected = report;
 
+  }
+
+  show(mostrar:boolean){
+    if (!mostrar){
+      this.mostrar=true;
+    }else{
+      this.mostrar=false;
+    }
   }
 
 }

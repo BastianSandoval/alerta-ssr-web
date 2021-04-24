@@ -23,12 +23,14 @@ export class TableReportsComponent implements OnInit{
   
   startPage: number = 0;
   endPage: number = 7;
+  visualizar:boolean;
 
 
 
   constructor(private breedProvider: BreedProviderService, private reportsService: ReportsService) {
     this.reports = reportsService.report;
     this.reportSelected = null;
+    this.visualizar=true;
    }
 
 
@@ -115,7 +117,4 @@ export class TableReportsComponent implements OnInit{
     this.reportSelected = report;
 
   }
-
-
-  
 }

@@ -4,13 +4,12 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Dog } from '@core/models/dog.model';
 import { BreedProviderService } from '@core/providers/breed-provider/breed-provider.service';
 import { DogService } from '@core/services/dogs/dogs.service';
-
 @Component({
-  selector: 'app-form-edit-dog',
-  templateUrl: './form-edit-dog.component.html',
-  styleUrls: ['./form-edit-dog.component.css']
+  selector: 'app-form-edit-category',
+  templateUrl: './form-edit-category.component.html',
+  styleUrls: ['./form-edit-category.component.css']
 })
-export class FormEditDogComponent implements OnInit {
+export class FormEditCategoryComponent implements OnInit {
 
   dogs: Dog[] = [];
   wantedDog!: Dog;
