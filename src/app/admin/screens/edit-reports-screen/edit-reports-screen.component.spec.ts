@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditDogScreenComponent } from './edit-dog-screen.component';
+import { EditDogScreenComponent } from './edit-reports-screen.component';
 
 describe('EditDogScreenComponent', () => {
   let component: EditDogScreenComponent;
