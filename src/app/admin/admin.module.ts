@@ -28,6 +28,8 @@ import { EditCasesScreenComponent } from './screens/edit-cases-screen/edit-cases
 import { EditCategorysScreenComponent } from './screens/edit-categorys-screen/edit-categorys-screen.component';
 import { TableCategoryComponent } from './components/table-category/table-category.component';
 import { FormEditCategoryComponent } from './components/form-edit-category/form-edit-category.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FormEditCaseComponent } from './components/form-edit-case/form-edit-case.component';
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
@@ -35,6 +37,7 @@ const component = [
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
+  ,FormEditCaseComponent
 ]
 
 @NgModule({
@@ -46,6 +49,7 @@ const component = [
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    ImageCropperModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'
     }),

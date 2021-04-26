@@ -1,0 +1,17 @@
+.btn {
+    margin-right: 5px;
+  }
+  
+  .shadow {
+    box-shadow: 0 2px 4px 0 rgba(34, 33, 33, 0.32), 0 6px 10px 0px rgba(39, 38, 38, 0.32) !important;
+  }
+  
+  .form {
+    align-content: center;
+    justify-content: center;
+    min-height: 250px;
+  }
+  
+  form #mensaje .text-muted {
+    color: red !important;
+  }
