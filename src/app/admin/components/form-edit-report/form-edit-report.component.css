@@ -1,12 +1,7 @@
 .btn {
-  background-color: rgb(158, 172, 136);
-  color: white;
   margin-right: 5px;
 }
 
-.btn:hover {
-  background-color: rgb(183, 194, 166);
-}
 
 .shadow {
   box-shadow: 0 2px 4px 0 rgba(34, 33, 33, 0.32), 0 6px 10px 0px rgba(39, 38, 38, 0.32) !important;

@@ -8,12 +8,11 @@ import { DogService } from '@core/services/dogs/dogs.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
-  selector: 'app-form-edit-report',
-  templateUrl: './form-edit-report.component.html',
-  styleUrls: ['./form-edit-report.component.css']
+  selector: 'app-form-edit-case',
+  templateUrl: './form-edit-case.component.html',
+  styleUrls: ['./form-edit-case.component.css']
 })
-export class FormEditReportComponent implements OnInit {
-  
+export class FormEditCaseComponent implements OnInit {
 
   @Input() id:string;
 

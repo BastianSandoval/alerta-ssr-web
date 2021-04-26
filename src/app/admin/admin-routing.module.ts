@@ -46,7 +46,7 @@ const routes: Routes = [
         component: EditReportsScreenComponent
       },
       {
-        path:'edit-case',
+        path:'edit-case/:id',
         component: EditCasesScreenComponent
       },
       {

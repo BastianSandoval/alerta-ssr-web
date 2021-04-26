@@ -57,7 +57,7 @@
                                 <td scope="col">{{report.validation.number}}  <span style="font-size: 12px;"> última {{report.validation.date | date:'dd-mm-yyyy'}}</span></td>
                                 <td scope="col">{{report.reject}}</td>
                                 <td class="btnRight text-center" scope="col">
-                                    <a class="btn rounded-pill editar" routerLink="/admin/edit-case">Editar</a>
+                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-case', report._id]">Editar</a>
                                     
                                     <button class="btn rounded-pill eliminar-table" (click)="idSelected = report._id" (click)="reportSelected=report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                     <app-modal-delete [id]="idSelected" [report]="reportSelected"></app-modal-delete>
