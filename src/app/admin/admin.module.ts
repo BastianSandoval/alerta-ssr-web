@@ -30,6 +30,7 @@ import { TableCategoryComponent } from './components/table-category/table-catego
 import { FormEditCategoryComponent } from './components/form-edit-category/form-edit-category.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormEditCaseComponent } from './components/form-edit-case/form-edit-case.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
@@ -49,6 +50,7 @@ const component = [
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    GooglePlaceModule,
     ImageCropperModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'

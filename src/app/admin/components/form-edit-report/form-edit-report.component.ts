@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Dog } from '@core/models/dog.model';
@@ -7,17 +7,26 @@ import { DogService } from '@core/services/dogs/dogs.service';
 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
+import { google } from "google-maps";
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+declare var google : google;
+
 @Component({
   selector: 'app-form-edit-report',
   templateUrl: './form-edit-report.component.html',
   styleUrls: ['./form-edit-report.component.css']
 })
-export class FormEditReportComponent implements OnInit {
+export class FormEditReportComponent implements OnInit, AfterViewInit {
   
 
   @Input() id:string;
 
   @ViewChild('inputFile') inputFile: ElementRef;
+
+  @ViewChild('inputAddress') inputAddress: ElementRef;
+  public autocomplete: google.maps.places.Autocomplete;
+
+  @ViewChild("placesRef") placesRef : GooglePlaceDirective;
 
   dogs: Dog[] = [];
   wantedDog!: Dog;
@@ -32,6 +41,8 @@ export class FormEditReportComponent implements OnInit {
   public imageChangedEvent: any;
   public croppedImage: any;
   public changePhoto: boolean;
+
+  public options: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,6 +78,13 @@ export class FormEditReportComponent implements OnInit {
         /* console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id) */
       });
   };
+
+  public handleAddressChange(address: any) {
+    console.log(address.geometry.location.lat())
+}
+
+  ngAfterViewInit() {
+  }
 
   saveDog(event: Event){
     event.preventDefault(); 
