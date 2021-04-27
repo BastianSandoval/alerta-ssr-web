@@ -11,33 +11,6 @@
                         </div>
                     </div>
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameOwner" class="fw-bolder">CATEGORÍA</label>
-                        <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido">
-                        <div id="mensaje">
-                            <small id="nameOwnerHelp" class="form-text text-muted" *ngIf="(nameOwner?.dirty || nameOwner?.touched) && nameOwner?.invalid && nameOwner?.errors?.required"> Requerido</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameOwner" class="fw-bolder">FECHA REPORTE: </label>
-                        <input class="form-control"type="date" name="fecha" style="padding-left: 4%;" value="1999-11-15">
-                        <!-- <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido"> -->
-                        <div id="mensaje">
-                            <small id="nameOwnerHelp" class="form-text text-muted" *ngIf="(nameOwner?.dirty || nameOwner?.touched) && nameOwner?.invalid && nameOwner?.errors?.required"> Requerido</small>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameOwner" class="fw-bolder">UBICACIÓN</label>
-                        <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido">
-                        <div id="mensaje">
-                            <small id="nameOwnerHelp" class="form-text text-muted" *ngIf="(nameOwner?.dirty || nameOwner?.touched) && nameOwner?.invalid && nameOwner?.errors?.required"> Requerido</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameOwner" class="fw-bolder">DESCRIPCIÓN</label>
                         <textarea id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido"></textarea>
                         <div id="mensaje">
@@ -45,17 +18,18 @@
                         </div>
                     </div>
                 </div>
+               
 
                     <div class="row align-items-center justify-content-center my-2"> 
-                        <div class="col-md-10 text-center">
+                        <div class="col-md-11 text-center">
                             <input class="d-none" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" #inputFile>
                             <ng-container>
                                 <ng-container *ngIf="!imageChangedEvent; else cropper">
-                                    <div class="container-fluid bg-secondary py-4 pointer" (click)="inputFile.click()" style="cursor: pointer;">
-                                        <span><i class="fas fa-images fa-4x text-lightgrey"></i></span>
+                                    <div class="container-fluid py-4 pointer" (click)="inputFile.click()" style="cursor: pointer;">
+                                        <span><i class="fas fa-images fa-4x"></i></span>
                                         <div class="row text-center mt-2">
                                             <div class="col-md-12">
-                                                <h6 class="text-white">Subir foto</h6>
+                                                <h6 class="text-black">Subir foto</h6>
                                             </div>
                                         </div>
                                     </div>
