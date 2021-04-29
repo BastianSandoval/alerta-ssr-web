@@ -31,6 +31,7 @@ import { FormEditCategoryComponent } from './components/form-edit-category/form-
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormEditCaseComponent } from './components/form-edit-case/form-edit-case.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 const component = [
   AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
@@ -47,14 +48,15 @@ const component = [
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
-    ReactiveFormsModule,
     SharedModule,
-    FormsModule,
     GooglePlaceModule,
     ImageCropperModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'
     }),
+    AngularMultiSelectModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })
