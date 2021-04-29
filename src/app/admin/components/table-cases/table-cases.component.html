@@ -54,7 +54,9 @@
                                 <td scope="col">{{report.category}}</td>
                                 <td scope="col">{{report.date |date:'dd-mm-yyyy'}}</td>
                                 <td scope="col">{{report.location}}</td>
-                                <td scope="col">{{report.validation.number}}  <span style="font-size: 12px;"> última {{report.validation.date | date:'dd-mm-yyyy'}}</span></td>
+                                <td scope="col">{{report.checks}}  
+                                    <!-- <span style="font-size: 12px;"> última {{report.validation.date | date:'dd-mm-yyyy'}}</span> -->
+                                </td>
                                 <td scope="col">{{report.reject}}</td>
                                 <td class="btnRight text-center" scope="col">
                                     <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-case', report._id]">Editar</a>
@@ -70,7 +72,7 @@
                                 <td colspan="7" *ngIf="reportSelected">
                                  <div class="wrapper">
                                     <h2>USUARIO:</h2> 
-                                    <p>{{reportSelected.usuario}}</p>
+                                    <p>{{reportSelected.user}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>DESCRIPCIÓN:</h2>
