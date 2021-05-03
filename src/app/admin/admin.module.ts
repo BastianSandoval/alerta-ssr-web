@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { MaterialModule } from '@shared/modules/material/material.module';
-import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
-import { FormAddDogComponent } from './components/form-add-dog/form-add-dog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditReportsScreenComponent } from './screens/edit-reports-screen/edit-reports-screen.component';
 import { FormEditReportComponent } from './components/form-edit-report/form-edit-report.component';
@@ -34,7 +32,7 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 const component = [
-  AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
+  AdminComponent,SidebarComponent,
  TableReportsComponent,EditReportsScreenComponent,FormEditReportComponent
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
