@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Report} from './../../../core/models/report.model';
-import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
 import { ReportsService} from '../../../core/services/reports/reports.service'
 
 @Component({
@@ -26,7 +25,7 @@ export class TableCategoryComponent implements OnInit {
   public mostrar:Boolean;
 
 
-  constructor(private breedProvider: BreedProviderService, private reportsService: ReportsService) {
+  constructor(private reportsService: ReportsService) {
     this.reports = reportsService.report;
     this.reportSelected = null;
     this.mostrar=false;
@@ -34,11 +33,6 @@ export class TableCategoryComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-    try {
-      this.breeds = await this.breedProvider.getBreed();
-    } catch (error) {
-      console.log(error)
-    };
   }
 
   ngDoCheck(){
