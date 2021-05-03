@@ -2,8 +2,6 @@ import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Report } from '../../../core/models/report.model';
-import { BreedProviderService } from '@core/providers/breed-provider/breed-provider.service';
-import { DogService } from '@core/services/dogs/dogs.service';
 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
@@ -21,7 +19,7 @@ declare var google : google;
   templateUrl: './form-edit-report.component.html',
   styleUrls: ['./form-edit-report.component.css']
 })
-export class FormEditReportComponent implements OnInit, AfterViewInit{
+export class FormEditReportComponent implements OnInit{
   
 
   @Input() id:string;
@@ -34,21 +32,15 @@ export class FormEditReportComponent implements OnInit, AfterViewInit{
   @ViewChild("placesRef") placesRef : GooglePlaceDirective;
 
   report: Report[] = [];
-  // wantedDog!: Dog;
-  //  newDog1?: Dog; 
-  
   checkoutForm: FormGroup;
   userFormControl: FormControl;
-  breeds?: string[];
-  image?: string;
-  idDog!: string;
 
-  ////////////////////////////
+////////////////////////////
   
   itemList = [];
   settings = {};
   count = 6;
-////////////////////////////////
+///////////////////////////
   public loader: boolean;
   public imageChangedEvent: any;
   public croppedImage: any;
@@ -57,15 +49,11 @@ export class FormEditReportComponent implements OnInit, AfterViewInit{
   public options: any;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private breedProvider: BreedProviderService,
-    private dogService: DogService,
-    private activeRoute: ActivatedRoute,
     private reportService: ReportsService,
     private formService:FormService,
     
     ){
-    this.checkoutForm ;
+    this.checkoutForm;
     this.userFormControl = new FormControl([],[Validators.required]);
     this.createFormGroup();
     this.imageChangedEvent = null;
@@ -74,12 +62,14 @@ export class FormEditReportComponent implements OnInit, AfterViewInit{
     this.id = '';
 
     this.itemList = [
-      {"itemName":"India"},
-      {"itemName":"Singapore"},
-      {"itemName":"Australia"},
-      {"itemName":"Canada"},
-      {"itemName":"South Korea"},    
-      {"itemName":"Brazil"}                      
+      {"_id":1,"itemName":"India","name":"IN"},
+      {"_id":2,"itemName":"Singapore","name":"SN"},
+      {"_id":3,"itemName":"Australia","name":"AU"},
+      {"_id":4,"itemName":"Canada","name":"CA"},
+      {"_id":5,"itemName":"South Korea","name":"SK"},    
+      {"_id":6,"itemName":"Brazil","name":"BR"},  
+      {"_id":7,"itemName":"Brazil","name":"BR"}, 
+      {"_id":8,"itemName":"Brazil","name":"BR"}                                   
     ];
 
     }
@@ -89,35 +79,7 @@ export class FormEditReportComponent implements OnInit, AfterViewInit{
     };  
 
     ngOnInit(){
-      // try {
-      //   this.breeds = await this.breedProvider.getBreed();
-      // } catch (error) {
-      //   console.log(error)
-      // }
       this.fetchProducts();
-
-      // this.activeRoute.params.subscribe((params: Params) => {
-      //   this.id = params.id;
-      //   this.wantedDog = this.dogService.getDogById(this.idDog);
-      //   /* console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id) */
-      // });
-
-      
-
-      // this.selectedItems = [
-      //   {_id: "1",
-      //   usuario:"Pablo",
-      //   title: "Quema de camiones",
-      //   category: "Ambiental",
-      //   date: new Date(),
-      //   location: "2 norte 1348, Viña del mar, Valparaiso",
-      //   validation: {
-      //       number: 100,
-      //       date: new Date(),
-      //   },
-      //   reject: 20,
-      //   description:"Describir es explicar, de manera detallada y ordenada, cómo son las personas, animales, lugares, objetos, etc. La descripción sirve sobre todo para ambientar la acción y crear una que haga más creíbles los hechos que se narran.",
-      //   numeroDenuncias: 22}];
 
       this.settings = {
         enableSearchFilter: true,
@@ -132,28 +94,15 @@ export class FormEditReportComponent implements OnInit, AfterViewInit{
   };
 
   public handleAddressChange(address: any) {
-    console.log(address.geometry.location.lat())
+    console.log(address.geometry.location.lat());
+    console.log(address.name);
+    //agrego ubicacion al formcontrol location
+    this.checkoutForm.controls['location'].setValue(address.name);
 }
 
-  ngAfterViewInit() {
-  }
-
-  saveDog(event: Event){
+  public saveReport(event: Event){
     event.preventDefault(); 
   }
-
-
-  // private createFormGroup() {
-  //   return new FormGroup({
-  //     title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
-  //     category: new FormControl('',[Validators.required]),
-  //     user: new FormControl('',[Validators.required]),
-  //     location: new FormControl('',[Validators.required]),
-  //     description: new FormControl('',[Validators.required]),
-  //     date: new FormControl('',[Validators.required]),
-  //   })
-  // }
-
 
   public enviar(){
     console.log(this.checkoutForm)
@@ -189,45 +138,6 @@ export class FormEditReportComponent implements OnInit, AfterViewInit{
   public controlIsInvalidLength(formControlName: string): boolean {
     return this.formService.controlIsInvalidLength(this.checkoutForm, formControlName);
   }
-
-
-
-  //  public async addDog(){
-  //   await this.getImage()
-  //   let dog: Dog = {
-
-  //     _id: Math.random().toString(),
-  //     nameDog: this.checkoutForm.get('nameDog')?.value,
-  //     nameOwner: this.checkoutForm.get('nameOwner')?.value,
-  //     breed: this.checkoutForm.get('breed')?.value,
-  //     image: this.image!,
-      
-  //   };
-  //   this.dogService.addDog(dog)
-  //     console.log(dog);
-    
-  // };
-
-  //  public async generateNewDog() {
-  //   await this.getImage()
-  //    let newDog: Dog = {
-  //     _id: this.wantedDog._id,
-  //     nameDog : this.checkoutForm.get('nameDog')?.value,
-  //     nameOwner : this.checkoutForm.get('nameOwner')?.value,
-  //     breed : this.checkoutForm.get('breed')?.value,
-  //     image : this.image!
-  //    };
-  //     console.log(newDog);
-  //      this.newDog1= newDog; 
-  //  }
-
-   async getImage(){
-    try {
-      this.image = await this.breedProvider.getBreedImage(this.checkoutForm.get('breed')?.value,);
-    } catch (error) {
-      console.log(error)
-     }
-  } 
 
   //PARTE DE SUBIR FOTO
 

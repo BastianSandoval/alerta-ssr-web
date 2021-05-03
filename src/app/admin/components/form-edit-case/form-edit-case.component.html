@@ -1,20 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
-            <form [formGroup]="checkoutForm" (ngSubmit)="saveDog($event)">
+            <form [formGroup]="checkoutForm" #caseForm="ngForm" (ngSubmit)="saveCase($event)">
                 <div class="row">
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameDog" class="fw-bolder">TÍTULO</label>
-                        <input id="nameDog" type="text" class="form-control" formControlName="nameDog" aria-label="nameDog">
+                        <label for="nameTitle" class="fw-bolder">TÍTULO</label>
+                        <input id="nameTitle" type="text" class="form-control" formControlName="title" aria-label="nameTitle">
                         <div id='mensaje'>
-                            <small id="nameDogHelp" class="form-text text-muted" *ngIf="(nameDog?.dirty || nameDog?.touched) && nameDog?.invalid && nameDog?.errors?.required"> Requerido  </small>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" caseForm.submitted && controlIsRequired('title')"> Requerido  </small>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" caseForm.submitted && controlIsInvalidPattern('title')"> Invalido </small>
                         </div>
                     </div>
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameOwner" class="fw-bolder">DESCRIPCIÓN</label>
-                        <textarea id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido"></textarea>
+                        <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
+                        <textarea id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
                         <div id="mensaje">
-                            <small id="nameOwnerHelp" class="form-text text-muted" *ngIf="(nameOwner?.dirty || nameOwner?.touched) && nameOwner?.invalid && nameOwner?.errors?.required"> Requerido</small>
+                            <small id="nameDescription" class="form-text text-muted" *ngIf="caseForm.submitted && controlIsRequired('description')"> Requerido</small>
                         </div>
                     </div>
                 </div>
@@ -65,7 +66,7 @@
                         </div>
                     </div>
                 <div class="button-group text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar()">Guardar</button>
                 </div>
             </form>
         </div>
