@@ -1,11 +1,8 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Dog } from '@core/models/dog.model';
-import { BreedProviderService } from '@core/providers/breed-provider/breed-provider.service';
-import { DogService } from '@core/services/dogs/dogs.service';
-
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { FormService } from '../../../core/services/form/form.service';
 
 @Component({
   selector: 'app-form-edit-case',
@@ -18,15 +15,7 @@ export class FormEditCaseComponent implements OnInit {
 
   @ViewChild('inputFile') inputFile: ElementRef;
 
-  dogs: Dog[] = [];
-  wantedDog!: Dog;
-   newDog1?: Dog; 
-  
-  checkoutForm: FormGroup;
-  breeds?: string[];
-  image?: string;
-  idDog!: string;
-
+  public checkoutForm: FormGroup;
   public loader: boolean;
   public imageChangedEvent: any;
   public croppedImage: any;
@@ -34,12 +23,11 @@ export class FormEditCaseComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private breedProvider: BreedProviderService,
-    private dogService: DogService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private formService:FormService,
     
     ){
-    this.checkoutForm = this.createFormGroup();
+    this.checkoutForm;
     this.createFormGroup();
     this.imageChangedEvent = null;
     this.changePhoto = false;
@@ -48,79 +36,47 @@ export class FormEditCaseComponent implements OnInit {
 
     }
 
-    fetchProducts(){
-      this.dogs = this.dogService.getAllDogs(); 
-    }; 
-
    async ngOnInit(): Promise<void> {
-      try {
-        this.breeds = await this.breedProvider.getBreed();
-      } catch (error) {
-        console.log(error)
-      }
-      this.fetchProducts();
-
-      this.activeRoute.params.subscribe((params: Params) => {
-        this.id = params.id;
-        this.wantedDog = this.dogService.getDogById(this.idDog);
-        /* console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id) */
-      });
+      // this.activeRoute.params.subscribe((params: Params) => {
+      //   this.id = params.id;
+      //   console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id)
+      // });
   };
 
-  saveDog(event: Event){
+  public saveCase(event: Event){
     event.preventDefault(); 
   }
 
   private createFormGroup() {
-    return new FormGroup({
-      nameDog: new FormControl('', [Validators.required]),
-      nameOwner: new FormControl('',[Validators.required]),
-      breed: new FormControl('',[Validators.required]),
+      this.checkoutForm = this.formService.buildFormGroup({
+      title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
+      description: new FormControl('',[Validators.required]),
     })
   }
 
-  get nameDog() {return this.checkoutForm.get('nameDog');}
-  get nameOwner() {return this.checkoutForm.get('nameOwner');}
-  get breed() {return this.checkoutForm.get('breed');}
+  public enviar(){
+    console.log(this.checkoutForm.value);
+  }
 
+  public controlIsRequired(formControlName: string): boolean {
+    return this.formService.controlIsRequired(this.checkoutForm, formControlName);
+  }
 
+  public controlIsInvalid(formControlName: string): boolean {
+      return this.formService.controlIsInvalid(this.checkoutForm, formControlName);
+  }
 
-   public async addDog(){
-    await this.getImage()
-    let dog: Dog = {
+  public controlIsInvalidEmail(formControlName: string): boolean {
+      return this.formService.controlIsInvalidEmail(this.checkoutForm, formControlName);
+  }
 
-      _id: Math.random().toString(),
-      nameDog: this.checkoutForm.get('nameDog')?.value,
-      nameOwner: this.checkoutForm.get('nameOwner')?.value,
-      breed: this.checkoutForm.get('breed')?.value,
-      image: this.image!,
-      
-    };
-    this.dogService.addDog(dog)
-      console.log(dog);
-    
-  };
+  public controlIsInvalidPattern(formControlName: string): boolean {
+    return this.formService.controlIsInvalidPattern(this.checkoutForm, formControlName);
+  }
 
-   public async generateNewDog() {
-    await this.getImage()
-     let newDog: Dog = {
-      _id: this.wantedDog._id,
-      nameDog : this.checkoutForm.get('nameDog')?.value,
-      nameOwner : this.checkoutForm.get('nameOwner')?.value,
-      breed : this.checkoutForm.get('breed')?.value,
-      image : this.image!
-     };
-      console.log(newDog);
-       this.newDog1= newDog; 
-   }
-
-   async getImage(){
-    try {
-      this.image = await this.breedProvider.getBreedImage(this.checkoutForm.get('breed')?.value,);
-    } catch (error) {
-      console.log(error)
-     }
-  } 
+  public controlIsInvalidLength(formControlName: string): boolean {
+    return this.formService.controlIsInvalidLength(this.checkoutForm, formControlName);
+  }
 
   //PARTE DE SUBIR FOTO
 

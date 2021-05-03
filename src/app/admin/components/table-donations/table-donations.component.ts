@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BreedProviderService } from '../../../core/providers/breed-provider/breed-provider.service';
 
 import { Donation} from '../../../core/models/donation.model'
 import { DonationService } from '../../../core/services/donation/donation.service';
@@ -25,18 +24,13 @@ export class TableDonationsComponent implements OnInit {
   startPage: number = 0;
   endPage: number = 7;
 
-  constructor(private breedProvider: BreedProviderService, private donationService: DonationService) {
+  constructor(private donationService: DonationService) {
     this.donation = donationService.donation;
     this.donationSelected = null;
     this.idSelected = null;
    }
 
   async ngOnInit(): Promise<void> {
-    try {
-      this.breeds = await this.breedProvider.getBreed();
-    } catch (error) {
-      console.log(error)
-    };
   }
 
   ngDoCheck(){
