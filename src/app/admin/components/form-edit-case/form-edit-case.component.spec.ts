@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddDogScreenComponent } from './add-dog-screen.component';
+import { FormEditCaseComponent } from './form-edit-case.component';
 
-describe('AddDogComponent', () => {
-  let component: AddDogScreenComponent;
-  let fixture: ComponentFixture<AddDogScreenComponent>;
+describe('FormEditCaseComponent', () => {
+  let component: FormEditCaseComponent;
+  let fixture: ComponentFixture<FormEditCaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddDogScreenComponent ]
+      declarations: [ FormEditCaseComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddDogScreenComponent);
+    fixture = TestBed.createComponent(FormEditCaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

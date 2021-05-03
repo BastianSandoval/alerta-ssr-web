@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { MaterialModule } from '@shared/modules/material/material.module';
-import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
-import { FormAddDogComponent } from './components/form-add-dog/form-add-dog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditReportsScreenComponent } from './screens/edit-reports-screen/edit-reports-screen.component';
 import { FormEditReportComponent } from './components/form-edit-report/form-edit-report.component';
@@ -28,13 +26,18 @@ import { EditCasesScreenComponent } from './screens/edit-cases-screen/edit-cases
 import { EditCategorysScreenComponent } from './screens/edit-categorys-screen/edit-categorys-screen.component';
 import { TableCategoryComponent } from './components/table-category/table-category.component';
 import { FormEditCategoryComponent } from './components/form-edit-category/form-edit-category.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FormEditCaseComponent } from './components/form-edit-case/form-edit-case.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 const component = [
-  AdminComponent, AddDogScreenComponent, FormAddDogComponent, SidebarComponent,
+  AdminComponent,SidebarComponent,
  TableReportsComponent,EditReportsScreenComponent,FormEditReportComponent
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
+  ,FormEditCaseComponent
 ]
 
 @NgModule({
@@ -43,12 +46,15 @@ const component = [
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
-    ReactiveFormsModule,
     SharedModule,
-    FormsModule,
+    GooglePlaceModule,
+    ImageCropperModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'
     }),
+    AngularMultiSelectModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })

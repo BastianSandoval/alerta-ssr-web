@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Dog } from '@core/models/dog.model';
-import { DogService } from '@core/services/dogs/dogs.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
@@ -16,7 +14,6 @@ export class ModalEditComponent implements OnInit {
   
 
   constructor(
-    private dogService: DogService,
     private notificationService: NotificationService,
   ){ }
 
@@ -25,11 +22,11 @@ export class ModalEditComponent implements OnInit {
 
   editDog(id: string, newDog: any){
     
-    if(this.dogService.editDog(id,newDog) === null){
-      this.notificationService.error('Error al editar perro intente nuevamente');
-    }else{
-      this.notificationService.success('Perro editado correctamente');
-    }
+    // if('algo' === null){
+    //   this.notificationService.error('Error al editar perro intente nuevamente');
+    // }else{
+    //   this.notificationService.success('Perro editado correctamente');
+    // }
   }
 
 }

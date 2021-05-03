@@ -1,122 +1,61 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Report } from '../../../core/models/report.model';
-
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-
-import { google } from "google-maps";
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-
 import { FormService } from '../../../core/services/form/form.service';
-import { ReportsService } from '../../../core/services/reports/reports.service';
-
-
-declare var google : google;
 
 @Component({
-  selector: 'app-form-edit-report',
-  templateUrl: './form-edit-report.component.html',
-  styleUrls: ['./form-edit-report.component.css']
+  selector: 'app-form-edit-case',
+  templateUrl: './form-edit-case.component.html',
+  styleUrls: ['./form-edit-case.component.css']
 })
-export class FormEditReportComponent implements OnInit{
-  
+export class FormEditCaseComponent implements OnInit {
 
   @Input() id:string;
 
   @ViewChild('inputFile') inputFile: ElementRef;
 
-  @ViewChild('inputAddress') inputAddress: ElementRef;
-  public autocomplete: google.maps.places.Autocomplete;
-
-  @ViewChild("placesRef") placesRef : GooglePlaceDirective;
-
-  report: Report[] = [];
-  checkoutForm: FormGroup;
-  userFormControl: FormControl;
-
-////////////////////////////
-  
-  itemList = [];
-  settings = {};
-  count = 6;
-///////////////////////////
+  public checkoutForm: FormGroup;
   public loader: boolean;
   public imageChangedEvent: any;
   public croppedImage: any;
   public changePhoto: boolean;
 
-  public options: any;
-
   constructor(
-    private reportService: ReportsService,
+    private formBuilder: FormBuilder,
+    private activeRoute: ActivatedRoute,
     private formService:FormService,
     
     ){
     this.checkoutForm;
-    this.userFormControl = new FormControl([],[Validators.required]);
     this.createFormGroup();
     this.imageChangedEvent = null;
     this.changePhoto = false;
     this.loader = false;
     this.id = '';
 
-    this.itemList = [
-      {"_id":1,"itemName":"India","name":"IN"},
-      {"_id":2,"itemName":"Singapore","name":"SN"},
-      {"_id":3,"itemName":"Australia","name":"AU"},
-      {"_id":4,"itemName":"Canada","name":"CA"},
-      {"_id":5,"itemName":"South Korea","name":"SK"},    
-      {"_id":6,"itemName":"Brazil","name":"BR"},  
-      {"_id":7,"itemName":"Brazil","name":"BR"}, 
-      {"_id":8,"itemName":"Brazil","name":"BR"}                                   
-    ];
-
     }
 
-    fetchProducts(){
-      this.report = this.reportService.getAllReports(); 
-    };  
-
-    ngOnInit(){
-      this.fetchProducts();
-
-      this.settings = {
-        enableSearchFilter: true,
-        addNewItemOnFilter: false,
-        singleSelection: true,
-        text:"Seleccionar Usuario",
-        searchPlaceholderText:"Buscar",
-        noDataLabel:"No Hay Resultado",
-        primaryKey:"_id",
-      };
-      
+   async ngOnInit(): Promise<void> {
+      // this.activeRoute.params.subscribe((params: Params) => {
+      //   this.id = params.id;
+      //   console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id)
+      // });
   };
 
-  public handleAddressChange(address: any) {
-    console.log(address.geometry.location.lat());
-    console.log(address.name);
-    //agrego ubicacion al formcontrol location
-    this.checkoutForm.controls['location'].setValue(address.name);
-}
-
-  public saveReport(event: Event){
+  public saveCase(event: Event){
     event.preventDefault(); 
-  }
-
-  public enviar(){
-    console.log(this.checkoutForm)
   }
 
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
       title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
-      category: new FormControl('',[Validators.required]),
-      user: this.userFormControl,
-      location: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
-      date: new FormControl('',[Validators.required]),
     })
+  }
+
+  public enviar(){
+    console.log(this.checkoutForm.value);
   }
 
   public controlIsRequired(formControlName: string): boolean {
@@ -173,10 +112,4 @@ export class FormEditReportComponent implements OnInit{
     return new File([u8arr], filename, { type: mime });
   }
 
-
-  //PARTE SELECCIONAR USUARIO
-
-
-
- 
 }

@@ -1,40 +1,4 @@
-/* .titulo {
-    color: rgb(133, 150, 106);
-    padding: 10vh 5px;
-}
-
-.sideBarButtom {
-    background-color: rgb(159, 173, 136);
-    min-height: 7vh;
-    text-align: center;
-    padding-top: 2vh;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.418);
-}
-
-.sideBarButtomActive {
-    background-color: rgba(253, 253, 253, 0.89);
-    min-height: 7vh;
-    text-align: center;
-    padding-top: 2vh;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.541);
-}
-
-.sideBarButtom:hover {
-    background-color: rgb(187, 201, 163);
-}
-
-.sideBarTittle {
-    background-color: rgb(159, 173, 136);
-    min-height: 7vh;
-    padding-top: 2vh;
-    padding-right: 0px;
-    color: rgba(0, 0, 0, 0.418);
-} */
-
-
- .sidebar{
+.sidebar{
     padding:0px 0px;
     background-color: #EEF2E9;
     margin:0;

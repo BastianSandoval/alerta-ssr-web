@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { AddDogScreenComponent } from './screens/add-dog-screen/add-dog-screen.component';
 import { CategoryScreenComponent } from './screens/category-screen/category-screen.component';
 import { EditReportsScreenComponent } from './screens/edit-reports-screen/edit-reports-screen.component';
 import { CasesScreenComponent} from './screens/cases-screen/cases-screen.component';
 import { EditCasesScreenComponent } from './screens/edit-cases-screen/edit-cases-screen.component';
 import { EditCategorysScreenComponent } from './screens/edit-categorys-screen/edit-categorys-screen.component';
-
-
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 import { DonationScreenComponent } from './screens/donation-screen/donation-screen.component';
 import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component';
@@ -34,10 +31,6 @@ const routes: Routes = [
         component: CasesScreenComponent
       },
       {
-        path: 'add-dog',
-        component: AddDogScreenComponent
-      },
-      {
         path: 'edit-report/:id',
         component: EditReportsScreenComponent
       },
@@ -46,7 +39,7 @@ const routes: Routes = [
         component: EditReportsScreenComponent
       },
       {
-        path:'edit-case',
+        path:'edit-case/:id',
         component: EditCasesScreenComponent
       },
       {
