@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Report } from '../../../core/models/report.model';
 import { ReportsService } from '../../../core/services/reports/reports.service';
+import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
 
 @Component({
   selector: 'app-table-reports',
@@ -24,14 +25,17 @@ export class TableReportsComponent implements OnInit{
 
 
 
-  constructor(private reportsService: ReportsService) {
-    this.reports = reportsService.report;
+  constructor(private reportsService: ReportsService, private reportProviderService: ReportProviderService) {
     this.reportSelected = null;
     this.visualizar=true;
+    this.reports= [];
    }
 
 
   async ngOnInit(): Promise<void> {
+    const data :any = await this.reportProviderService.getAllReports().toPromise(); 
+    this.reports = data.docs;
+    console.log(this.reports);
   }
 
   ngDoCheck(){
