@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "codefire-dog-admin-webclient"
+  "defaultProject": "codefire-dog-admin-webclient",
+  "cli": {
+    "analytics": false
+  }
 }
