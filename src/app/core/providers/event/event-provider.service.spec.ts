@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BreedProviderService } from './breed-provider.service';
+import { EventProviderService } from './event-provider.service';
 
-describe('DogApiProviderService', () => {
-  let service: BreedProviderService;
+describe('EventProviderService', () => {
+  let service: EventProviderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BreedProviderService);
+    service = TestBed.inject(EventProviderService);
   });
 
   it('should be created', () => {

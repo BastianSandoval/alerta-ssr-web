@@ -1,16 +1,16 @@
 export interface Report {
     _id?: string;
-    user:string;
     title: string;
-    category: string;
-    date: Date;
     location: string;
-    checks: number;
-    lastCheckAt?: Date;
-    reject: number;
+    category: string;
     description:string;
-    numeroDenuncias:number;
     imageUrl: string;
+    user:string;
+    checks?: number;
+    reject?: number;
+    date: Date;
+    rejected?: boolean;
+    lastCheckAt?: Date;
     updatedAt?: Date;
     createdAt?: Date;
   }
