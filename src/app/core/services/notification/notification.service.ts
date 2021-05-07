@@ -9,7 +9,7 @@ export class NotificationService {
   constructor(private toastrService: ToastrService) { }
 
   public success(message: string): ActiveToast<any>{
-    return this.toastrService.success(message, 'Exito!');
+    return this.toastrService.success(message, 'Éxito!');
   }
 
   public warning(message: string): ActiveToast<any>{

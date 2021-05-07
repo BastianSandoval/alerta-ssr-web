@@ -11,7 +11,6 @@ export interface Report {
     date: Date;
     rejected?: boolean;
     lastCheckAt?: Date;
-    numeroDenuncias:number;
     updatedAt?: Date;
     createdAt?: Date;
   }
