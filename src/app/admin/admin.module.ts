@@ -30,6 +30,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormEditCaseComponent } from './components/form-edit-case/form-edit-case.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 
 const component = [
   AdminComponent,SidebarComponent,
@@ -37,7 +38,7 @@ const component = [
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
-  ,FormEditCaseComponent
+  ,FormEditCaseComponent, LoginScreenComponent
 ]
 
 @NgModule({
