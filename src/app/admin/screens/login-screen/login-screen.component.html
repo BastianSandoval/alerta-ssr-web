@@ -1,0 +1,29 @@
+<div class="row justify-content-start vh-100">
+    <div class="col-12">
+        <div class="container-fluid pt-5">
+            <div class="alertaAPI text-center pt-5">
+                <img class="img-fluid" style="height: 10%; width: 10%;" src="../../../../assets/icons/logo-icon.svg">
+            </div>
+            <h1 class="mt-5 mb-5 xs title-screen text-center" style="color: #96AC78;">Bienvenido a Alerta Verde</h1>
+            <form [formGroup]="checkoutForm">
+                <div class="class" style="padding-left: 40%;">
+                    <div class="row">
+                        <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                            <label for="actualLocation" class="fw-bolder">CORREO:</label>
+                            <input id="actualLocation" type="text" class="form-control" formControlName="correo" placeholder="correo@ejemplo.com" aria-label="actualLocation">
+                        </div>
+                    </div>
+                    <div class="row py-3 py-lg-4">
+                        <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                            <label for="minimalChecks" class="fw-bolder">CONTRASEÑA</label>
+                            <input id="minimalChecks" type="text" class="form-control" formControlName="contraseña" placeholder="contraseña" aria-label="minimalChecks">
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group text-center mt-3">
+                    <button type="submit" class="btn btn-lg btn-primary text-center">Iniciar sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
