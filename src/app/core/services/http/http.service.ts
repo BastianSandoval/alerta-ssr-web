@@ -26,7 +26,7 @@ export class HttpService {
     }; */
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/xml'
+        'Content-Type': 'application/json'
       })
     };
   }

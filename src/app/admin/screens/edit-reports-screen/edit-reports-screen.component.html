@@ -12,7 +12,7 @@
                         </h4>
                     </div>
                 </div>
-                <app-form-edit-report [id]="id"></app-form-edit-report>
+                <app-form-edit-report (reportForm) = importngForm($event) (form)= importForm($event) [id]="id"></app-form-edit-report>
             </div>
         </div>
     </div>

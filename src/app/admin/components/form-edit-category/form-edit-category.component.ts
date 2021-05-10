@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormService } from '../../../core/services/form/form.service';
 
@@ -10,10 +10,13 @@ import { FormService } from '../../../core/services/form/form.service';
 })
 export class FormEditCategoryComponent implements OnInit {
 
+  @Output() form: EventEmitter<FormGroup>;
+
   checkoutForm: FormGroup;
   breeds?: string[];
   image?: string;
   id!: string;
+
   constructor(
     private activeRoute: ActivatedRoute,
     private formService:FormService,
@@ -21,7 +24,7 @@ export class FormEditCategoryComponent implements OnInit {
     ){
     this.checkoutForm;
     this.createFormGroup();
-
+    this.form= new EventEmitter<FormGroup>();
     }
 
    async ngOnInit(): Promise<void> {
@@ -31,14 +34,24 @@ export class FormEditCategoryComponent implements OnInit {
       // });
     };
 
-  public saveCategory(event: Event){
+    public exportForm(){
+      this.form.emit(this.checkoutForm); // mandamos el form a la screen
+    }
+    public enviar(){
+      this.exportForm();
+    }
+
+  public saveCategory(event: Event, categoryForm: FormGroupDirective ){
     event.preventDefault(); 
+    if (categoryForm.valid)
+    // console.log(categoryForm);
+    categoryForm.resetForm(); // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
   }
 
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
-      category: new FormControl('',[Validators.required]),
-      description: new FormControl('',[Validators.required]),
+      name: new FormControl('',[Validators.required]),
+      // description: new FormControl('',[Validators.required]),
     })
   }
 
@@ -60,9 +73,5 @@ export class FormEditCategoryComponent implements OnInit {
 
   public controlIsInvalidLength(formControlName: string): boolean {
     return this.formService.controlIsInvalidLength(this.checkoutForm, formControlName);
-  }
-
-  public enviar(){
-    console.log(this.checkoutForm.value)
   }
 }
