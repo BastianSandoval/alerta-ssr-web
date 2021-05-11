@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Report } from '../../../core/models/report.model';
 
@@ -20,7 +20,9 @@ declare var google : google;
   styleUrls: ['./form-edit-report.component.css']
 })
 export class FormEditReportComponent implements OnInit{
-  
+  @Output() reportForm: EventEmitter<FormGroupDirective>;
+  @Output() form: EventEmitter<FormGroup>;
+
 
   @Input() id:string;
 
@@ -34,6 +36,7 @@ export class FormEditReportComponent implements OnInit{
   report: Report[] = [];
   checkoutForm: FormGroup;
   userFormControl: FormControl;
+  ngForm: FormGroupDirective;
 
 ////////////////////////////
   
@@ -60,6 +63,8 @@ export class FormEditReportComponent implements OnInit{
     this.changePhoto = false;
     this.loader = false;
     this.id = '';
+    this.form= new EventEmitter<FormGroup>();
+    this.reportForm= new EventEmitter<FormGroupDirective>();
 
     this.itemList = [
       {"_id":1,"itemName":"India","name":"IN"},
@@ -74,9 +79,17 @@ export class FormEditReportComponent implements OnInit{
 
     }
 
+    exportForm(){
+      this.form.emit(this.checkoutForm); // mandamos el form a la screen
+      this.reportForm.emit(this.ngForm); // Enviando el reportForm
+    }
+
+    
+
     fetchProducts(){
       this.report = this.reportService.getAllReports(); 
     };  
+
 
     ngOnInit(){
       this.fetchProducts();
@@ -104,8 +117,9 @@ export class FormEditReportComponent implements OnInit{
     event.preventDefault(); 
   }
 
-  public enviar(){
-    console.log(this.checkoutForm)
+  public enviar(ngForm: FormGroupDirective){
+    this.ngForm= ngForm;
+    this.exportForm();
   }
 
   private createFormGroup() {

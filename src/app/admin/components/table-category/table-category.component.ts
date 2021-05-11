@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Report} from './../../../core/models/report.model';
-import { ReportsService} from '../../../core/services/reports/reports.service'
+import { CategoryProviderService} from '../../../core/providers/category/category-provider.service'
+import { Category} from '../../../core/models/category.model';
 
 @Component({
   selector: 'app-table-category',
@@ -10,33 +10,38 @@ import { ReportsService} from '../../../core/services/reports/reports.service'
 export class TableCategoryComponent implements OnInit {
 
   breeds?: string[];
-  reports: Report[];
+  category: Category[];
   filterBreed!: string;
   dogSelected: any;
   value!: string;
   filterReport!: string;
   idSelected: any;
-  reportSelected: any;
-  reportsSlice!: Report[];
+  categorySelected: any;
+  categorysSlice!: Category[];
   sizePageTable: number = 7;
   
   startPage: number = 0;
   endPage: number = 7;
   public mostrar:Boolean;
+  visualizar:boolean;
 
 
-  constructor(private reportsService: ReportsService) {
-    this.reports = reportsService.report;
-    this.reportSelected = null;
-    this.mostrar=false;
+
+  constructor(private categoryProviderService: CategoryProviderService) {
+    this.categorySelected =null;
+    this.category= [];
+    this.visualizar=true;
    }
 
 
-  async ngOnInit(): Promise<void> {
+   async ngOnInit(): Promise<void> {
+    const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
+    this.category = data;
+    console.log(data);
   }
 
   ngDoCheck(){
-    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
+    this.categorysSlice = this.category.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
@@ -49,7 +54,7 @@ export class TableCategoryComponent implements OnInit {
       
     }
 
-    if (this.endPage >= this.reports.length) {
+    if (this.endPage >= this.category.length) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');
@@ -105,8 +110,8 @@ export class TableCategoryComponent implements OnInit {
     this.endPage = this.endPage + this.sizePageTable;
   }
 
-  selectReport(report: Report){
-    this.reportSelected = report;
+  selectReport(category: Category){
+    this.categorySelected =category;
 
   }
 

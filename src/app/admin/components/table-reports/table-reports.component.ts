@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 import { Report } from '../../../core/models/report.model';
-import { ReportsService } from '../../../core/services/reports/reports.service';
 import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
 
 @Component({
@@ -18,14 +17,13 @@ export class TableReportsComponent implements OnInit{
   reportSelected: any;
   reportsSlice!: Report[];
   sizePageTable: number = 7;
-  
   startPage: number = 0;
   endPage: number = 7;
   visualizar:boolean;
 
 
 
-  constructor(private reportsService: ReportsService, private reportProviderService: ReportProviderService) {
+  constructor(private reportProviderService: ReportProviderService) {
     this.reportSelected = null;
     this.visualizar=true;
     this.reports= [];

@@ -1,21 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
-            <form [formGroup]="checkoutForm" #categoryForm="ngForm" (ngSubmit)="saveCategory($event)">
+            <form [formGroup]="checkoutForm" #categoryForm="ngForm" (ngSubmit)="saveCategory($event,categoryForm)">
                 <div class="row">
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameCategory" class="fw-bolder">NOMBRE</label>
-                        <input id="nameCategory" type="text" class="form-control" formControlName="category" aria-label="nameCategory">
+                        <input id="nameCategory" type="text" class="form-control" formControlName="name" aria-label="nameCategory">
                         <div id="mensaje">
-                            <small id="nameCategory" class="form-text text-muted" *ngIf="categoryForm.submitted && controlIsRequired('category')"> Requerido</small>
+                            <small id="nameCategory" class="form-text text-muted" *ngIf="categoryForm.submitted && controlIsRequired('name')"> Requerido</small>
                         </div>
                     </div>
                     <div class="col py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
+                        <!-- <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
                         <input id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido">
                         <div id="mensaje">
                             <small id="nameDescription" class="form-text text-muted" *ngIf="categoryForm.submitted && controlIsRequired('description')"> Requerido</small>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

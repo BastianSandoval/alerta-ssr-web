@@ -11,10 +11,17 @@ import { DonationScreenComponent } from './screens/donation-screen/donation-scre
 import { SettingsScreenComponent } from './screens/settings-screen/settings-screen.component';
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { MapComponent } from './components/map/map.component';
+import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
+import { AdminGuard } from './../core/guards/admin/admin.guard';
 
 const routes: Routes = [
   {
+    path:'login',
+    component: LoginScreenComponent
+  },
+  {
     path: '',
+    canActivate: [AdminGuard],
     component: AdminComponent,
     children: [
       {
