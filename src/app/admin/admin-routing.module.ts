@@ -12,14 +12,16 @@ import { SettingsScreenComponent } from './screens/settings-screen/settings-scre
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { MapComponent } from './components/map/map.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
+import { AdminGuard } from './../core/guards/admin/admin.guard';
 
 const routes: Routes = [
-  // {
-  //   path:'login',
-  //   component:
-  // },
+  {
+    path:'login',
+    component: LoginScreenComponent
+  },
   {
     path: '',
+    canActivate: [AdminGuard],
     component: AdminComponent,
     children: [
       {
@@ -29,7 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'reports',
-        component: LoginScreenComponent
+        component: ReportsScreenComponent
       },
       {
         path: 'cases',
