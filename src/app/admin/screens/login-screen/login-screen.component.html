@@ -1,29 +1,42 @@
-<div class="row justify-content-start vh-100">
-    <div class="col-12">
-        <div class="container-fluid pt-5">
-            <div class="alertaAPI text-center pt-5">
-                <img class="img-fluid" style="height: 10%; width: 10%;" src="../../../../assets/icons/logo-icon.svg">
+<div class="container-fluid vh-100" style="background: #EEF2E9!important">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <div class="container-fluid pt-2">
+                <div class="alertaAPI text-center pt-3">
+                    <img class="img-fluid" style="height: 100px; width: 450px;" src="../../../../assets/icons/logo-icon.svg">
+                </div>
+                <h1 class="mt-3 mb-5 xs title-screen text-center" style="color: #96AC78;">Bienvenido a Alerta Verde</h1>
+                <form [formGroup]="checkoutForm" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                    <div class="class">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-9 col-sm-6 col-md-5 col-lg-3">
+                                <label for="email" class="fw-bolder">CORREO:</label>
+                                <input id="email" type="text" class="form-control" formControlName="email" placeholder="correo@ejemplo.com"> 
+                            </div>
+                            <small class="text-danger ml-2"
+                            *ngIf="controlIsRequired('email') && loginForm.submitted">
+                            (Email requerido)
+                            </small>
+                        </div>
+                        <div class="row justify-content-center align-items-center py-3 py-lg-4">
+                            <div class="col-9 col-sm-6 col-md-5 col-lg-3">
+                                <label for="password" class="fw-bolder">CONTRASEÑA</label>
+                                <input id="password" type="password" class="form-control"
+                                formControlName="password"
+                                placeholder="contraseña"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('password') && loginForm.submitted }">
+                            </div>
+                            <small class="text-danger ml-2"
+                            *ngIf="controlIsRequired('password') && loginForm.submitted">
+                            (Contraseña requerida)
+                            </small>
+                        </div>
+                    </div>
+                    <div class="button-group text-center mt-3 col-12">
+                        <button type="submit" class="btn text-center text-white px-5" style="border-radius: 13px;">INICIAR SESIÓN</button>
+                    </div>
+                </form>
             </div>
-            <h1 class="mt-5 mb-5 xs title-screen text-center" style="color: #96AC78;">Bienvenido a Alerta Verde</h1>
-            <form [formGroup]="checkoutForm">
-                <div class="class" style="padding-left: 40%;">
-                    <div class="row">
-                        <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
-                            <label for="actualLocation" class="fw-bolder">CORREO:</label>
-                            <input id="actualLocation" type="text" class="form-control" formControlName="correo" placeholder="correo@ejemplo.com" aria-label="actualLocation">
-                        </div>
-                    </div>
-                    <div class="row py-3 py-lg-4">
-                        <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
-                            <label for="minimalChecks" class="fw-bolder">CONTRASEÑA</label>
-                            <input id="minimalChecks" type="text" class="form-control" formControlName="contraseña" placeholder="contraseña" aria-label="minimalChecks">
-                        </div>
-                    </div>
-                </div>
-                <div class="button-group text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary text-center">Iniciar sesión</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
