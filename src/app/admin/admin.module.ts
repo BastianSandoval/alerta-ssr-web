@@ -33,6 +33,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@core/interceptors/auth/auth.interceptor';
+import { ModalLogoutComponent } from './components/modal-logout/modal-logout.component';
 
 const component = [
   AdminComponent,SidebarComponent,
@@ -40,7 +41,7 @@ const component = [
   , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
-  ,FormEditCaseComponent, LoginScreenComponent
+  ,FormEditCaseComponent, LoginScreenComponent, ModalLogoutComponent
 ]
 
 @NgModule({

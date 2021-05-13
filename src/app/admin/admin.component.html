@@ -24,3 +24,9 @@
         </div> -->
     </div>
 </section>
+<app-modal-logout
+[id]="'logOutModal'"
+[title]="'Cerrar sesión'"
+[message]="'¿Estas seguro que deseas cerrar la sesión?'"
+(confirm)="logOut()"
+></app-modal-logout>
