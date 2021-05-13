@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthService } from '../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +16,8 @@ export class AdminComponent implements OnInit {
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    private authService: AuthService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -31,6 +33,7 @@ export class AdminComponent implements OnInit {
   }
 
   public logOut(): void {
+    this.authService.logout();
   }
 
   public showSidebar(){
