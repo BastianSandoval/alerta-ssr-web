@@ -31,8 +31,6 @@ import { FormEditCaseComponent } from './components/form-edit-case/form-edit-cas
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '@core/interceptors/auth/auth.interceptor';
 import { ModalLogoutComponent } from './components/modal-logout/modal-logout.component';
 
 const component = [
@@ -61,13 +59,7 @@ const component = [
     ReactiveFormsModule
 
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ]
+  providers: []
 })
 
 export class AdminModule { }
