@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
     <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
-            <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event)">
+            <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameTitle" class="fw-bolder">TÍTULO</label>
@@ -49,7 +49,7 @@
                             <div class="bg-white">
                                 <angular2-multiselect
                                 [formControl]="userFormControl"
-                                [data]="itemList" 
+                                [data]="user" 
                                 [settings]="settings">
                                 </angular2-multiselect>
                             </div>
@@ -111,12 +111,12 @@
                                 </ng-template>
                             </ng-container>
                             <ng-template #showPhoto>
-                                <img class="img-fluid" [src]="checkoutForm.get('imgUrl')?.value" (click)="inputFile.click()">
+                                <img class="img-fluid" [src]="checkoutForm.get('imageUrl')?.value" (click)="inputFile.click()">
                             </ng-template>
                         </div>
                     </div>
                 <div class="button-group text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar(reportForm)">Guardar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)=" guardarImage()">Guardar</button>
                 </div>
             </form>
         </div>

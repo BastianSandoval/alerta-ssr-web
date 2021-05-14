@@ -28,7 +28,6 @@ export class EditReportsScreenComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params.id || '';
-      console.log(this.id);
       /* console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id) */
     });
   }
@@ -38,13 +37,9 @@ export class EditReportsScreenComponent implements OnInit {
     this.submitPlan();
   }
 
-  importngForm(ngForm: FormGroupDirective){
-    this.ngForm= ngForm;
-    console.log(this.ngForm);
-  }
-
   public async submitPlan(): Promise<void> {
     if (this.form.valid) {
+      console.log(this.form.value)
       if (this.id != '') {
         await this.updatePlan();
       } else {
@@ -67,7 +62,6 @@ export class EditReportsScreenComponent implements OnInit {
 
   public async updatePlan(): Promise<void> {
     try {
-      console.log(this.form.value);
       await this.reportProviderService.updateReport(this.id, this.form.value as Report).toPromise();
       this.notificationService.success('El plan ha sido actualizado');
     } catch (error) {

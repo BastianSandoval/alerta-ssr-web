@@ -9,7 +9,9 @@ import { google } from "google-maps";
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 
 import { FormService } from '../../../core/services/form/form.service';
-import { ReportsService } from '../../../core/services/reports/reports.service';
+import { ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { UserProviderService} from '../../../core/providers/user/user-provider.service';
+import { User } from '../../../core/models/user.model'
 
 
 declare var google : google;
@@ -20,9 +22,8 @@ declare var google : google;
   styleUrls: ['./form-edit-report.component.css']
 })
 export class FormEditReportComponent implements OnInit{
-  @Output() reportForm: EventEmitter<FormGroupDirective>;
-  @Output() form: EventEmitter<FormGroup>;
 
+  @Output() form: EventEmitter<FormGroup>;
 
   @Input() id:string;
 
@@ -37,6 +38,8 @@ export class FormEditReportComponent implements OnInit{
   checkoutForm: FormGroup;
   userFormControl: FormControl;
   ngForm: FormGroupDirective;
+  user : User[] = [];
+  id_user:string;
 
 ////////////////////////////
   
@@ -52,9 +55,9 @@ export class FormEditReportComponent implements OnInit{
   public options: any;
 
   constructor(
-    private reportService: ReportsService,
     private formService:FormService,
-    
+    private reportProviderService: ReportProviderService,
+    private userProviderService:UserProviderService
     ){
     this.checkoutForm;
     this.userFormControl = new FormControl([],[Validators.required]);
@@ -64,37 +67,21 @@ export class FormEditReportComponent implements OnInit{
     this.loader = false;
     this.id = '';
     this.form= new EventEmitter<FormGroup>();
-    this.reportForm= new EventEmitter<FormGroupDirective>();
-
-    this.itemList = [
-      {"_id":1,"itemName":"India","name":"IN"},
-      {"_id":2,"itemName":"Singapore","name":"SN"},
-      {"_id":3,"itemName":"Australia","name":"AU"},
-      {"_id":4,"itemName":"Canada","name":"CA"},
-      {"_id":5,"itemName":"South Korea","name":"SK"},    
-      {"_id":6,"itemName":"Brazil","name":"BR"},  
-      {"_id":7,"itemName":"Brazil","name":"BR"}, 
-      {"_id":8,"itemName":"Brazil","name":"BR"}                                   
-    ];
-
     }
 
     exportForm(){
       this.form.emit(this.checkoutForm); // mandamos el form a la screen
-      this.reportForm.emit(this.ngForm); // Enviando el reportForm
     }
 
-    
+    async ngOnInit(){
+      const data :any = await this.reportProviderService.getAllReports().toPromise(); 
+      this.report = data;
 
-    fetchProducts(){
-      this.report = this.reportService.getAllReports(); 
-    };  
-
-
-    ngOnInit(){
-      this.fetchProducts();
+      const users:any= await this.userProviderService.getAllUsers().toPromise();
+      this.user= users;
 
       this.settings = {
+        labelKey: 'names',
         enableSearchFilter: true,
         addNewItemOnFilter: false,
         singleSelection: true,
@@ -103,23 +90,23 @@ export class FormEditReportComponent implements OnInit{
         noDataLabel:"No Hay Resultado",
         primaryKey:"_id",
       };
-      
   };
 
   public handleAddressChange(address: any) {
-    console.log(address.geometry.location.lat());
-    console.log(address.name);
     //agrego ubicacion al formcontrol location
     this.checkoutForm.controls['location'].setValue(address.name);
-}
-
-  public saveReport(event: Event){
-    event.preventDefault(); 
   }
 
-  public enviar(ngForm: FormGroupDirective){
-    this.ngForm= ngForm;
+
+  public saveReport(event: Event, reportForm: FormGroupDirective ){
+    event.preventDefault(); 
+    
+    // console.log(this.userFormControl.value());
+    this.id_user= this.userFormControl.value;
+    console.log((this.id_user[0]));
+    if (reportForm.valid)
     this.exportForm();
+    reportForm.resetForm(); // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
   }
 
   private createFormGroup() {
@@ -130,7 +117,15 @@ export class FormEditReportComponent implements OnInit{
       location: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
       date: new FormControl('',[Validators.required]),
+      imageUrl: ['', []],
+      image: ['', [ ]],
     })
+  }
+
+  guardarImage(){
+    const fileName = this.imageChangedEvent.target.files[0].name;
+    const img = this.base64ToFile(this.croppedImage, fileName);
+    this.checkoutForm.get('image').setValue(img);
   }
 
   public controlIsRequired(formControlName: string): boolean {
