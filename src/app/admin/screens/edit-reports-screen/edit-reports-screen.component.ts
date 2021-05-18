@@ -19,7 +19,6 @@ export class EditReportsScreenComponent implements OnInit {
 
   id:string;
   form: FormGroup;
-  ngForm:FormGroupDirective;
 
   constructor(private notificationService:NotificationService, private activatedRoute : ActivatedRoute,private reportProviderService: ReportProviderService) { // sin private no funciona
     this.id='';
@@ -47,12 +46,10 @@ export class EditReportsScreenComponent implements OnInit {
       }
     }
   }
-
   public async addPlan(form: FormGroup): Promise<void> {
     try {
       await this.reportProviderService.addReport(this.form.value).toPromise();
       this.notificationService.success('El plan ha sido creado');
-      this.ngForm.resetForm(); // luego de enviar, se limpia
       this.form.reset();
     } catch (error) {
       console.log(error);

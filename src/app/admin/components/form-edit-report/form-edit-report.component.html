@@ -13,12 +13,28 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
+                        <form >
+                            <label for="nameCategory" class="fw-bolder">Categoria</label>
+                            <div class="bg-white">
+                                <angular2-multiselect
+                                [formControl]="categoryFormControl"
+                                [data]="category" 
+                                [settings]="settingsCategories">
+                                </angular2-multiselect>
+                            </div>
+                            
+                            <div id="mensaje">
+                                <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('category')"> Requerido</small>
+                            </div>
+                        </form>                   
+                    </div>
+                    <!-- <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameCategory" class="fw-bolder">CATEGORÍA</label>
                         <input id="nameCategory" type="text" class="form-control" formControlName="category" aria-label="Nombre y Apellido">
                         <div id="mensaje">
                             <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('category')"> Requerido</small>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">

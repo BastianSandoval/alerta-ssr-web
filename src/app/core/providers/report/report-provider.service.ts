@@ -20,14 +20,34 @@ export class ReportProviderService {
   }
 
   addReport(report: Report): Observable<Report>{
-    return this.http.post<Report>('/complaint', report);
+    const reportForm = this.getFormData(report);
+    return this.http.post<Report>('/complaint', reportForm);
   }
 
   updateReport(id: string, report: Report): Observable<Report>{
-    return this.http.patch<Report>(`/complaint/${id}`, report);
+    const reportForm = this.getFormData(report);
+    
+    // if (photoChange) {
+    //   reportForm.append('imgUrl', report.imageUrl);
+    // }
+
+    return this.http.patch<Report>(`/complaint/${id}`, reportForm);
   }
 
   deleteReport(id: string): Observable<Report>{
     return this.http.delete<Report>(`/complaint/${id}`);
+  }
+
+
+  private getFormData(report: any): FormData {
+    const reportForm = new FormData();
+    reportForm.append('title', report.title);
+    reportForm.append('location', report.location);
+    reportForm.append('category', report.category);
+    reportForm.append('description', report.description);
+    reportForm.append('user', report.user);
+    reportForm.append('image', report.image);
+
+    return reportForm;
   }
 }

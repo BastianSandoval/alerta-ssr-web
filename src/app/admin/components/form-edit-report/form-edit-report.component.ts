@@ -13,6 +13,17 @@ import { ReportProviderService} from '../../../core/providers/report/report-prov
 import { UserProviderService} from '../../../core/providers/user/user-provider.service';
 import { User } from '../../../core/models/user.model'
 
+import { NotificationService} from '../../../core/services/notification/notification.service'
+
+import {RegionProviderService} from '../../../core/providers/region/region-provider.service';
+import {Region} from '../../../core/models/region.model';
+import {CommuneProviderService} from '../../../core/providers/commune/commune-provider.service';
+import {Commune} from '../../../core/models/commune.model';
+import {LocationProviderService} from '../../../core/providers/location/location-provider.service';
+import {Location} from './../../../core/models/location.model';
+import {CategoryProviderService} from '../../../core/providers/category/category-provider.service';
+import {Category} from '../../../core/models/category.model';
+
 
 declare var google : google;
 
@@ -37,14 +48,18 @@ export class FormEditReportComponent implements OnInit{
   report: Report[] = [];
   checkoutForm: FormGroup;
   userFormControl: FormControl;
+  categoryFormControl: FormControl;
   ngForm: FormGroupDirective;
   user : User[] = [];
-  id_user:string;
+  category: Category[] = [];
+  address: any;
+
 
 ////////////////////////////
   
   itemList = [];
   settings = {};
+  settingsCategories = {};
   count = 6;
 ///////////////////////////
   public loader: boolean;
@@ -54,13 +69,26 @@ export class FormEditReportComponent implements OnInit{
 
   public options: any;
 
+
+  //ids Api
+  public idRegion: any;
+  public idCommune: any;
+  public idLocation: any;
+  public idCategoria: any;
+
   constructor(
     private formService:FormService,
     private reportProviderService: ReportProviderService,
-    private userProviderService:UserProviderService
+    private userProviderService:UserProviderService,
+    private regionProviderService : RegionProviderService,
+    private notificationService: NotificationService,
+    private communeProviderService: CommuneProviderService,
+    private locationProviderService: LocationProviderService,
+    private categoryProviderService: CategoryProviderService,
     ){
     this.checkoutForm;
     this.userFormControl = new FormControl([],[Validators.required]);
+    this.categoryFormControl = new FormControl([],[Validators.required]);
     this.createFormGroup();
     this.imageChangedEvent = null;
     this.changePhoto = false;
@@ -80,6 +108,9 @@ export class FormEditReportComponent implements OnInit{
       const users:any= await this.userProviderService.getAllUsers().toPromise();
       this.user= users;
 
+      const categories: any = await this.categoryProviderService.getAllCategories().toPromise();
+      this.category = categories;
+
       this.settings = {
         labelKey: 'names',
         enableSearchFilter: true,
@@ -90,20 +121,194 @@ export class FormEditReportComponent implements OnInit{
         noDataLabel:"No Hay Resultado",
         primaryKey:"_id",
       };
+
+      this.settingsCategories = {
+        labelKey: 'name',
+        enableSearchFilter: true,
+        addNewItemOnFilter: false,
+        singleSelection: true,
+        text:"Seleccionar Categoria",
+        searchPlaceholderText:"Buscar",
+        noDataLabel:"No Hay Resultado",
+        primaryKey:"_id",
+      };
   };
 
   public handleAddressChange(address: any) {
     //agrego ubicacion al formcontrol location
-    this.checkoutForm.controls['location'].setValue(address.name);
+    // this.checkoutForm.controls['location'].setValue(address.name);
+    this.address = address;
+    console.log(address.address_components.length);
+    console.log(address.address_components[0].long_name); //ciudad
+    console.log(address.address_components[1].long_name); //comuna
+    console.log(address.address_components[3].long_name); //region
+    console.log(address.geometry.location.lat()); //lat
+    console.log(address.geometry.location.lng()); //long
+
+    //guardar region
+    this.saveRegion(this.address);
+    
+  }
+
+  //conectar con providers
+  public async saveRegion(address: any){
+    try{
+      if(address.address_components.length < 5){
+       var region: Region = {
+          name: address.address_components[2].long_name
+        }
+      }else {
+       var region: Region = {
+          name: address.address_components[3].long_name
+        }
+      }
+
+      let regiones: Region[] = await this.regionProviderService.getAllRegions().toPromise();
+            
+      let result = (regiones.find(data => data.name == region.name.toLowerCase()));
+
+      if(!result){
+       console.log("no se encontro");
+       await this.regionProviderService.addRegion(region)
+       .subscribe(data => {
+         this.idRegion = data._id;
+        });
+      } else {
+         this.idRegion = result._id;
+      }
+
+      //guardar comuna
+      this.saveCommune(this.address);
+      
+    } catch(error){
+      console.log(error);
+      this.notificationService.error('No se ha podido guardar ubicacion');
+    }
   }
 
 
+  public async saveCommune(address: any){
+    try{
+      console.log(this.idRegion);
+      if(address.address_components.length < 5){
+       var commune: Commune = {
+          name: address.address_components[0].long_name,
+          region: this.idRegion
+        }
+      }else {
+        var commune: Commune = {
+          name: address.address_components[1].long_name,
+          region: this.idRegion
+        }
+      }
+
+      let communes: Commune[] = await this.communeProviderService.getAllCommunes().toPromise();
+            
+      let result = (communes.find(data => data.name == commune.name.toLowerCase()));
+
+      if(!result){
+       console.log("no se encontro");
+       console.log(commune);
+       await this.communeProviderService.addCommune(commune)
+       .subscribe((data) => {
+         this.idCommune = data._id;
+        });
+      } else {
+         this.idCommune = result._id;
+      }
+
+      //guardar Location
+      this.saveLocation(this.address);
+      
+    } catch(error){
+      console.log(error);
+      this.notificationService.error('No se ha podido guardar ubicacion');
+    }
+  }
+
+  public async saveLocation(address: any){
+    try{
+      console.log(this.idCommune);
+      if(address.address_components.length < 5){
+       var location: Location = {
+          latitude: address.geometry.location.lat().toString(),
+          longitude: address.geometry.location.lng().toString(),
+          commune: this.idCommune
+        }
+      }else {
+        var location: Location = {
+          latitude: address.geometry.location.lat().toString(),
+          longitude: address.geometry.location.lng().toString(),
+          commune: this.idCommune
+        }
+      }
+
+      let locations: Location[] = await this.locationProviderService.getAllLocations().toPromise();
+            
+      let result = (locations.find(data => data.latitude == location.latitude && data.longitude == location.longitude));
+
+      if(!result){
+       console.log("no se encontro");
+       console.log(location);
+       await this.locationProviderService.addLocation(location)
+       .subscribe((data) => {
+         this.idLocation= data._id;
+        });
+      } else {
+         this.idLocation = result._id;
+      }
+      
+    } catch(error){
+      console.log(error);
+      this.notificationService.error('No se ha podido guardar ubicacion');
+    }
+  }
+
+
+  // public async saveCategory(){
+  //   try{
+  //     var categoria: Category = {
+  //       name: this.checkoutForm.get('category').value
+  //     }
+
+  //     let categories: Category[] = await this.categoryProviderService.getAllCategories().toPromise();
+            
+  //     let result = (categories.find(data => data.name == categoria.name.toLocaleLowerCase()));
+
+  //     if(!result){
+  //       console.log("no se encontro");
+  //       console.log(categoria);
+  //       await this.categoryProviderService.addCategory(categoria)
+  //       .subscribe((data) => {
+  //         this.idCategoria= data._id;
+  //        });
+  //      } else {
+  //         this.idCategoria = result._id;
+  //         console.log(this.idCategoria);
+  //      }
+
+       
+  //   }catch(error){
+  //     console.log(error);
+  //     this.notificationService.error('No se ha podido guardar categoria');
+  //   }
+  // }
+
+
+
   public saveReport(event: Event, reportForm: FormGroupDirective ){
-    event.preventDefault(); 
+    event.preventDefault();
+    //hacer lista de categorias
     
-    // console.log(this.userFormControl.value());
-    this.id_user= this.userFormControl.value;
-    console.log((this.id_user[0]));
+    this.userFormControl.setValue(this.userFormControl.value[0]._id);
+    this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id);
+    this.checkoutForm.controls['location'].setValue(this.idLocation);
+  
+
+    console.log(this.checkoutForm.value);
+
+    // this.checkoutForm.controls['category'].setValue(this.idCategoria);
+
     if (reportForm.valid)
     this.exportForm();
     reportForm.resetForm(); // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
@@ -112,7 +317,7 @@ export class FormEditReportComponent implements OnInit{
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
       title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
-      category: new FormControl('',[Validators.required]),
+      category: this.categoryFormControl,
       user: this.userFormControl,
       location: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
@@ -157,6 +362,8 @@ export class FormEditReportComponent implements OnInit{
     }
   }
 
+  public formData : FormData;
+
   public cancelPhotoChange(): void {
     this.inputFile.nativeElement.value = '';
     this.imageChangedEvent = null;
@@ -182,10 +389,4 @@ export class FormEditReportComponent implements OnInit{
     return new File([u8arr], filename, { type: mime });
   }
 
-
-  //PARTE SELECCIONAR USUARIO
-
-
-
- 
 }
