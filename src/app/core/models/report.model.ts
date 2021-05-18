@@ -4,7 +4,7 @@ export interface Report {
     location: string;
     category: string;
     description:string;
-    imageUrl: string;
+    imageUrl: string | File;
     user:string;
     checks?: number;
     reject?: number;
