@@ -46,6 +46,7 @@ export class FormEditReportComponent implements OnInit{
   @ViewChild("placesRef") placesRef : GooglePlaceDirective;
 
   report: Report[] = [];
+  reportId : string;
   checkoutForm: FormGroup;
   userFormControl: FormControl;
   categoryFormControl: FormControl;
@@ -53,7 +54,8 @@ export class FormEditReportComponent implements OnInit{
   user : User[] = [];
   category: Category[] = [];
   address: any;
-
+  selectedUser : User;
+ 
 
 ////////////////////////////
   
@@ -75,6 +77,7 @@ export class FormEditReportComponent implements OnInit{
   public idCommune: any;
   public idLocation: any;
   public idCategoria: any;
+  
 
   constructor(
     private formService:FormService,
@@ -85,6 +88,8 @@ export class FormEditReportComponent implements OnInit{
     private communeProviderService: CommuneProviderService,
     private locationProviderService: LocationProviderService,
     private categoryProviderService: CategoryProviderService,
+    private route: ActivatedRoute,
+
     ){
     this.checkoutForm;
     this.userFormControl = new FormControl([],[Validators.required]);
@@ -132,12 +137,15 @@ export class FormEditReportComponent implements OnInit{
         noDataLabel:"No Hay Resultado",
         primaryKey:"_id",
       };
+
+      this.setReport();
   };
 
   public handleAddressChange(address: any) {
     //agrego ubicacion al formcontrol location
     // this.checkoutForm.controls['location'].setValue(address.name);
     this.address = address;
+    console.log(address);
     console.log(address.address_components.length);
     console.log(address.address_components[0].long_name); //ciudad
     console.log(address.address_components[1].long_name); //comuna
@@ -265,37 +273,6 @@ export class FormEditReportComponent implements OnInit{
   }
 
 
-  // public async saveCategory(){
-  //   try{
-  //     var categoria: Category = {
-  //       name: this.checkoutForm.get('category').value
-  //     }
-
-  //     let categories: Category[] = await this.categoryProviderService.getAllCategories().toPromise();
-            
-  //     let result = (categories.find(data => data.name == categoria.name.toLocaleLowerCase()));
-
-  //     if(!result){
-  //       console.log("no se encontro");
-  //       console.log(categoria);
-  //       await this.categoryProviderService.addCategory(categoria)
-  //       .subscribe((data) => {
-  //         this.idCategoria= data._id;
-  //        });
-  //      } else {
-  //         this.idCategoria = result._id;
-  //         console.log(this.idCategoria);
-  //      }
-
-       
-  //   }catch(error){
-  //     console.log(error);
-  //     this.notificationService.error('No se ha podido guardar categoria');
-  //   }
-  // }
-
-
-
   public saveReport(event: Event, reportForm: FormGroupDirective ){
     event.preventDefault();
     //hacer lista de categorias
@@ -310,7 +287,7 @@ export class FormEditReportComponent implements OnInit{
     // this.checkoutForm.controls['category'].setValue(this.idCategoria);
 
     if (reportForm.valid)
-    this.exportForm();
+    this.submitReport();
     reportForm.resetForm(); // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
   }
 
@@ -388,5 +365,85 @@ export class FormEditReportComponent implements OnInit{
 
     return new File([u8arr], filename, { type: mime });
   }
+
+  public async submitReport(): Promise<void> {
+    if (this.checkoutForm.valid) {
+      console.log(this.checkoutForm.value)
+      if (this.id != '') {
+        await this.updateReport();
+      } else {
+        await this.addReport(this.checkoutForm);
+      }
+    }
+  }
+
+   public async addReport(form: FormGroup): Promise<void> {
+    try {
+      await this.reportProviderService.addReport(this.checkoutForm.value).toPromise();
+      this.notificationService.success('El plan ha sido creado');
+      this.checkoutForm.reset();
+    } catch (error) {
+      console.log(error);
+      this.notificationService.error('No se ha podido crear el plan');
+    }
+  }
+
+  public async setReport(): Promise<void> {
+    this.route.params.subscribe(async (params) => {
+      this.id = params.id;
+      if (this.id) {
+        try {
+          const data: any = await this.reportProviderService.getReport(this.id).toPromise();
+          console.log(data);
+          let report: Report = {
+            title: data.title,
+            category: data.category.name,
+            user: data.user.names,
+            location: data.location,
+            description: data.comments,
+            date: new Date(),
+            imageUrl: data.imageUrl,
+          }
+          this.selectedUser = data.user;
+          console.log(report);
+
+          this.checkoutForm.setValue({
+            title: report.title,
+            category:'',
+            user: '',            
+            location: report.location,
+            description: report.description,
+            date: report.date,
+            imageUrl: report.imageUrl,
+            image: ''
+          });
+          this.userFormControl.setValue([data.user]);
+          this.categoryFormControl.setValue([data.category]);
+          
+        } catch (error) {
+          console.log(error);
+          this.notificationService.error('No se ha podido cargar el producto');
+        }
+      }
+    });
+  }
+
+  
+  public async updateReport(): Promise<void> {
+    try {
+      if (this.changePhoto) {
+        const fileName = this.imageChangedEvent.target.files[0].name;
+        const img = this.base64ToFile(this.croppedImage, fileName);
+        this.checkoutForm.get('image').setValue(img);
+      }
+      await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
+      this.notificationService.success('El producto ha sido actualizado');
+    } catch (error) {
+      console.log(error);
+      this.notificationService.error('No se ha podido actualizar el producto');
+    }
+  }
+
+
 
 }
