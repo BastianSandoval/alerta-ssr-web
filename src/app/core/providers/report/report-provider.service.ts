@@ -24,12 +24,12 @@ export class ReportProviderService {
     return this.http.post<Report>('/complaint', reportForm);
   }
 
-  updateReport(id: string, report: Report): Observable<Report>{
+  updateReport(id: string, report: Report, photoChange:boolean): Observable<Report>{
     const reportForm = this.getFormData(report);
     
-    // if (photoChange) {
-    //   reportForm.append('imgUrl', report.imageUrl);
-    // }
+    if (photoChange) {
+      reportForm.append('imgUrl', report.imageUrl);
+    }
 
     return this.http.patch<Report>(`/complaint/${id}`, reportForm);
   }
