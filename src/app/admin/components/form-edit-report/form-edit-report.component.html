@@ -1,6 +1,6 @@
 
-<div class="row justify-content-center">
-    <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
+<div class="row justify-content-end">
+    <div class="col-12 col-lg-10" style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
             <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
                 <div class="row">
@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDate" class="fw-bolder">FECHA REPORTE: </label>
-                        <input formControlName="date" class="form-control" type="date" name="fecha" style="padding-left: 4%;" value="1999-11-15">
+                        <input formControlName="date" class="form-control" type="date" name="fecha" style="padding-left: 4%;">
                         
                         <div id="mensaje">
                             <small id="nameDate" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('date')"> Requerido</small>
@@ -90,7 +90,7 @@
                     <div class="row align-items-center justify-content-center my-2"> 
                         <div class="col-md-11 text-center">
                             <input class="d-none" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" #inputFile>
-                            <ng-container>
+                            <ng-container *ngIf="!id || changePhoto; else showPhoto">
                                 <ng-container *ngIf="!imageChangedEvent; else cropper">
                                     <div class="container-fluid py-4 pointer" (click)="inputFile.click()" style="cursor: pointer;">
                                         <span><i class="fas fa-images fa-4x text-lightgrey"></i></span>
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                 <div class="button-group text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)=" guardarImage()">Guardar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
                 </div>
             </form>
         </div>
