@@ -1,9 +1,9 @@
-<div class="row justify-content-center">
-    <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
+<div class="row justify-content-end">
+    <div class="col-12 col-lg-10 " style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
-            <form [formGroup]="checkoutForm" #caseForm="ngForm" (ngSubmit)="saveCase($event)">
+            <form [formGroup]="checkoutForm" #caseForm="ngForm" (ngSubmit)="saveCase($event, caseForm)">
                 <div class="row">
-                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
+                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameTitle" class="fw-bolder">TÍTULO</label>
                         <input id="nameTitle" type="text" class="form-control" formControlName="title" aria-label="nameTitle">
                         <div id='mensaje'>
@@ -11,7 +11,7 @@
                             <small id="nameTitle" class="form-text text-muted" *ngIf=" caseForm.submitted && controlIsInvalidPattern('title')"> Invalido </small>
                         </div>
                     </div>
-                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
+                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
                         <textarea id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
                         <div id="mensaje">
@@ -24,7 +24,7 @@
                     <div class="row align-items-center justify-content-center my-2"> 
                         <div class="col-md-11 text-center">
                             <input class="d-none" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" #inputFile>
-                            <ng-container>
+                            <ng-container *ngIf="!id || changePhoto; else showPhoto">
                                 <ng-container *ngIf="!imageChangedEvent; else cropper">
                                     <div class="container-fluid py-4 pointer" (click)="inputFile.click()" style="cursor: pointer;">
                                         <span><i class="fas fa-images fa-4x"></i></span>
@@ -61,12 +61,12 @@
                                 </ng-template>
                             </ng-container>
                             <ng-template #showPhoto>
-                                <img class="img-fluid" [src]="checkoutForm.get('imgUrl')?.value" (click)="inputFile.click()">
+                                <img class="img-fluid" [src]="checkoutForm.get('imageUrl')?.value" (click)="inputFile.click()">
                             </ng-template>
                         </div>
                     </div>
                 <div class="button-group text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar()">Guardar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
                 </div>
             </form>
         </div>

@@ -14,7 +14,7 @@ export class TableReportsComponent implements OnInit{
   value!: string;
   filterReport!: string;
   idSelected: any;
-  reportSelected: any;
+  reportSelected: boolean;
   reportsSlice!: Report[];
   sizePageTable: number = 7;
   startPage: number = 0;
@@ -24,7 +24,7 @@ export class TableReportsComponent implements OnInit{
 
 
   constructor(private reportProviderService: ReportProviderService) {
-    this.reportSelected = null;
+    this.reportSelected = false;
     this.visualizar=true;
     this.reports= [];
    }
@@ -108,7 +108,7 @@ export class TableReportsComponent implements OnInit{
   }
 
   selectReport(report: Report){
-    this.reportSelected = report;
+    this.reportSelected = true;
 
   }
 }

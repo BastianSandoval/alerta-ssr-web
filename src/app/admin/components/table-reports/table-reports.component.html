@@ -49,13 +49,13 @@
                        
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
                                 <td scope="col-2">{{report.title}}</td>
-                                <td scope="col-2">{{report.category}}</td>
-                                <td scope="col-1">{{report.date |date:'dd-mm-yyyy'}}</td>
+                                <td scope="col-2">{{report.category.name}}</td>
+                                <td scope="col-1">{{report.createdAt |date:'dd-mm-yyyy'}}</td>
                                 <td scope="col-2">{{report.location}}</td>
                                 <td scope="col-2">{{report.checks}}  
                                     <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-mm-yyyy'}}</span>
                                 </td>
-                                <td scope="col-1">{{report.reject}}</td>
+                                <td scope="col-1">{{report.rejections}}</td>
                                 <td class="btnRight text-center" scope="col-2">
                                     <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-report', report._id]">Editar</a>
                                     
@@ -70,15 +70,15 @@
                                 <td colspan="7" *ngIf="reportSelected">
                                  <div class="wrapper">
                                     <h2>USUARIO:</h2> 
-                                    <p>{{reportSelected.user}}</p>
+                                    <p>{{report.user.names}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>DESCRIPCIÓN:</h2>
-                                    <p >{{reportSelected.description}}</p>
+                                    <p >{{report.description}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>ÚLTIMA VALIDACIÓN:</h2>
-                                    <p>{{reportSelected.date | date:'dd-mm-yyyy'}} {{reportSelected.date | date: 'H:mm:ss'}}</p>
+                                    <p>{{report.lastCheckAt | date:'dd-mm-yyyy'}} {{report.lastCheckAt | date: 'H:mm:ss'}}</p>
                                  </div>  
                                  </td>
                             </tr>

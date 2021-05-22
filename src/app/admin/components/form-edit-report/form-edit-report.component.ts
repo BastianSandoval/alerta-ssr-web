@@ -69,7 +69,9 @@ export class FormEditReportComponent implements OnInit{
   public croppedImage: any;
   public changePhoto: boolean;
 
-  public options: any;
+  public options: any = {
+    componentRestrictions: { country: "CL" },
+  };
 
 
   //ids Api
@@ -276,15 +278,16 @@ export class FormEditReportComponent implements OnInit{
   public saveReport(event: Event, reportForm: FormGroupDirective ){
     event.preventDefault();
     //hacer lista de categorias
+
+    this.checkoutForm.get('user').setValue(this.userFormControl.value[0]._id);
+    this.checkoutForm.get('category').setValue(this.categoryFormControl.value[0]._id);
     
-    this.userFormControl.setValue(this.userFormControl.value[0]._id);
-    this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id);
-    this.checkoutForm.controls['location'].setValue(this.idLocation);
+    // this.userFormControl.setValue(this.userFormControl.value[0]._id);
+    // this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id);
+     this.checkoutForm.controls['location'].setValue(this.idLocation);
   
 
     console.log(this.checkoutForm.value);
-
-    // this.checkoutForm.controls['category'].setValue(this.idCategoria);
 
     if (reportForm.valid)
     this.submitReport();
@@ -302,12 +305,6 @@ export class FormEditReportComponent implements OnInit{
       imageUrl: ['', []],
       image: ['', [ ]],
     })
-  }
-
-  guardarImage(){
-    const fileName = this.imageChangedEvent.target.files[0].name;
-    const img = this.base64ToFile(this.croppedImage, fileName);
-    this.checkoutForm.get('image').setValue(img);
   }
 
   public controlIsRequired(formControlName: string): boolean {
@@ -379,6 +376,10 @@ export class FormEditReportComponent implements OnInit{
 
    public async addReport(form: FormGroup): Promise<void> {
     try {
+      const fileName = this.imageChangedEvent.target.files[0].name;
+      const img = this.base64ToFile(this.croppedImage, fileName);
+      this.checkoutForm.get('image').setValue(img);
+
       await this.reportProviderService.addReport(this.checkoutForm.value).toPromise();
       this.notificationService.success('El plan ha sido creado');
       this.checkoutForm.reset();
@@ -390,31 +391,21 @@ export class FormEditReportComponent implements OnInit{
 
   public async setReport(): Promise<void> {
     this.route.params.subscribe(async (params) => {
-      this.id = params.id;
+      this.id = params.id || '';
       if (this.id) {
         try {
           const data: any = await this.reportProviderService.getReport(this.id).toPromise();
-          console.log(data);
-          let report: Report = {
-            title: data.title,
-            category: data.category.name,
-            user: data.user.names,
-            location: data.location,
-            description: data.comments,
-            date: new Date(),
-            imageUrl: data.imageUrl,
-          }
           this.selectedUser = data.user;
-          console.log(report);
+          let date = this.fromJsonDate(data.createdAt);
 
           this.checkoutForm.setValue({
-            title: report.title,
+            title: data.title,
             category:'',
             user: '',            
-            location: report.location,
-            description: report.description,
-            date: report.date,
-            imageUrl: report.imageUrl,
+            location: data.location,
+            description: data.description,
+            date: date,
+            imageUrl: data.imageUrl,
             image: ''
           });
           this.userFormControl.setValue([data.user]);
@@ -444,6 +435,11 @@ export class FormEditReportComponent implements OnInit{
     }
   }
 
+
+  fromJsonDate(jDate): string {
+    const bDate: Date = new Date(jDate);
+    return bDate.toISOString().substring(0, 10);  //Ignore time
+  }
 
 
 }
