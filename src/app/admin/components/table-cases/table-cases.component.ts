@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Report } from '../../../core/models/report.model';
-import { ReportsService } from '../../../core/services/reports/reports.service';
+import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
 
 @Component({
   selector: 'app-table-cases',
@@ -9,14 +9,12 @@ import { ReportsService } from '../../../core/services/reports/reports.service';
 })
 export class TableCasesComponent implements OnInit {
 
-  breeds?: string[];
   reports: Report[];
-  filtercategory!: string;
-  dogSelected: any;
+  filterCategory!: string;
   value!: string;
   filterReport!: string;
   idSelected: any;
-  reportSelected: any;
+  reportSelected: boolean;
   reportsSlice!: Report[];
   sizePageTable: number = 7;
   
@@ -25,13 +23,16 @@ export class TableCasesComponent implements OnInit {
 
 
 
-  constructor(private reportsService: ReportsService) {
-    this.reports = reportsService.report;
-    this.reportSelected = null;
+  constructor(private reportProviderService: ReportProviderService) {
+    this.reportSelected = false;
+    this.reports= [];
    }
 
 
   async ngOnInit(): Promise<void> {
+    const data :any = await this.reportProviderService.getAllReports().toPromise(); 
+    this.reports = data.docs;
+    console.log(this.reports);
   }
 
   ngDoCheck(){
@@ -58,11 +59,11 @@ export class TableCasesComponent implements OnInit {
 
 
   categoryFilter(event:any) {
-    this.filtercategory = event.target.value;
+    this.filterCategory = event.target.value;
   }
 
   clearFilter() {
-    this.filtercategory = '';
+    this.filterCategory = '';
     this.filterReport= '';
   }
 
@@ -106,7 +107,7 @@ export class TableCasesComponent implements OnInit {
   }
 
   selectReport(report: Report){
-    this.reportSelected = report;
+    this.reportSelected = true;
 
   }
 

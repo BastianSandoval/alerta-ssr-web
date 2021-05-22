@@ -38,7 +38,7 @@
                     <tbody *ngFor="let category of categorysSlice | categoryFilter: filterReport">
                         <tr>
                             <td scope="col-2">{{category.name}}</td>
-                            <!-- <td scope="col-2">{{report.description}}</td> -->
+                            <td scope="col-2">{{category.description}}</td>
                             <td class="btnRight" scope="col-2">
                                 <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-category', category._id]">Editar</a>
                                 
