@@ -20,13 +20,4 @@ export class ModalEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editDog(id: string, newDog: any){
-    
-    // if('algo' === null){
-    //   this.notificationService.error('Error al editar perro intente nuevamente');
-    // }else{
-    //   this.notificationService.success('Perro editado correctamente');
-    // }
-  }
-
 }

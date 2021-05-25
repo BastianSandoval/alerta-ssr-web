@@ -2,6 +2,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormService } from '../../../core/services/form/form.service';
+import { NotificationService} from '../../../core/services/notification/notification.service'
+import { CategoryProviderService} from '../../../core/providers/category/category-provider.service'
+import { Category} from '../../../core/models/category.model'
+
 
 @Component({
   selector: 'app-form-edit-category',
@@ -16,10 +20,15 @@ export class FormEditCategoryComponent implements OnInit {
   breeds?: string[];
   image?: string;
   id!: string;
+  selectedCategory : Category;
+
 
   constructor(
     private activeRoute: ActivatedRoute,
     private formService:FormService,
+    private categoryProviderService: CategoryProviderService,
+    private notificationService: NotificationService
+    
     
     ){
     this.checkoutForm;
@@ -28,10 +37,8 @@ export class FormEditCategoryComponent implements OnInit {
     }
 
    async ngOnInit(): Promise<void> {
-      // this.activeRoute.params.subscribe((params: Params) => {
-      //   this.id = params.id;
-      //   console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id)
-      // });
+
+    this.setCategory();
     };
 
     public exportForm(){
@@ -73,5 +80,24 @@ export class FormEditCategoryComponent implements OnInit {
 
   public controlIsInvalidLength(formControlName: string): boolean {
     return this.formService.controlIsInvalidLength(this.checkoutForm, formControlName);
+  }
+
+  public async setCategory(): Promise<void> {
+    this.activeRoute.params.subscribe(async (params) => {
+      this.id = params.id || '';
+      if (this.id) {
+        try {
+          const data: any = await this.categoryProviderService.getCategory(this.id).toPromise();
+          this.selectedCategory = data.category;
+
+          this.checkoutForm.setValue({
+            name: data.name,
+          });
+        } catch (error) {
+          console.log(error);
+          this.notificationService.error('No se ha podido cargar el producto');
+        }
+      }
+    });
   }
 }

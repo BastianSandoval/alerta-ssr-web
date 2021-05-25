@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ReportsService } from '@core/services/reports/reports.service';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { ReportProviderService} from '../../../core/providers/report/report-provider.service';
 
 @Component({
   selector: 'app-modal-delete',
@@ -10,25 +10,25 @@ import { NotificationService } from '@core/services/notification/notification.se
 export class ModalDeleteComponent implements OnInit {
 
 
-  @Input() report!: string;
   @Input() id!: string;
+  @Output() idDelete:EventEmitter<string>;
   constructor(
     private notificationService: NotificationService,
-    private reportsService: ReportsService) {}
+    private reportProviderService: ReportProviderService) 
+    {
+      this.idDelete= new EventEmitter<string>();
+    }
+
 
   ngOnInit(): void {
   }
 
-  deleteReport(id: string){
-    if(this.reportsService.deleteReport(id) === null){
-      this.notificationService.error('Error al eliminar reporte intente nuevamente');
-
-    }else{
-      this.notificationService.success('Reporte eliminado exitosamente');
+  async deleteReport(){
+    if (this.id) {
+      this.idDelete.emit(this.id);
+      // this.notificationService.success('Reporte eliminado exitosamente');
     }
-
-
-
-    /* console.log(id) */
+    else {}
+      // this.notificationService.error('Error al eliminar reporte intente nuevamente');
   }
 }
