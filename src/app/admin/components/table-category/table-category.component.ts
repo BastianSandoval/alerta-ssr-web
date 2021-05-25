@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryProviderService} from '../../../core/providers/category/category-provider.service'
 import { Category} from '../../../core/models/category.model';
+import { ReportProviderService } from '../../../core/providers/report/report-provider.service'
+import { Report} from '../../../core/models/report.model'
+import { NotificationService } from '@core/services/notification/notification.service';
+
+
 
 @Component({
   selector: 'app-table-category',
@@ -27,7 +32,10 @@ export class TableCategoryComponent implements OnInit {
 
 
 
-  constructor(private categoryProviderService: CategoryProviderService) {
+  constructor(private categoryProviderService: CategoryProviderService,
+              private reportProviderService: ReportProviderService,
+              private notificationService: NotificationService
+    ) {
     this.categorySelected =null;
     this.category= [];
     this.visualizar=true;
@@ -37,7 +45,7 @@ export class TableCategoryComponent implements OnInit {
    async ngOnInit(): Promise<void> {
     const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
     this.category = data;
-    console.log(data);
+    
   }
 
   ngDoCheck(){
@@ -60,6 +68,33 @@ export class TableCategoryComponent implements OnInit {
       nextButton?.removeAttribute('disabled');
     }
     
+  }
+
+  categorySelect(category: Category){
+    this.idSelected = category._id;
+  }
+
+  async deleteItem(categoryId){
+    let index:number=0;
+    let existeReporte : any = await this.reportProviderService.getComplaintsPerCategory(categoryId).toPromise();
+    console.log(existeReporte.docs);
+    if (!existeReporte.docs.length){
+      await this.categoryProviderService.deleteCategory(categoryId).toPromise();
+      if (categoryId){
+        this.category.forEach((category: Category) => {
+          if (categoryId === category._id) {
+            this.category.splice(index,1);
+          }
+        index++;
+        });
+        const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
+        this.category = data;
+        this.notificationService.success('Reporte eliminado exitosamente');
+      }
+    }
+    else{
+      this.notificationService.warning('No es posible eliminar, reportes vinculados a la categoría correspondiente');
+    }
   }
 
 

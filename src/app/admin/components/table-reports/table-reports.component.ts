@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
+import { Observable } from 'rxjs';
 import { Report } from '../../../core/models/report.model';
 import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
+
 
 @Component({
   selector: 'app-table-reports',
@@ -20,6 +22,7 @@ export class TableReportsComponent implements OnInit{
   startPage: number = 0;
   endPage: number = 7;
   visualizar:boolean;
+  reportId : string;
 
 
 
@@ -33,10 +36,38 @@ export class TableReportsComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     const data :any = await this.reportProviderService.getAllReports().toPromise(); 
     this.reports = data.docs;
-    console.log(this.reports);
+    // console.log(this.reports);
   }
 
-  ngDoCheck(){
+  async ngOnChanges() {
+  }
+
+  async deleteItem(reportId){
+
+    let index:number=0;
+    console.log(reportId);
+    await this.reportProviderService.deleteReport(reportId).toPromise();
+    if (reportId){
+      this.reports.forEach((report: Report) => {
+        if (reportId === report._id) {
+          this.reports.splice(index,1);
+        }
+      index++;
+      });
+      const data :any = await this.reportProviderService.getAllReports().toPromise(); 
+      this.reports = data.docs;
+    }
+    else {
+    }
+  }
+
+  reportSelect(report: Report){
+    this.idSelected = report._id;
+  }
+
+  
+  async ngDoCheck(){
+
     this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");

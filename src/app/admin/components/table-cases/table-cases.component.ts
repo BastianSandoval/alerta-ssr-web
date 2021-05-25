@@ -57,6 +57,22 @@ export class TableCasesComponent implements OnInit {
     
   }
 
+  async deleteItem(reportId){
+    let index:number=0;
+    console.log(reportId);
+    await this.reportProviderService.deleteReport(reportId).toPromise();
+    if (reportId){
+      this.reports.forEach((report: Report) => {
+        if (reportId === report._id) {
+          this.reports.splice(index,1);
+        }
+      index++;
+      });
+      const data :any = await this.reportProviderService.getAllReports().toPromise(); 
+      this.reports = data.docs;
+    }
+  }
+
 
   categoryFilter(event:any) {
     this.filterCategory = event.target.value;

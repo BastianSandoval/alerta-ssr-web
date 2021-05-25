@@ -28,18 +28,11 @@
                             </div>
                         </form>                   
                     </div>
-                    <!-- <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameCategory" class="fw-bolder">CATEGORÍA</label>
-                        <input id="nameCategory" type="text" class="form-control" formControlName="category" aria-label="Nombre y Apellido">
-                        <div id="mensaje">
-                            <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('category')"> Requerido</small>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDate" class="fw-bolder">FECHA REPORTE: </label>
-                        <input formControlName="date" class="form-control" type="date" name="fecha" style="padding-left: 4%;">
+                        <input formControlName="date" class="form-control" max="{{fechaActual | date:'yyyy-MM-dd'}}" type="date" name="fecha" style="padding-left: 4%;">
                         
                         <div id="mensaje">
                             <small id="nameDate" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('date')"> Requerido</small>
@@ -74,9 +67,7 @@
                                 <small id="nameUser" class="form-text text-muted" *ngIf="userFormControl.hasError('required') && reportForm.submitted "> Requerido</small>
                             </div>
                         </form>
-     
-                        <!-- <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido" placeholder="@"> -->
-                       
+                            
                     </div>
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
