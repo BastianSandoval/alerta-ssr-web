@@ -55,8 +55,8 @@ export class FormEditReportComponent implements OnInit{
   category: Category[] = [];
   address: any;
   selectedUser : User;
- 
-
+  fechaActual: Date= new Date();
+  
 ////////////////////////////
   
   itemList = [];
