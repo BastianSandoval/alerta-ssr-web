@@ -2,6 +2,7 @@ export interface Report {
     _id?: string;
     title: string;
     location: string;
+    ubication?: string;
     category: string;
     description:string;
     imageUrl: string | File;

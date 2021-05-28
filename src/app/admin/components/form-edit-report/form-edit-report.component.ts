@@ -79,6 +79,7 @@ export class FormEditReportComponent implements OnInit{
   public idCommune: any;
   public idLocation: any;
   public idCategoria: any;
+  public ubicacion : any = {region:'',commune:'',latitude:'', longitude:'', street_number: 0, street_name:''};  
   
 
   constructor(
@@ -109,9 +110,7 @@ export class FormEditReportComponent implements OnInit{
     }
 
     async ngOnInit(){
-      const data :any = await this.reportProviderService.getAllReports().toPromise(); 
-      this.report = data;
-
+      
       const users:any= await this.userProviderService.getAllUsers().toPromise();
       this.user= users;
 
@@ -148,29 +147,39 @@ export class FormEditReportComponent implements OnInit{
     // this.checkoutForm.controls['location'].setValue(address.name);
     this.address = address;
     console.log(address);
-    console.log(address.address_components.length);
-    console.log(address.address_components[0].long_name); //ciudad
-    console.log(address.address_components[1].long_name); //comuna
-    console.log(address.address_components[3].long_name); //region
-    console.log(address.geometry.location.lat()); //lat
-    console.log(address.geometry.location.lng()); //long
 
     //guardar region
-    this.saveRegion(this.address);
+    for (let i = 0; i < address.address_components.length; i++) {
+      if(address.address_components[i].types[0] === "administrative_area_level_1"){
+        this.ubicacion.region = address.address_components[i].long_name;
+      }
+      if(address.address_components[i].types[0] === "administrative_area_level_3"){
+        this.ubicacion.commune = address.address_components[i].long_name;
+        console.log(this.ubicacion.commune);
+      }
+      if(address.address_components[i].types[0] === "street_number"){
+        this.ubicacion.street_number = parseInt(address.address_components[i].long_name);
+        console.log(address.address_components[i].long_name);
+      }
+      if(address.address_components[i].types[0] === "route"){
+        this.ubicacion.street_name = address.address_components[i].long_name;
+        console.log(address.address_components[i].long_name);
+      }
+
+    }
+    this.ubicacion.latitude = address.geometry.location.lat().toString();
+    this.ubicacion.longitude = address.geometry.location.lng().toString();
+    this.saveRegion();
     
   }
 
   //conectar con providers
-  public async saveRegion(address: any){
+  public async saveRegion(){
     try{
-      if(address.address_components.length < 5){
-       var region: Region = {
-          name: address.address_components[2].long_name
-        }
-      }else {
-       var region: Region = {
-          name: address.address_components[3].long_name
-        }
+      
+      console.log(this.ubicacion.region)
+      var region: Region = {
+        name: this.ubicacion.region
       }
 
       let regiones: Region[] = await this.regionProviderService.getAllRegions().toPromise();
@@ -179,16 +188,15 @@ export class FormEditReportComponent implements OnInit{
 
       if(!result){
        console.log("no se encontro");
-       await this.regionProviderService.addRegion(region)
+        await this.regionProviderService.addRegion(region)
        .subscribe(data => {
          this.idRegion = data._id;
         });
       } else {
          this.idRegion = result._id;
       }
-
       //guardar comuna
-      this.saveCommune(this.address);
+      this.saveCommune();
       
     } catch(error){
       console.log(error);
@@ -197,19 +205,13 @@ export class FormEditReportComponent implements OnInit{
   }
 
 
-  public async saveCommune(address: any){
+  public async saveCommune(){
     try{
+
       console.log(this.idRegion);
-      if(address.address_components.length < 5){
-       var commune: Commune = {
-          name: address.address_components[0].long_name,
-          region: this.idRegion
-        }
-      }else {
-        var commune: Commune = {
-          name: address.address_components[1].long_name,
-          region: this.idRegion
-        }
+      var commune: Commune = {
+        name: this.ubicacion.commune,
+        region: this.idRegion
       }
 
       let communes: Commune[] = await this.communeProviderService.getAllCommunes().toPromise();
@@ -226,9 +228,9 @@ export class FormEditReportComponent implements OnInit{
       } else {
          this.idCommune = result._id;
       }
-
+      console.log(this.idCommune);
       //guardar Location
-      this.saveLocation(this.address);
+      this.saveLocation();
       
     } catch(error){
       console.log(error);
@@ -236,23 +238,16 @@ export class FormEditReportComponent implements OnInit{
     }
   }
 
-  public async saveLocation(address: any){
+  public async saveLocation(){
     try{
-      console.log(this.idCommune);
-      if(address.address_components.length < 5){
-       var location: Location = {
-          latitude: address.geometry.location.lat().toString(),
-          longitude: address.geometry.location.lng().toString(),
-          commune: this.idCommune
-        }
-      }else {
-        var location: Location = {
-          latitude: address.geometry.location.lat().toString(),
-          longitude: address.geometry.location.lng().toString(),
-          commune: this.idCommune
-        }
-      }
 
+      var location: Location = {
+        latitude: this.ubicacion.latitude,
+        longitude: this.ubicacion.longitude,
+        streetName: this.ubicacion.street_name,
+        streetNumber: this.ubicacion.street_number,
+        commune: this.idCommune
+      }
       let locations: Location[] = await this.locationProviderService.getAllLocations().toPromise();
             
       let result = (locations.find(data => data.latitude == location.latitude && data.longitude == location.longitude));
@@ -397,12 +392,17 @@ export class FormEditReportComponent implements OnInit{
           const data: any = await this.reportProviderService.getReport(this.id).toPromise();
           this.selectedUser = data.user;
           let date = this.fromJsonDate(data.createdAt);
+          
+          let commune : any = await this.communeProviderService.getCommune(data.location.commune).toPromise();
+          let region = await this.regionProviderService.getRegion(commune.region._id).toPromise();
+
+          let ubication : string = `${data.location.streetName} ${data.location.streetNumber}, ${commune.name}, ${region.name}`;
 
           this.checkoutForm.setValue({
             title: data.title,
             category:'',
             user: '',            
-            location: data.location,
+            location: ubication,
             description: data.description,
             date: date,
             imageUrl: data.imageUrl,
