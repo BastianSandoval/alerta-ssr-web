@@ -58,7 +58,7 @@ export class FormEditCategoryComponent implements OnInit {
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
       name: new FormControl('',[Validators.required]),
-      // description: new FormControl('',[Validators.required]),
+      description: new FormControl('',[Validators.required]),
     })
   }
 
@@ -92,6 +92,7 @@ export class FormEditCategoryComponent implements OnInit {
 
           this.checkoutForm.setValue({
             name: data.name,
+            description: data.description
           });
         } catch (error) {
           console.log(error);
