@@ -9,8 +9,6 @@ import { FormEditReportComponent } from './components/form-edit-report/form-edit
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TableReportsComponent } from './components/table-reports/table-reports.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
-import { ModalEditComponent } from './components/modal-edit/modal-edit.component';
-import { ModalImageComponent } from './components/modal-image/modal-image.component';
 import { SharedModule } from '@shared/shared.module';
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 import { CategoryScreenComponent} from './screens/category-screen/category-screen.component'
@@ -36,7 +34,7 @@ import { ModalLogoutComponent } from './components/modal-logout/modal-logout.com
 const component = [
   AdminComponent,SidebarComponent,
  TableReportsComponent,EditReportsScreenComponent,FormEditReportComponent
-  , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
+  , ModalDeleteComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
   ,FormEditCaseComponent, LoginScreenComponent, ModalLogoutComponent

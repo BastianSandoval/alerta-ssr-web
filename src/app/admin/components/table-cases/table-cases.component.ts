@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Report } from '../../../core/models/report.model';
 import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { Region } from '../../../core/models/region.model';
+import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
+import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
 
 @Component({
   selector: 'app-table-cases',
@@ -10,6 +13,8 @@ import {ReportProviderService} from '../../../core/providers/report/report-provi
 export class TableCasesComponent implements OnInit {
 
   reports: Report[];
+  communes: any;
+  regions: Region[];
   filterCategory!: string;
   value!: string;
   filterReport!: string;
@@ -20,18 +25,21 @@ export class TableCasesComponent implements OnInit {
   
   startPage: number = 0;
   endPage: number = 7;
+  numberPage: number = 1;
 
 
 
-  constructor(private reportProviderService: ReportProviderService) {
+  constructor(
+    private reportProviderService: ReportProviderService,
+    private regionProviderService:RegionProviderService,
+    private communeProviderService:CommuneProviderService) {
     this.reportSelected = false;
     this.reports= [];
    }
 
 
   async ngOnInit(): Promise<void> {
-    const data :any = await this.reportProviderService.getAllReports().toPromise(); 
-    this.reports = data.docs;
+    this.setReport()
     console.log(this.reports);
   }
 
@@ -68,9 +76,31 @@ export class TableCasesComponent implements OnInit {
         }
       index++;
       });
-      const data :any = await this.reportProviderService.getAllReports().toPromise(); 
-      this.reports = data.docs;
+      this.setReport()
     }
+  }
+  
+  async setReport(){
+    const data :any = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
+    this.reports = data.docs;
+    this.communes = await this.communeProviderService.getAllCommunes().toPromise();
+    this.regions = await this.regionProviderService.getAllRegions().toPromise();
+
+    this.reports.forEach((report) =>{
+      let location:any = report.location;
+      this.communes.forEach((commune) =>{
+        if(location.commune === commune._id){
+          this.regions.forEach((region) => {
+            if(commune.region._id === region._id){
+              report.ubication = `${location.streetName} ${location.streetNumber}, ${commune.name}, ${region.name}`
+              console.log(report.ubication);
+            }
+          })
+        }
+      })
+    });
+
+    console.log(this.reports);
   }
 
 
@@ -115,11 +145,13 @@ export class TableCasesComponent implements OnInit {
   prevPage() {
     this.endPage = this.startPage;
     this.startPage = this.startPage - this.sizePageTable;
+    this.numberPage--;
   }
 
   nextPage() {
     this.startPage = this.endPage;
     this.endPage = this.endPage + this.sizePageTable;
+    this.numberPage++;
   }
 
   selectReport(report: Report){

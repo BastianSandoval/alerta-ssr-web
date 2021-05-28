@@ -2,28 +2,23 @@
     <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
             <form [formGroup]="checkoutForm" #categoryForm="ngForm" (ngSubmit)="saveCategory($event,categoryForm)">
-                <div class="row">
-                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-6 col-lg-6 py-3 py-lg-4 px-5 px-lg-5">
                         <label for="nameCategory" class="fw-bolder">NOMBRE</label>
                         <input id="nameCategory" type="text" class="form-control" formControlName="name" aria-label="nameCategory">
                         <div id="mensaje">
                             <small id="nameCategory" class="form-text text-muted" *ngIf="categoryForm.submitted && controlIsRequired('name')"> Requerido</small>
                         </div>
                     </div>
-                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
-                        <!-- <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
-                        <input id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido">
+                    <div class="col-10 col-md-6 col-lg-6 py-3 py-lg-4 px-5 px-lg-5">
+                        <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
+                        <textarea id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
                         <div id="mensaje">
                             <small id="nameDescription" class="form-text text-muted" *ngIf="categoryForm.submitted && controlIsRequired('description')"> Requerido</small>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
 
-                <!-- <div class="text-center">
-                    <button type="submit" class=" my-4 btn shadow" (click)="generateNewDog()" data-bs-toggle="modal" data-bs-target="#edit" [disabled]="!checkoutForm.valid" >Editar </button>
-                    <app-modal-edit [id] = "wantedDog?._id " [nameDog]= "wantedDog?.nameDog" [newDog] = "newDog1"></app-modal-edit>
-                </div> -->
-                
                 <div class="button-group text-center mt-3">
                     <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar()">Guardar</button>
                 </div>

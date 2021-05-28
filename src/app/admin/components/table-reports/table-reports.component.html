@@ -31,32 +31,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-12">
+        <div class="col-12">
             <div class="table-responsive">
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
-                            <th scope="col-2">TITULO</th>
-                            <th scope="col-2">CATEGORÍA</th>
-                            <th scope="col-1">FECHA</th>
-                            <th scope="col-2">UBICACIÓN</th>
-                            <th scope="col-2">VALIDACIONES</th>
-                            <th scope="col-1">RECHAZOS</th>
-                            <th scope="col-2">ACCIONES</th>
+                            <th scope="col">TITULO</th>
+                            <th scope="col">CATEGORÍA</th>
+                            <th scope="col">FECHA</th>
+                            <th scope="col">UBICACIÓN</th>
+                            <th scope="col">VALIDACIONES</th>
+                            <th scope="col">RECHAZOS</th>
+                            <th scope="col" width="19%" style="padding-left: 20px;">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let report of reportsSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
                        
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
-                                <td scope="col-2">{{report.title}}</td>
-                                <td scope="col-2">{{report.category.name}}</td>
-                                <td scope="col-1">{{report.createdAt |date:'dd-mm-yyyy'}}</td>
-                                <td scope="col-2">{{report.location}}</td>
-                                <td scope="col-2">{{report.checks}}  
+                                <td scope="col">{{report.title}}</td>
+                                <td scope="col">{{report.category.name}}</td>
+                                <td scope="col">{{report.createdAt |date:'dd-mm-yyyy'}}</td>
+                                <td scope="col">{{report.ubication}}</td>
+                                <td scope="col">{{report.checks}}  
                                     <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-mm-yyyy'}}</span>
                                 </td>
-                                <td scope="col-1">{{report.rejections}}</td>
-                                <td class="btnRight text-center" scope="col-2">
+                                <td scope="col">{{report.rejections}}</td>
+                                <td class="btnRight text-center" scope="col" width="19%">
                                     <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-report', report._id]">Editar</a>
                                     
                                     <button class="btn rounded-pill eliminar-table" (click)= "reportSelect(report)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>

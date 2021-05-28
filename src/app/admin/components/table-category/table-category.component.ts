@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryProviderService} from '../../../core/providers/category/category-provider.service'
+import { CategoryProviderService} from '../../../core/providers/category/category-provider.service';
 import { Category} from '../../../core/models/category.model';
-import { ReportProviderService } from '../../../core/providers/report/report-provider.service'
-import { Report} from '../../../core/models/report.model'
+import { ReportProviderService } from '../../../core/providers/report/report-provider.service';
+import { Report} from '../../../core/models/report.model';
 import { NotificationService } from '@core/services/notification/notification.service';
 
 
@@ -89,11 +89,11 @@ export class TableCategoryComponent implements OnInit {
         });
         const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
         this.category = data;
-        this.notificationService.success('Reporte eliminado exitosamente');
+        this.notificationService.success('Categoria eliminado exitosamente');
       }
     }
     else{
-      this.notificationService.warning('No es posible eliminar, reportes vinculados a la categoría correspondiente');
+        this.notificationService.warning('No es posible eliminar, reportes vinculados a la categoría correspondiente');
     }
   }
 
