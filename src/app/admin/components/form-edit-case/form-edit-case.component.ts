@@ -1,8 +1,13 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormService } from '../../../core/services/form/form.service';
+
+import { NotificationService} from '../../../core/services/notification/notification.service';
+
+import { ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { Report } from '../../../core/models/report.model';
 
 @Component({
   selector: 'app-form-edit-case',
@@ -25,6 +30,9 @@ export class FormEditCaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute,
     private formService:FormService,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService,
+    private reportProviderService: ReportProviderService,
     
     ){
     this.checkoutForm;
@@ -37,25 +45,30 @@ export class FormEditCaseComponent implements OnInit {
     }
 
    async ngOnInit(): Promise<void> {
-      // this.activeRoute.params.subscribe((params: Params) => {
-      //   this.id = params.id;
-      //   console.log('Id a buscar = ' +this.id + ' el perro encontrado = ' + this.wantedDog._id)
-      // });
+      this.setReport();
   };
 
-  public saveCase(event: Event){
+  public saveCase(event: Event, reportForm: FormGroupDirective){
     event.preventDefault(); 
+
+    console.log(this.checkoutForm.value);
+    if (reportForm.valid){
+      this.submitReport();
+      reportForm.resetForm();
+    }
+
   }
 
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
       title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
       description: new FormControl('',[Validators.required]),
+      imageUrl: ['', []],
+      image: ['', [ ]],
+      category: new FormControl('',[Validators.required]),
+      user: new FormControl('',[Validators.required]),
+      location: new FormControl('',[Validators.required]),
     })
-  }
-
-  public enviar(){
-    console.log(this.checkoutForm.value);
   }
 
   public controlIsRequired(formControlName: string): boolean {
@@ -112,4 +125,56 @@ export class FormEditCaseComponent implements OnInit {
     return new File([u8arr], filename, { type: mime });
   }
 
+  //traer datos
+
+  public async setReport(): Promise<void> {
+    this.route.params.subscribe(async (params) => {
+      this.id = params.id || '';
+      if (this.id) {
+        try {
+          const data: any = await this.reportProviderService.getReport(this.id).toPromise();
+          console.log(data);
+          this.checkoutForm.setValue({
+            title: data.title,        
+            description: data.description,
+            imageUrl: data.imageUrl,
+            image: '',
+            category: data.category._id,
+            user: data.user._id, 
+            location: data.location._id,
+          });
+          
+        } catch (error) {
+          console.log(error);
+          this.notificationService.error('No se ha podido cargar el producto');
+        }
+      }
+    });
+  }
+
+
+  public async submitReport(): Promise<void> {
+    if (this.checkoutForm.valid) {
+      await this.updateReport();
+    }
+  }
+
+  public async updateReport(): Promise<void> {
+    try {
+      if (this.changePhoto) {
+        const fileName = this.imageChangedEvent.target.files[0].name;
+        const img = this.base64ToFile(this.croppedImage, fileName);
+        this.checkoutForm.get('image').setValue(img);
+      }
+      console.log(this.checkoutForm.value)
+      await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
+      this.notificationService.success('El producto ha sido actualizado');
+    } catch (error) {
+      console.log(error);
+      this.notificationService.error('No se ha podido actualizar el producto');
+    }
+  }
+
 }
+
+

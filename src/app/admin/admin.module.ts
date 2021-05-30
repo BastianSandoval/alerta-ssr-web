@@ -9,8 +9,6 @@ import { FormEditReportComponent } from './components/form-edit-report/form-edit
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TableReportsComponent } from './components/table-reports/table-reports.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
-import { ModalEditComponent } from './components/modal-edit/modal-edit.component';
-import { ModalImageComponent } from './components/modal-image/modal-image.component';
 import { SharedModule } from '@shared/shared.module';
 import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.component';
 import { CategoryScreenComponent} from './screens/category-screen/category-screen.component'
@@ -31,14 +29,12 @@ import { FormEditCaseComponent } from './components/form-edit-case/form-edit-cas
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '@core/interceptors/auth/auth.interceptor';
 import { ModalLogoutComponent } from './components/modal-logout/modal-logout.component';
 
 const component = [
   AdminComponent,SidebarComponent,
  TableReportsComponent,EditReportsScreenComponent,FormEditReportComponent
-  , ModalDeleteComponent, ModalEditComponent, ModalImageComponent, ReportsScreenComponent, TableCategoryComponent,
+  , ModalDeleteComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
   ,FormEditCaseComponent, LoginScreenComponent, ModalLogoutComponent
@@ -61,13 +57,7 @@ const component = [
     ReactiveFormsModule
 
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ]
+  providers: []
 })
 
 export class AdminModule { }

@@ -9,7 +9,20 @@ import { google } from "google-maps";
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 
 import { FormService } from '../../../core/services/form/form.service';
-import { ReportsService } from '../../../core/services/reports/reports.service';
+import { ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { UserProviderService} from '../../../core/providers/user/user-provider.service';
+import { User } from '../../../core/models/user.model'
+
+import { NotificationService} from '../../../core/services/notification/notification.service'
+
+import {RegionProviderService} from '../../../core/providers/region/region-provider.service';
+import {Region} from '../../../core/models/region.model';
+import {CommuneProviderService} from '../../../core/providers/commune/commune-provider.service';
+import {Commune} from '../../../core/models/commune.model';
+import {LocationProviderService} from '../../../core/providers/location/location-provider.service';
+import {Location} from './../../../core/models/location.model';
+import {CategoryProviderService} from '../../../core/providers/category/category-provider.service';
+import {Category} from '../../../core/models/category.model';
 
 
 declare var google : google;
@@ -20,9 +33,8 @@ declare var google : google;
   styleUrls: ['./form-edit-report.component.css']
 })
 export class FormEditReportComponent implements OnInit{
-  @Output() reportForm: EventEmitter<FormGroupDirective>;
-  @Output() form: EventEmitter<FormGroup>;
 
+  @Output() form: EventEmitter<FormGroup>;
 
   @Input() id:string;
 
@@ -34,14 +46,22 @@ export class FormEditReportComponent implements OnInit{
   @ViewChild("placesRef") placesRef : GooglePlaceDirective;
 
   report: Report[] = [];
+  reportId : string;
   checkoutForm: FormGroup;
   userFormControl: FormControl;
+  categoryFormControl: FormControl;
   ngForm: FormGroupDirective;
-
+  user : User[] = [];
+  category: Category[] = [];
+  address: any;
+  selectedUser : User;
+  fechaActual: Date= new Date();
+  
 ////////////////////////////
   
   itemList = [];
   settings = {};
+  settingsCategories = {};
   count = 6;
 ///////////////////////////
   public loader: boolean;
@@ -49,52 +69,56 @@ export class FormEditReportComponent implements OnInit{
   public croppedImage: any;
   public changePhoto: boolean;
 
-  public options: any;
+  public options: any = {
+    componentRestrictions: { country: "CL" },
+  };
+
+
+  //ids Api
+  public idRegion: any;
+  public idCommune: any;
+  public idLocation: any;
+  public idCategoria: any;
+  public ubicacion : any = {region:'',commune:'',latitude:'', longitude:'', street_number: 0, street_name:''};  
+  
 
   constructor(
-    private reportService: ReportsService,
     private formService:FormService,
-    
+    private reportProviderService: ReportProviderService,
+    private userProviderService:UserProviderService,
+    private regionProviderService : RegionProviderService,
+    private notificationService: NotificationService,
+    private communeProviderService: CommuneProviderService,
+    private locationProviderService: LocationProviderService,
+    private categoryProviderService: CategoryProviderService,
+    private route: ActivatedRoute,
+
     ){
     this.checkoutForm;
     this.userFormControl = new FormControl([],[Validators.required]);
+    this.categoryFormControl = new FormControl([],[Validators.required]);
     this.createFormGroup();
     this.imageChangedEvent = null;
     this.changePhoto = false;
     this.loader = false;
     this.id = '';
     this.form= new EventEmitter<FormGroup>();
-    this.reportForm= new EventEmitter<FormGroupDirective>();
-
-    this.itemList = [
-      {"_id":1,"itemName":"India","name":"IN"},
-      {"_id":2,"itemName":"Singapore","name":"SN"},
-      {"_id":3,"itemName":"Australia","name":"AU"},
-      {"_id":4,"itemName":"Canada","name":"CA"},
-      {"_id":5,"itemName":"South Korea","name":"SK"},    
-      {"_id":6,"itemName":"Brazil","name":"BR"},  
-      {"_id":7,"itemName":"Brazil","name":"BR"}, 
-      {"_id":8,"itemName":"Brazil","name":"BR"}                                   
-    ];
-
     }
 
     exportForm(){
       this.form.emit(this.checkoutForm); // mandamos el form a la screen
-      this.reportForm.emit(this.ngForm); // Enviando el reportForm
     }
 
-    
+    async ngOnInit(){
+      
+      const users:any= await this.userProviderService.getAllUsers().toPromise();
+      this.user= users;
 
-    fetchProducts(){
-      this.report = this.reportService.getAllReports(); 
-    };  
-
-
-    ngOnInit(){
-      this.fetchProducts();
+      const categories: any = await this.categoryProviderService.getAllCategories().toPromise();
+      this.category = categories;
 
       this.settings = {
+        labelKey: 'names',
         enableSearchFilter: true,
         addNewItemOnFilter: false,
         singleSelection: true,
@@ -103,33 +127,178 @@ export class FormEditReportComponent implements OnInit{
         noDataLabel:"No Hay Resultado",
         primaryKey:"_id",
       };
-      
+
+      this.settingsCategories = {
+        labelKey: 'name',
+        enableSearchFilter: true,
+        addNewItemOnFilter: false,
+        singleSelection: true,
+        text:"Seleccionar Categoria",
+        searchPlaceholderText:"Buscar",
+        noDataLabel:"No Hay Resultado",
+        primaryKey:"_id",
+      };
+
+      this.setReport();
   };
 
   public handleAddressChange(address: any) {
-    console.log(address.geometry.location.lat());
-    console.log(address.name);
     //agrego ubicacion al formcontrol location
-    this.checkoutForm.controls['location'].setValue(address.name);
-}
+    // this.checkoutForm.controls['location'].setValue(address.name);
+    this.address = address;
+    console.log(address);
 
-  public saveReport(event: Event){
-    event.preventDefault(); 
+    //guardar region
+    for (let i = 0; i < address.address_components.length; i++) {
+      if(address.address_components[i].types[0] === "administrative_area_level_1"){
+        this.ubicacion.region = address.address_components[i].long_name;
+      }
+      if(address.address_components[i].types[0] === "administrative_area_level_3"){
+        this.ubicacion.commune = address.address_components[i].long_name;
+        console.log(this.ubicacion.commune);
+      }
+      if(address.address_components[i].types[0] === "street_number"){
+        this.ubicacion.street_number = parseInt(address.address_components[i].long_name);
+        console.log(address.address_components[i].long_name);
+      }
+      if(address.address_components[i].types[0] === "route"){
+        this.ubicacion.street_name = address.address_components[i].long_name;
+        console.log(address.address_components[i].long_name);
+      }
+
+    }
+    this.ubicacion.latitude = address.geometry.location.lat().toString();
+    this.ubicacion.longitude = address.geometry.location.lng().toString();
+    this.saveRegion();
+    
   }
 
-  public enviar(ngForm: FormGroupDirective){
-    this.ngForm= ngForm;
-    this.exportForm();
+  //conectar con providers
+  public async saveRegion(){
+    try{
+      
+      console.log(this.ubicacion.region)
+      var region: Region = {
+        name: this.ubicacion.region
+      }
+
+      let regiones: Region[] = await this.regionProviderService.getAllRegions().toPromise();
+            
+      let result = (regiones.find(data => data.name == region.name.toLowerCase()));
+
+      if(!result){
+       console.log("no se encontro");
+        await this.regionProviderService.addRegion(region)
+       .subscribe(data => {
+         this.idRegion = data._id;
+        });
+      } else {
+         this.idRegion = result._id;
+      }
+      //guardar comuna
+      this.saveCommune();
+      
+    } catch(error){
+      console.log(error);
+      this.notificationService.error('No se ha podido guardar ubicacion');
+    }
+  }
+
+
+  public async saveCommune(){
+    try{
+
+      console.log(this.idRegion);
+      var commune: Commune = {
+        name: this.ubicacion.commune,
+        region: this.idRegion
+      }
+
+      let communes: Commune[] = await this.communeProviderService.getAllCommunes().toPromise();
+            
+      let result = (communes.find(data => data.name == commune.name.toLowerCase()));
+
+      if(!result){
+       console.log("no se encontro");
+       console.log(commune);
+       await this.communeProviderService.addCommune(commune)
+       .subscribe((data) => {
+         this.idCommune = data._id;
+        });
+      } else {
+         this.idCommune = result._id;
+      }
+      console.log(this.idCommune);
+      //guardar Location
+      this.saveLocation();
+      
+    } catch(error){
+      console.log(error);
+      this.notificationService.error('No se ha podido guardar ubicacion');
+    }
+  }
+
+  public async saveLocation(){
+    try{
+
+      var location: Location = {
+        latitude: this.ubicacion.latitude,
+        longitude: this.ubicacion.longitude,
+        streetName: this.ubicacion.street_name,
+        streetNumber: this.ubicacion.street_number,
+        commune: this.idCommune
+      }
+      let locations: Location[] = await this.locationProviderService.getAllLocations().toPromise();
+            
+      let result = (locations.find(data => data.latitude == location.latitude && data.longitude == location.longitude));
+
+      if(!result){
+       console.log("no se encontro");
+       console.log(location);
+       await this.locationProviderService.addLocation(location)
+       .subscribe((data) => {
+         this.idLocation= data._id;
+        });
+      } else {
+         this.idLocation = result._id;
+      }
+      
+    } catch(error){
+      console.log(error);
+      this.notificationService.error('No se ha podido guardar ubicacion');
+    }
+  }
+
+
+  public saveReport(event: Event, reportForm: FormGroupDirective ){
+    event.preventDefault();
+    //hacer lista de categorias
+
+    this.checkoutForm.get('user').setValue(this.userFormControl.value[0]._id);
+    this.checkoutForm.get('category').setValue(this.categoryFormControl.value[0]._id);
+    
+    // this.userFormControl.setValue(this.userFormControl.value[0]._id);
+    // this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id);
+     this.checkoutForm.controls['location'].setValue(this.idLocation);
+  
+
+    console.log(this.checkoutForm.value);
+
+    if (reportForm.valid)
+    this.submitReport();
+    reportForm.resetForm(); // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
   }
 
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
       title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
-      category: new FormControl('',[Validators.required]),
+      category: this.categoryFormControl,
       user: this.userFormControl,
       location: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
       date: new FormControl('',[Validators.required]),
+      imageUrl: ['', []],
+      image: ['', [ ]],
     })
   }
 
@@ -162,6 +331,8 @@ export class FormEditReportComponent implements OnInit{
     }
   }
 
+  public formData : FormData;
+
   public cancelPhotoChange(): void {
     this.inputFile.nativeElement.value = '';
     this.imageChangedEvent = null;
@@ -187,10 +358,88 @@ export class FormEditReportComponent implements OnInit{
     return new File([u8arr], filename, { type: mime });
   }
 
+  public async submitReport(): Promise<void> {
+    if (this.checkoutForm.valid) {
+      console.log(this.checkoutForm.value)
+      if (this.id != '') {
+        await this.updateReport();
+      } else {
+        await this.addReport(this.checkoutForm);
+      }
+    }
+  }
 
-  //PARTE SELECCIONAR USUARIO
+   public async addReport(form: FormGroup): Promise<void> {
+    try {
+      const fileName = this.imageChangedEvent.target.files[0].name;
+      const img = this.base64ToFile(this.croppedImage, fileName);
+      this.checkoutForm.get('image').setValue(img);
+
+      await this.reportProviderService.addReport(this.checkoutForm.value).toPromise();
+      this.notificationService.success('El plan ha sido creado');
+      this.checkoutForm.reset();
+    } catch (error) {
+      console.log(error);
+      this.notificationService.error('No se ha podido crear el plan');
+    }
+  }
+
+  public async setReport(): Promise<void> {
+    this.route.params.subscribe(async (params) => {
+      this.id = params.id || '';
+      if (this.id) {
+        try {
+          const data: any = await this.reportProviderService.getReport(this.id).toPromise();
+          this.selectedUser = data.user;
+          let date = this.fromJsonDate(data.createdAt);
+          
+          let commune : any = await this.communeProviderService.getCommune(data.location.commune).toPromise();
+          let region = await this.regionProviderService.getRegion(commune.region._id).toPromise();
+
+          let ubication : string = `${data.location.streetName} ${data.location.streetNumber}, ${commune.name}, ${region.name}`;
+
+          this.checkoutForm.setValue({
+            title: data.title,
+            category:'',
+            user: '',            
+            location: ubication,
+            description: data.description,
+            date: date,
+            imageUrl: data.imageUrl,
+            image: ''
+          });
+          this.userFormControl.setValue([data.user]);
+          this.categoryFormControl.setValue([data.category]);
+          
+        } catch (error) {
+          console.log(error);
+          this.notificationService.error('No se ha podido cargar el producto');
+        }
+      }
+    });
+  }
+
+  
+  public async updateReport(): Promise<void> {
+    try {
+      if (this.changePhoto) {
+        const fileName = this.imageChangedEvent.target.files[0].name;
+        const img = this.base64ToFile(this.croppedImage, fileName);
+        this.checkoutForm.get('image').setValue(img);
+      }
+      await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
+      this.notificationService.success('El producto ha sido actualizado');
+    } catch (error) {
+      console.log(error);
+      this.notificationService.error('No se ha podido actualizar el producto');
+    }
+  }
 
 
+  fromJsonDate(jDate): string {
+    const bDate: Date = new Date(jDate);
+    return bDate.toISOString().substring(0, 10);  //Ignore time
+  }
 
- 
+
 }

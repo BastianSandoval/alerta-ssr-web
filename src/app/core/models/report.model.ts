@@ -2,9 +2,10 @@ export interface Report {
     _id?: string;
     title: string;
     location: string;
+    ubication?: string;
     category: string;
     description:string;
-    imageUrl: string;
+    imageUrl: string | File;
     user:string;
     checks?: number;
     reject?: number;

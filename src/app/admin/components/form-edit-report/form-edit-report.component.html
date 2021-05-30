@@ -1,8 +1,8 @@
 
-<div class="row justify-content-center">
-    <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
+<div class="row justify-content-end">
+    <div class="col-12 col-lg-10" style="background-color: rgb(234, 238, 226)">
         <div class="container-fluid pt-4">
-            <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event)">
+            <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameTitle" class="fw-bolder">TÍTULO</label>
@@ -13,17 +13,26 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
-                        <label for="nameCategory" class="fw-bolder">CATEGORÍA</label>
-                        <input id="nameCategory" type="text" class="form-control" formControlName="category" aria-label="Nombre y Apellido">
-                        <div id="mensaje">
-                            <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('category')"> Requerido</small>
-                        </div>
+                        <form >
+                            <label for="nameCategory" class="fw-bolder">Categoria</label>
+                            <div class="bg-white">
+                                <angular2-multiselect
+                                [formControl]="categoryFormControl"
+                                [data]="category" 
+                                [settings]="settingsCategories">
+                                </angular2-multiselect>
+                            </div>
+                            
+                            <div id="mensaje">
+                                <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('category')"> Requerido</small>
+                            </div>
+                        </form>                   
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDate" class="fw-bolder">FECHA REPORTE: </label>
-                        <input formControlName="date" class="form-control" type="date" name="fecha" style="padding-left: 4%;" value="1999-11-15">
+                        <input formControlName="date" class="form-control" max="{{fechaActual | date:'yyyy-MM-dd'}}" type="date" name="fecha" style="padding-left: 4%;">
                         
                         <div id="mensaje">
                             <small id="nameDate" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('date')"> Requerido</small>
@@ -49,7 +58,7 @@
                             <div class="bg-white">
                                 <angular2-multiselect
                                 [formControl]="userFormControl"
-                                [data]="itemList" 
+                                [data]="user" 
                                 [settings]="settings">
                                 </angular2-multiselect>
                             </div>
@@ -58,9 +67,7 @@
                                 <small id="nameUser" class="form-text text-muted" *ngIf="userFormControl.hasError('required') && reportForm.submitted "> Requerido</small>
                             </div>
                         </form>
-     
-                        <!-- <input id="nameOwner" type="text" class="form-control" formControlName="nameOwner" aria-label="Nombre y Apellido" placeholder="@"> -->
-                       
+                            
                     </div>
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
@@ -74,7 +81,7 @@
                     <div class="row align-items-center justify-content-center my-2"> 
                         <div class="col-md-11 text-center">
                             <input class="d-none" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" #inputFile>
-                            <ng-container>
+                            <ng-container *ngIf="!id || changePhoto; else showPhoto">
                                 <ng-container *ngIf="!imageChangedEvent; else cropper">
                                     <div class="container-fluid py-4 pointer" (click)="inputFile.click()" style="cursor: pointer;">
                                         <span><i class="fas fa-images fa-4x text-lightgrey"></i></span>
@@ -111,12 +118,12 @@
                                 </ng-template>
                             </ng-container>
                             <ng-template #showPhoto>
-                                <img class="img-fluid" [src]="checkoutForm.get('imgUrl')?.value" (click)="inputFile.click()">
+                                <img class="img-fluid" [src]="checkoutForm.get('imageUrl')?.value" (click)="inputFile.click()">
                             </ng-template>
                         </div>
                     </div>
                 <div class="button-group text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar(reportForm)">Guardar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
                 </div>
             </form>
         </div>

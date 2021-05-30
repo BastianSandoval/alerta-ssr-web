@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Report } from '../../../core/models/report.model';
-import { ReportsService } from '../../../core/services/reports/reports.service';
+import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { Region } from '../../../core/models/region.model';
+import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
+import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
 
 @Component({
   selector: 'app-table-cases',
@@ -9,29 +12,35 @@ import { ReportsService } from '../../../core/services/reports/reports.service';
 })
 export class TableCasesComponent implements OnInit {
 
-  breeds?: string[];
   reports: Report[];
-  filtercategory!: string;
-  dogSelected: any;
+  communes: any;
+  regions: Region[];
+  filterCategory!: string;
   value!: string;
   filterReport!: string;
   idSelected: any;
-  reportSelected: any;
+  reportSelected: boolean;
   reportsSlice!: Report[];
   sizePageTable: number = 7;
   
   startPage: number = 0;
   endPage: number = 7;
+  numberPage: number = 1;
 
 
 
-  constructor(private reportsService: ReportsService) {
-    this.reports = reportsService.report;
-    this.reportSelected = null;
+  constructor(
+    private reportProviderService: ReportProviderService,
+    private regionProviderService:RegionProviderService,
+    private communeProviderService:CommuneProviderService) {
+    this.reportSelected = false;
+    this.reports= [];
    }
 
 
   async ngOnInit(): Promise<void> {
+    this.setReport()
+    console.log(this.reports);
   }
 
   ngDoCheck(){
@@ -56,13 +65,51 @@ export class TableCasesComponent implements OnInit {
     
   }
 
+  async deleteItem(reportId){
+    let index:number=0;
+    console.log(reportId);
+    await this.reportProviderService.deleteReport(reportId).toPromise();
+    if (reportId){
+      this.reports.forEach((report: Report) => {
+        if (reportId === report._id) {
+          this.reports.splice(index,1);
+        }
+      index++;
+      });
+      this.setReport()
+    }
+  }
+  
+  async setReport(){
+    const data :any = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
+    this.reports = data.docs;
+    this.communes = await this.communeProviderService.getAllCommunes().toPromise();
+    this.regions = await this.regionProviderService.getAllRegions().toPromise();
+
+    this.reports.forEach((report) =>{
+      let location:any = report.location;
+      this.communes.forEach((commune) =>{
+        if(location.commune === commune._id){
+          this.regions.forEach((region) => {
+            if(commune.region._id === region._id){
+              report.ubication = `${location.streetName} ${location.streetNumber}, ${commune.name}, ${region.name}`
+              console.log(report.ubication);
+            }
+          })
+        }
+      })
+    });
+
+    console.log(this.reports);
+  }
+
 
   categoryFilter(event:any) {
-    this.filtercategory = event.target.value;
+    this.filterCategory = event.target.value;
   }
 
   clearFilter() {
-    this.filtercategory = '';
+    this.filterCategory = '';
     this.filterReport= '';
   }
 
@@ -98,15 +145,17 @@ export class TableCasesComponent implements OnInit {
   prevPage() {
     this.endPage = this.startPage;
     this.startPage = this.startPage - this.sizePageTable;
+    this.numberPage--;
   }
 
   nextPage() {
     this.startPage = this.endPage;
     this.endPage = this.endPage + this.sizePageTable;
+    this.numberPage++;
   }
 
   selectReport(report: Report){
-    this.reportSelected = report;
+    this.reportSelected = true;
 
   }
 
