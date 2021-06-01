@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Report } from '../../../core/models/report.model';
 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -79,7 +79,8 @@ export class FormEditReportComponent implements OnInit{
   public idCommune: any;
   public idLocation: any;
   public idCategoria: any;
-  public ubicacion : any = {region:'',commune:'',latitude:'', longitude:'', street_number: 0, street_name:''};  
+  public ubicacion : any = {region:'',commune:'',latitude:'', longitude:'', street_number: 0, street_name:''}; 
+  
   
 
   constructor(
@@ -92,6 +93,7 @@ export class FormEditReportComponent implements OnInit{
     private locationProviderService: LocationProviderService,
     private categoryProviderService: CategoryProviderService,
     private route: ActivatedRoute,
+    private router: Router,
 
     ){
     this.checkoutForm;
@@ -191,12 +193,18 @@ export class FormEditReportComponent implements OnInit{
         await this.regionProviderService.addRegion(region)
        .subscribe(data => {
          this.idRegion = data._id;
+
+         //guardar comuna
+         this.saveCommune();
+
         });
       } else {
          this.idRegion = result._id;
+
+         //guardar comuna
+         this.saveCommune();
       }
-      //guardar comuna
-      this.saveCommune();
+      
       
     } catch(error){
       console.log(error);
@@ -224,13 +232,20 @@ export class FormEditReportComponent implements OnInit{
        await this.communeProviderService.addCommune(commune)
        .subscribe((data) => {
          this.idCommune = data._id;
+         console.log(data._id);
+
+          //guardar Location
+          this.saveLocation();
+
         });
       } else {
          this.idCommune = result._id;
+
+         //guardar Location
+         this.saveLocation();
       }
       console.log(this.idCommune);
-      //guardar Location
-      this.saveLocation();
+     
       
     } catch(error){
       console.log(error);
@@ -378,6 +393,7 @@ export class FormEditReportComponent implements OnInit{
       await this.reportProviderService.addReport(this.checkoutForm.value).toPromise();
       this.notificationService.success('El plan ha sido creado');
       this.checkoutForm.reset();
+      this.router.navigate(['admin/reports']);
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido crear el plan');
@@ -392,6 +408,8 @@ export class FormEditReportComponent implements OnInit{
           const data: any = await this.reportProviderService.getReport(this.id).toPromise();
           this.selectedUser = data.user;
           let date = this.fromJsonDate(data.createdAt);
+
+          this.idLocation = data.location._id;
           
           let commune : any = await this.communeProviderService.getCommune(data.location.commune).toPromise();
           let region = await this.regionProviderService.getRegion(commune.region._id).toPromise();
@@ -427,8 +445,10 @@ export class FormEditReportComponent implements OnInit{
         const img = this.base64ToFile(this.croppedImage, fileName);
         this.checkoutForm.get('image').setValue(img);
       }
+
       await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
       this.notificationService.success('El producto ha sido actualizado');
+      this.router.navigate(['admin/reports']);
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido actualizar el producto');
