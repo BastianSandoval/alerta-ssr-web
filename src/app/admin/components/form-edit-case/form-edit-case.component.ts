@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormService } from '../../../core/services/form/form.service';
 
@@ -33,7 +33,7 @@ export class FormEditCaseComponent implements OnInit {
     private route: ActivatedRoute,
     private notificationService: NotificationService,
     private reportProviderService: ReportProviderService,
-    
+    private router: Router,
     ){
     this.checkoutForm;
     this.createFormGroup();
@@ -169,6 +169,7 @@ export class FormEditCaseComponent implements OnInit {
       console.log(this.checkoutForm.value)
       await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
       this.notificationService.success('El producto ha sido actualizado');
+      this.router.navigate(['admin/cases']);
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido actualizar el producto');

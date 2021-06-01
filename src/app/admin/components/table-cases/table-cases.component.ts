@@ -4,6 +4,7 @@ import {ReportProviderService} from '../../../core/providers/report/report-provi
 import { Region } from '../../../core/models/region.model';
 import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
 import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
+import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
 
 @Component({
   selector: 'app-table-cases',
@@ -26,21 +27,39 @@ export class TableCasesComponent implements OnInit {
   startPage: number = 0;
   endPage: number = 7;
   numberPage: number = 1;
+  categoryList: any;
 
+    //response Query
+    public totalDocs: number;
+    public hasNextPage: boolean;
+    public hasPrevPage: boolean;
+    public limit: number;
+    public nextPages: number;
+    public page: number;
+    public pagingCounter: number;
+    public prevPages: number;
+    public totalPages: number;
+
+//cargar pagina
+public loader: boolean;
 
 
   constructor(
     private reportProviderService: ReportProviderService,
     private regionProviderService:RegionProviderService,
-    private communeProviderService:CommuneProviderService) {
+    private communeProviderService:CommuneProviderService,
+    private categoryProviderService: CategoryProviderService) {
     this.reportSelected = false;
     this.reports= [];
+    this.loader = false;
    }
 
 
   async ngOnInit(): Promise<void> {
     this.setReport()
     console.log(this.reports);
+
+    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
   }
 
   ngDoCheck(){
@@ -49,7 +68,7 @@ export class TableCasesComponent implements OnInit {
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
 
-    if (this.startPage === 0) {
+    if (!this.hasPrevPage) {
       prevButton?.setAttribute('disabled', 'disabled');
 
     } else {
@@ -57,7 +76,7 @@ export class TableCasesComponent implements OnInit {
       
     }
 
-    if (this.endPage >= this.reports.length) {
+    if (!this.hasNextPage) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');
@@ -83,6 +102,17 @@ export class TableCasesComponent implements OnInit {
   async setReport(){
     const data :any = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
     this.reports = data.docs;
+    this.totalDocs= data.totalDocs;
+    this.hasNextPage= data.hasNextPage;
+    this.hasPrevPage= data.hasPrevPage;
+    this.limit= data.limit;
+    this.nextPages= data.nextPage;
+    this.page= data.page;
+    this.pagingCounter= data.pagingCounter;
+    this.prevPages= data.prevPage;
+    this.totalPages= data.totalPages;
+
+
     this.communes = await this.communeProviderService.getAllCommunes().toPromise();
     this.regions = await this.regionProviderService.getAllRegions().toPromise();
 
@@ -100,6 +130,7 @@ export class TableCasesComponent implements OnInit {
       })
     });
 
+    this.loader = true;
     console.log(this.reports);
   }
 
@@ -137,21 +168,22 @@ export class TableCasesComponent implements OnInit {
   
   sizePage(event: any) {
     this.sizePageTable = parseInt(event.target.value);
-    this.startPage = 0;
-    this.endPage = this.sizePageTable;
+    this.setReport();
 
   }
 
   prevPage() {
-    this.endPage = this.startPage;
-    this.startPage = this.startPage - this.sizePageTable;
-    this.numberPage--;
+    if(this.hasPrevPage){
+      this.numberPage = this.prevPages;
+      this.setReport();
+    }
   }
 
   nextPage() {
-    this.startPage = this.endPage;
-    this.endPage = this.endPage + this.sizePageTable;
-    this.numberPage++;
+    if(this.hasNextPage){
+      this.numberPage = this.nextPages;
+      this.setReport();
+    }
   }
 
   selectReport(report: Report){

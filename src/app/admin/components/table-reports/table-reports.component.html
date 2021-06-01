@@ -17,7 +17,8 @@
                     <div class="col-10 col-sm-10 col-md-6 col-lg-4 col-xl-3">
                         <select id="raza" type="text" (change)="categoryFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
                             <option selected disabled value id="1">Buscar por categoría</option>
-                            <option *ngFor="let report of reports">{{ report.category }}</option>    
+                            <option *ngFor="let category of categoryList">{{ category.name }}</option>
+                            <option value>Todas Las Categorias</option>     
                         </select>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-5 text-end">
@@ -31,7 +32,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12"  *ngIf="loader; else showLoader">
             <div class="table-responsive">
                 <table class="table table-borderless">
                     <thead>
@@ -48,10 +49,10 @@
                     <tbody *ngFor="let report of reportsSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
                        
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
-                                <td scope="col">{{report.title}}</td>
-                                <td scope="col">{{report.category.name}}</td>
+                                <td scope="col">{{report.title | capitalize}}</td>
+                                <td scope="col">{{report.category.name | capitalize}}</td>
                                 <td scope="col">{{report.createdAt |date:'dd-mm-yyyy'}}</td>
-                                <td scope="col">{{report.ubication}}</td>
+                                <td scope="col">{{report.ubication | titlecase}}</td>
                                 <td scope="col">{{report.checks}}  
                                     <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-mm-yyyy'}}</span>
                                 </td>
@@ -70,11 +71,11 @@
                                 <td colspan="7" *ngIf="reportSelected">
                                  <div class="wrapper">
                                     <h2>USUARIO:</h2> 
-                                    <p>{{report.user.names}}</p>
+                                    <p>{{report.user.names | titlecase}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>DESCRIPCIÓN:</h2>
-                                    <p >{{report.description}}</p>
+                                    <p >{{report.description | capitalize}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>ÚLTIMA VALIDACIÓN:</h2>
@@ -89,6 +90,7 @@
 
                     
                 </table>
+
             </div>
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="container-fluid ps-0">
@@ -101,9 +103,9 @@
                         </select>
                     </div>
                     <div class="p-0 p-lg-2">
-                        <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
+                        <button id="prevButton" type="button" (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i class="fas fa-angle-left"></i>
-                        </button> 1 - 4 de 4
+                        </button> {{page}} - {{totalPages}} de {{totalPages}}
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i class="fas fa-angle-right"></i>
                         </button>
@@ -111,5 +113,9 @@
                 </div>
             </nav>
         </div>
+
+        <ng-template #showLoader>
+            <shared-loader></shared-loader>
+        </ng-template>
     </div>
 </section>

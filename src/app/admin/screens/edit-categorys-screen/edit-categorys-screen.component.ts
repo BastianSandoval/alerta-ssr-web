@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute, Params, Router} from '@angular/router';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -18,7 +18,10 @@ export class EditCategorysScreenComponent implements OnInit {
   id:string;
   form: FormGroup;
 
-  constructor(private notificationService:NotificationService, private categoryProviderService: CategoryProviderService, private activatedRoute : ActivatedRoute) { 
+  constructor(private notificationService:NotificationService, 
+              private categoryProviderService: CategoryProviderService, 
+              private activatedRoute : ActivatedRoute,
+              private router: Router) { 
     this.id= ''
   }
 
@@ -49,6 +52,7 @@ export class EditCategorysScreenComponent implements OnInit {
       await this.categoryProviderService.addCategory(this.form.value).toPromise();
       this.notificationService.success('El plan ha sido creado');
       this.form.reset();
+      this.router.navigate(['admin/category']);
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido crear el plan');
@@ -60,6 +64,7 @@ export class EditCategorysScreenComponent implements OnInit {
       console.log(this.form.value);
       await this.categoryProviderService.updateCategory(this.id, this.form.value as Category).toPromise();
       this.notificationService.success('El plan ha sido actualizado');
+      this.router.navigate(['admin/category']);
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido actualizar el plan');
