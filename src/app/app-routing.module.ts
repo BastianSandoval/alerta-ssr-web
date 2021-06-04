@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'admin',
+    redirectTo: 'visitor',
     pathMatch: 'full'
   },
-  /*{
+  { 
     path: 'visitor',
     loadChildren: () => import('./visitor/visitor.module')
       .then(m => m.VisitorModule)
-  },*/
+  },
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module')
