@@ -1,0 +1,72 @@
+<div class="container"
+  *ngIf="report$ | async;
+  let report;"
+>
+  <div class="row pt-2 d-flex justify-content-between">
+    <div class="col-5">
+      <img [src]="report.imageUrl" alt="" class="img-fluid img-thumbnail shadow-sm" style="max-height: 220px;" data-toggle="modal" data-target="#exampleModal2">
+    </div>
+
+    <div class="col-7 ps-5 w-50">
+      <app-map
+        [lat]="report.location.latitude"
+        [lng]="report.location.longitude"
+      ></app-map>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-5 pe-5">
+      <h4 class="mb-0" style="color: #000000; font-size: 21px;">{{report.title | uppercase}}</h4>
+      <p class="mb-5" class="lead text-brand" style="font-size: 20px; font-weight: normal;">Fecha: {{report.createdAt |date:'dd-mm-yyyy'}}</p>
+
+      <h5 class="text-uppercase mt-5" style="color: #000000; font-size:20px">Descripción de la denuncia</h5>
+      <p class="pe-4" style="color: #676767;">{{report.description | capitalize}}</p>
+      
+      <div class="row">
+        <div class="col-6">
+          <div class="card bg-brand" style="border-radius: 20px;">
+            <div class="card-body py-1 text-center">
+              <h5 class="text-white" style="font-weight: normal;">Validaciones</h5>
+              <h4 class="lead text-white text-brand-secondary mb-0">{{report.checks}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-7 ps-5">
+      <h4 class="text-uppercase" style="color: #000000; font-size:20px">Comentarios</h4>
+      <hr class="py-0">
+
+      <div class="row" style="max-height: 300px; overflow-y: scroll;">
+        <div class="col">
+          <div class="card shadow-sm mb-2" style="border-radius: 30px;"
+            *ngFor="let comment of comments"
+          >
+            <div class="card-body py-2">
+              <h5 class="card-title text-brand">{{comment.user.names | uppercase}}</h5>
+              <p class="card-text" style="color: #000000;">{{comment.description | capitalize}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body bg-dark">
+          <div class="row">
+            <div class="col">
+              <img class="img-fluid" [src]="report.imageUrl" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
