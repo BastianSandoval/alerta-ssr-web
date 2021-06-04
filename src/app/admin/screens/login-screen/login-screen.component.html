@@ -11,25 +11,30 @@
                         <div class="row justify-content-center align-items-center">
                             <div class="col-9 col-sm-6 col-md-5 col-lg-3">
                                 <label for="email" class="fw-bolder">CORREO:</label>
-                                <input id="email" type="text" class="form-control" formControlName="email" placeholder="correo@ejemplo.com"> 
+                                <small class="text-danger ml-2"
+                                *ngIf="controlIsRequired('email') && loginForm.submitted">
+                                (requerido)
+                                </small>
+                                <input id="email" type="text" class="form-control" 
+                                formControlName="email" 
+                                placeholder="correo@ejemplo.com"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('email') && loginForm.submitted }"> 
                             </div>
-                            <small class="text-danger ml-2"
-                            *ngIf="controlIsRequired('email') && loginForm.submitted">
-                            (Email requerido)
-                            </small>
+                            
                         </div>
                         <div class="row justify-content-center align-items-center py-3 py-lg-4">
                             <div class="col-9 col-sm-6 col-md-5 col-lg-3">
                                 <label for="password" class="fw-bolder">CONTRASEÑA</label>
+                                <small class="text-danger ml-2"
+                                *ngIf="controlIsRequired('password') && loginForm.submitted">
+                                (requerida)
+                                </small>
                                 <input id="password" type="password" class="form-control"
                                 formControlName="password"
                                 placeholder="contraseña"
                                 [ngClass]="{ 'is-invalid': controlIsInvalid('password') && loginForm.submitted }">
                             </div>
-                            <small class="text-danger ml-2"
-                            *ngIf="controlIsRequired('password') && loginForm.submitted">
-                            (Contraseña requerida)
-                            </small>
+                            
                         </div>
                     </div>
                     <div class="button-group text-center mt-3 col-12">
