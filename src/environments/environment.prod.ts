@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://dog.ceo/api'
+  baseUrl: 'http://dev-alerta-verde-api.eba-if3damwi.sa-east-1.elasticbeanstalk.com/api'
 };
