@@ -6,7 +6,7 @@
                     <div class="col-11 col-lg-4 py-2 py-lg-0 pe-0">
                         <input class="form-control border-0" list="datalistOptions" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" id="exampleDataList" placeholder="Buscar caso" size="80" style="background-color:rgb(234, 238, 226)">
                         <datalist id="datalistOptions" >
-                            <option *ngFor="let report of reportsSlice" value="{{report.title}}">
+                            <option *ngFor="let event of eventosSlice" value="{{event.title}}">
                         </datalist>
                     </div>
                     <div class="col-1 col-lg-1 py-2 py-lg-0 px-0">
@@ -34,7 +34,7 @@
                     <thead>
                         <tr class="cabezera">
                             <th scope="col">N° DENUNCIAS</th>
-                            <th scope="col" width="14%">TITULO</th>
+                            <th scope="col" width="14%">TÍTULO</th>
                             <th scope="col">CATEGORÍA</th>
                             <th scope="col">FECHA</th>
                             <th scope="col">UBICACIÓN</th>
@@ -43,22 +43,22 @@
                             <th scope="col" width="19%">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let report of reportsSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
+                    <tbody *ngFor="let event of eventosSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
                        
-                            <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
-                                <td scope="col">{{reportsSlice.length}}</td>
-                                <td scope="col">{{report.title | capitalize}}</td>
-                                <td scope="col">{{report.category.name | capitalize}}</td>
-                                <td scope="col">{{report.createdAt |date:'dd-mm-yyyy'}}</td>
-                                <td scope="col">{{report.ubication | titlecase}}</td>
-                                <td scope="col">{{report.checks}}  
-                                    <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-mm-yyyy'}}</span>
+                            <tr (click)="selectReport(event)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
+                                <td scope="col">{{eventosSlice.length}}</td>
+                                <td scope="col">{{event.report.title | capitalize}}</td>
+                                <td scope="col">{{event.report.category.name | capitalize}}</td>
+                                <td scope="col">{{event.location.createdAt |date:'dd-MM-yyyy'}}</td>
+                                <td scope="col">{{event.location.fullAddress | titlecase}}</td>
+                                <td scope="col">{{event.checks}}  
+                                    <span style="font-size: 12px;"> última {{event.report.lastCheckAt | date:'dd-MM-yyyy'}}</span>
                                 </td>
-                                <td scope="col">{{report.rejections}}</td>
+                                <td scope="col">{{event.rejections}}</td>
                                 <td class="btnRight text-center" scope="col">
-                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-case', report._id]">Editar</a>
+                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-case', event.idReporte]">Editar</a>
                                     
-                                    <button class="btn rounded-pill eliminar-table" (click)="idSelected = report._id" (click)="reportSelected=report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
+                                    <button class="btn rounded-pill eliminar-table" (click)="idSelected = event._id" (click)="reportSelected=event.report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                     <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [report]="reportSelected"></app-modal-delete>
                                 </td>
                             </tr>
@@ -69,15 +69,15 @@
                                 <td colspan="7" *ngIf="reportSelected">
                                  <div class="wrapper">
                                     <h2>USUARIO:</h2> 
-                                    <p>{{report.user.names | titlecase}}</p>
+                                    <p>{{event.report.user.names | titlecase}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>DESCRIPCIÓN:</h2>
-                                    <p >{{report.description | capitalize}}</p>
+                                    <p >{{event.report.description | capitalize}}</p>
                                  </div>   
                                  <div class="wrapper">
                                     <h2>ÚLTIMA VALIDACIÓN:</h2>
-                                    <p>{{report.lastCheckAt | date:'dd-mm-yyyy'}} {{report.lastCheckAt | date: 'H:mm:ss'}}</p>
+                                    <p>{{event.report.lastCheckAt | date:'dd-mm-yyyy'}} {{event.report.lastCheckAt | date: 'H:mm:ss'}}</p>
                                  </div>  
                                  </td>
                             </tr> 
