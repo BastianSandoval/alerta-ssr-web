@@ -9,6 +9,8 @@ import { NotificationService} from '../../../core/services/notification/notifica
 import { ReportProviderService} from '../../../core/providers/report/report-provider.service';
 import { Report } from '../../../core/models/report.model';
 
+import { EventProviderService } from '../../../core/providers/event/event-provider.service';
+
 @Component({
   selector: 'app-form-edit-case',
   templateUrl: './form-edit-case.component.html',
@@ -33,6 +35,7 @@ export class FormEditCaseComponent implements OnInit {
     private route: ActivatedRoute,
     private notificationService: NotificationService,
     private reportProviderService: ReportProviderService,
+    private eventProviderService: EventProviderService,
     private router: Router,
     ){
     this.checkoutForm;
@@ -167,9 +170,9 @@ export class FormEditCaseComponent implements OnInit {
         this.checkoutForm.get('image').setValue(img);
       }
       console.log(this.checkoutForm.value)
+      this.router.navigate(['admin/cases']);
       await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
       this.notificationService.success('El producto ha sido actualizado');
-      this.router.navigate(['admin/cases']);
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido actualizar el producto');

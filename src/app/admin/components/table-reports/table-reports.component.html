@@ -37,7 +37,7 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
-                            <th scope="col">TITULO</th>
+                            <th scope="col">TÍTULO</th>
                             <th scope="col">CATEGORÍA</th>
                             <th scope="col">FECHA</th>
                             <th scope="col">UBICACIÓN</th>
@@ -51,10 +51,10 @@
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
                                 <td scope="col">{{report.title | capitalize}}</td>
                                 <td scope="col">{{report.category.name | capitalize}}</td>
-                                <td scope="col">{{report.createdAt |date:'dd-mm-yyyy'}}</td>
+                                <td scope="col">{{report.createdAt |date:'dd-MM-yyyy'}}</td>
                                 <td scope="col">{{report.ubication | titlecase}}</td>
                                 <td scope="col">{{report.checks}}  
-                                    <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-mm-yyyy'}}</span>
+                                    <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-MM-yyyy'}}</span>
                                 </td>
                                 <td scope="col">{{report.rejections}}</td>
                                 <td class="btnRight text-center" scope="col" width="19%">

@@ -3,8 +3,7 @@ export interface Location {
     latitude: string;
     longitude: string;
     commune: string;
-    streetName?: string;
-    streetNumber?: number;
+    fullAddress: string;
     updatedAt?: Date;
     createdAt?: Date;
 };

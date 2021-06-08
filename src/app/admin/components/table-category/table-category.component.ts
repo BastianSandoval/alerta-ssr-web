@@ -107,7 +107,7 @@ public loader: boolean;
         });
         const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
         this.category = data;
-        this.notificationService.success('Categoria eliminado exitosamente');
+        this.notificationService.success('Categoría eliminado exitosamente');
       }
     }
     else{

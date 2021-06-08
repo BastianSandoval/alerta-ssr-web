@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Report } from '../../../core/models/report.model';
 import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
 import { Region } from '../../../core/models/region.model';
-import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
-import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
 import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
+
+import {EventProviderService} from '../../../core/providers/event/event-provider.service';
+import { NotificationService } from '../../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-table-cases',
@@ -21,8 +22,23 @@ export class TableCasesComponent implements OnInit {
   filterReport!: string;
   idSelected: any;
   reportSelected: boolean;
-  reportsSlice!: Report[];
+  eventosSlice!: any[];
   sizePageTable: number = 7;
+
+
+  //Evento
+  
+
+  eventos: any[] = [{
+    report:{
+      title: '',
+      category: {
+        name: ''
+      }
+    }
+  }];
+
+  reporte: any;
   
   startPage: number = 0;
   endPage: number = 7;
@@ -46,9 +62,10 @@ public loader: boolean;
 
   constructor(
     private reportProviderService: ReportProviderService,
-    private regionProviderService:RegionProviderService,
-    private communeProviderService:CommuneProviderService,
-    private categoryProviderService: CategoryProviderService) {
+    private eventProviderService: EventProviderService,
+    private notificationService: NotificationService) {
+
+    this.eventosSlice = []   
     this.reportSelected = false;
     this.reports= [];
     this.loader = false;
@@ -56,14 +73,11 @@ public loader: boolean;
 
 
   async ngOnInit(): Promise<void> {
-    this.setReport()
-    console.log(this.reports);
-
-    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
+    await this.setReport();
   }
 
-  ngDoCheck(){
-    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
+  async ngDoCheck(){
+    this.eventosSlice = this.eventos.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
@@ -84,54 +98,45 @@ public loader: boolean;
     
   }
 
-  async deleteItem(reportId){
+  async deleteItem(eventId){
     let index:number=0;
-    console.log(reportId);
-    await this.reportProviderService.deleteReport(reportId).toPromise();
-    if (reportId){
-      this.reports.forEach((report: Report) => {
-        if (reportId === report._id) {
-          this.reports.splice(index,1);
+    console.log(eventId);
+    await this.eventProviderService.deleteEvent(eventId).toPromise();
+    if (eventId){
+      this.eventos.forEach((evento: any) => {
+        if (eventId === evento._id) {
+          this.eventos.splice(index,1);
         }
       index++;
       });
       this.setReport()
+      this.notificationService.success('Caso eliminado exitosamente');
+    }else{
+      this.notificationService.error('No fue posible eliminar el caso');
     }
   }
   
   async setReport(){
-    const data :any = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
-    this.reports = data.docs;
-    this.totalDocs= data.totalDocs;
-    this.hasNextPage= data.hasNextPage;
-    this.hasPrevPage= data.hasPrevPage;
-    this.limit= data.limit;
-    this.nextPages= data.nextPage;
-    this.page= data.page;
-    this.pagingCounter= data.pagingCounter;
-    this.prevPages= data.prevPage;
-    this.totalPages= data.totalPages;
+    //Events
+    const eventos: any = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
+    this.totalDocs= eventos.totalDocs;
+    this.hasNextPage= eventos.hasNextPage;
+    this.hasPrevPage= eventos.hasPrevPage;
+    this.limit= eventos.limit;
+    this.nextPages= eventos.nextPage;
+    this.page= eventos.page;
+    this.pagingCounter= eventos.pagingCounter;
+    this.prevPages= eventos.prevPage;
+    this.totalPages= eventos.totalPages;
 
+    this.eventos = eventos.docs;
 
-    this.communes = await this.communeProviderService.getAllCommunes().toPromise();
-    this.regions = await this.regionProviderService.getAllRegions().toPromise();
-
-    this.reports.forEach((report) =>{
-      let location:any = report.location;
-      this.communes.forEach((commune) =>{
-        if(location.commune === commune._id){
-          this.regions.forEach((region) => {
-            if(commune.region._id === region._id){
-              report.ubication = `${location.streetName} ${location.streetNumber}, ${commune.name}, ${region.name}`
-              console.log(report.ubication);
-            }
-          })
-        }
-      })
-    });
-
-    this.loader = true;
-    console.log(this.reports);
+    for(const event of this.eventos){
+      event.idReporte = event.complaints[event.complaints.length - 1];
+      event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
+    }
+   this.loader = true;
+    
   }
 
 
@@ -186,7 +191,7 @@ public loader: boolean;
     }
   }
 
-  selectReport(report: Report){
+  selectReport(event: any){
     this.reportSelected = true;
 
   }

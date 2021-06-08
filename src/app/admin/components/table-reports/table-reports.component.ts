@@ -154,7 +154,7 @@ public loader: boolean;
         if(location.commune === commune._id){
           this.regions.forEach((region) => {
             if(commune.region._id === region._id){
-              report.ubication = `${location.streetName} ${location.streetNumber}, ${commune.name}, ${region.name}`
+              report.ubication = `${location.fullAddress}, ${commune.name}, ${region.name}`
             }
           })
         }

@@ -49,25 +49,25 @@ export class EditCategorysScreenComponent implements OnInit {
 
   public async addPlan(form: FormGroup): Promise<void> {
     try {
-      await this.categoryProviderService.addCategory(this.form.value).toPromise();
-      this.notificationService.success('El plan ha sido creado');
-      this.form.reset();
       this.router.navigate(['admin/category']);
+      await this.categoryProviderService.addCategory(this.form.value).toPromise();
+      this.notificationService.success('La categoría ha sido creada');
+      this.form.reset();
     } catch (error) {
       console.log(error);
-      this.notificationService.error('No se ha podido crear el plan');
+      this.notificationService.error('No se ha podido crear la categoría');
     }
   }
 
   public async updatePlan(): Promise<void> {
     try {
       console.log(this.form.value);
-      await this.categoryProviderService.updateCategory(this.id, this.form.value as Category).toPromise();
-      this.notificationService.success('El plan ha sido actualizado');
       this.router.navigate(['admin/category']);
+      await this.categoryProviderService.updateCategory(this.id, this.form.value as Category).toPromise();
+      this.notificationService.success('La categoría ha sido actualizado');
     } catch (error) {
       console.log(error);
-      this.notificationService.error('No se ha podido actualizar el plan');
+      this.notificationService.error('No se ha podido actualizar la categoría');
     }
   }
 
