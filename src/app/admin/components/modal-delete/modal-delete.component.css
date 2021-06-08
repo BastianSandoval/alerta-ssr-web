@@ -12,12 +12,6 @@
 .btn-eliminar{
     background: rgb(224, 120, 102);
     color: rgb(236, 233, 233);
-    padding-left: 4vh;
-    padding-right: 4vh;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    margin-top: 0px;
-    margin-left: 30px;
     border: none;
     cursor: pointer;
 }
@@ -25,13 +19,6 @@
 .btn-cancelar{
     background:  rgb(185, 197, 167);
     color: rgb(236, 233, 233);
-    padding-left: 4vh;
-    padding-right: 4vh;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    margin-top: 0px;
-    margin-right: 10px;
-    margin-bottom: 5vh;
     cursor: pointer;
     border: none;
 }
