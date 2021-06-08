@@ -11,13 +11,15 @@
 
       <div class="row mt-5">
         <div class="col-12 pe-md-5">
-            <h4 class="mb-0" style="color: #000000; font-size: 21px;">{{report.title | uppercase}}</h4>
-            <p class="mb-5" class="lead text-brand" style="font-size: 20px; font-weight: normal;">Fecha: {{report.createdAt |date:'dd-mm-yyyy'}}</p>
-    
+            <h4 class="mb-0" style="color: #000000; font-size: 24px;">{{report.title | uppercase}}</h4>
+            <p class="mb-5 " class="lead text-brand" style="font-size: 18px; font-weight: normal;">
+        Latitud: {{report.location.latitude | slice:0:11 }} <span class="d-block d-sm-inline-block ps-sm-4 ps-md-0">Longitud: {{report.location.longitude | slice:0:11}}</span></p>
+
             <h5 class="text-uppercase mt-5" style="color: #000000; font-size:20px">Descripción de la denuncia</h5>
-            <p class="pe-4" style="color: #676767;">{{report.description | capitalize}}</p>
+            <p class="pe-4 mb-1" style="color: #676767;">{{report.description | capitalize}}</p>
+            <p class="mb-5" class="lead" style="color: #96AC78; font-size: 17px; font-weight: normal;">Fecha: {{report.createdAt | date: 'd/M/yy h:mm:ss'}}</p>
             
-            <div class="row justify-content-center mb-4">
+            <div class="row justify-content-center mt-5 mb-4">
                 <div class="col-xs-7 col-sm-6 col-md-8">
                     <div class="card bg-brand" style="border-radius: 20px;">
                     <div class="card-body py-1 text-center">
