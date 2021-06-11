@@ -24,7 +24,8 @@ export class TableCasesComponent implements OnInit {
   reportSelected: boolean;
   eventosSlice!: any[];
   sizePageTable: number = 7;
-
+  titleCase: string;
+  isCategory: boolean = false;
 
   //Evento
   
@@ -116,9 +117,14 @@ public loader: boolean;
     }
   }
   
-  async setReport(){
+  async setReport(dataCategory?:any){
+    let eventos: any;
+    if(this.isCategory){
+      eventos = dataCategory;
+    }else{
+      eventos = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
+    }
     //Events
-    const eventos: any = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
     this.totalDocs= eventos.totalDocs;
     this.hasNextPage= eventos.hasNextPage;
     this.hasPrevPage= eventos.hasPrevPage;
@@ -134,14 +140,28 @@ public loader: boolean;
     for(const event of this.eventos){
       event.idReporte = event.complaints[event.complaints.length - 1];
       event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
+      event.category = event.report.category.name;
+      event.idCategory = event.report.category._id;
+      console.log(event);
     }
-   this.loader = true;
+    this.isCategory = false;
+    this.loader = true;
     
   }
 
 
-  categoryFilter(event:any) {
-    this.filterCategory = event.target.value;
+  async categoryFilter(event:any) {
+    if(event.target.value != ''){
+      this.isCategory = true;
+      this.filterCategory = event.target.value;
+      let data: any = await this.eventProviderService.getEventsPerCategory(this.filterCategory).toPromise();
+      
+      this.setReport(data)
+    }else{
+      this.isCategory = false;
+      this.setReport();
+    }
+
   }
 
   clearFilter() {

@@ -43,7 +43,7 @@
                                 <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-category', category._id]">Editar</a>
                                 
                                 <button class="btn rounded-pill eliminar-table" (click)="categorySelect(category)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
-                                <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected"></app-modal-delete>   
+                                <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleCategory"></app-modal-delete>   
                             </td>
                         </tr>
                     </tbody>
