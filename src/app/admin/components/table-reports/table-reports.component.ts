@@ -37,7 +37,8 @@ export class TableReportsComponent implements OnInit{
   reportId : string;
   numberPage: number = 1;
   categoryList: any;
-
+  titleReport: string;
+  isCategory: boolean = false;
 
   //response Query
   public totalDocs: number;
@@ -102,9 +103,11 @@ public loader: boolean;
   }
 
 
-
   reportSelect(report: Report){
     this.idSelected = report._id;
+    console.log(report._id);
+    this.titleReport = report.title;
+    console.log(report.title);
   }
 
   
@@ -131,8 +134,13 @@ public loader: boolean;
     
   }
 
-  async setReport(){
-    const data :any = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
+  async setReport(dataCategory?: any){
+    let data: any;
+    if(this.isCategory){
+      data = dataCategory;
+    }else{
+     data = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
+    }
     //set queries
    this.totalDocs= data.totalDocs;
    this.hasNextPage= data.hasNextPage;
@@ -162,13 +170,22 @@ public loader: boolean;
     });
 
     this.loader = true;
-
+    this.isCategory = false;
     console.log(this.reports);
   }
 
 
-  categoryFilter(event:any) {
-    this.filterCategory = event.target.value;
+  async categoryFilter(event:any) {
+    if(event.target.value != ''){
+      this.isCategory = true;
+      this.filterCategory = event.target.value;
+      let data: any = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory).toPromise();
+      this.setReport(data)
+    }else{
+      this.isCategory = false;
+      this.setReport();
+    }
+
   }
 
   clearFilter() {

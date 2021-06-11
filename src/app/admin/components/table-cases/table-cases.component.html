@@ -17,8 +17,8 @@
                     <div class="col-10 col-sm-10 col-md-6 col-lg-4 col-xl-3">
                         <select id="raza" type="text" (change)="categoryFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
                             <option selected disabled value id="1">Buscar por categoría</option>
-                            <option *ngFor="let category of categoryList">{{ category.name }}</option>
-                            <option value>Todas Las Categorias</option>      
+                            <option *ngFor="let event of eventos" value={{event.idCategory}}>{{ event.category }}</option>
+                            <option value=''>Todas Las Categorias</option>      
                         </select>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-lg-6 text-end">
@@ -33,8 +33,8 @@
                 <table class="table table-borderless table-hover">
                     <thead>
                         <tr class="cabezera">
-                            <th scope="col">N° DENUNCIAS</th>
-                            <th scope="col" width="14%">TÍTULO</th>
+                            <th scope="col" width=13%>N° DENUNCIAS</th>
+                            <th scope="col">TÍTULO</th>
                             <th scope="col">CATEGORÍA</th>
                             <th scope="col">FECHA</th>
                             <th scope="col">UBICACIÓN</th>
@@ -43,7 +43,7 @@
                             <th scope="col" width="19%">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let event of eventosSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
+                    <tbody *ngFor="let event of eventosSlice  | reportFilter: filterReport ; let index = index" >
                        
                             <tr (click)="selectReport(event)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
                                 <td scope="col">{{eventosSlice.length}}</td>
@@ -58,8 +58,8 @@
                                 <td class="btnRight text-center" scope="col">
                                     <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-case', event.idReporte]">Editar</a>
                                     
-                                    <button class="btn rounded-pill eliminar-table" (click)="idSelected = event._id" (click)="reportSelected=event.report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
-                                    <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [report]="reportSelected"></app-modal-delete>
+                                    <button class="btn rounded-pill eliminar-table" (click)="titleCase = event.report.title" (click)="idSelected = event._id" (click)="reportSelected=event.report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
+                                    <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleCase" [report]="reportSelected"></app-modal-delete>
                                 </td>
                             </tr>
 
@@ -67,17 +67,17 @@
                         
                             <tr scope="col" class="collapse" id="collapse{{index}}">
                                 <td colspan="7" *ngIf="reportSelected">
-                                 <div class="wrapper">
-                                    <h2>USUARIO:</h2> 
-                                    <p>{{event.report.user.names | titlecase}}</p>
+                                 <div class="row wrapper">
+                                    <h2 class="col-2">USUARIO:</h2> 
+                                    <p class="col-4 col-lg-7">{{event.report.user.names | titlecase}}</p>
                                  </div>   
-                                 <div class="wrapper">
-                                    <h2>DESCRIPCIÓN:</h2>
-                                    <p >{{event.report.description | capitalize}}</p>
+                                 <div class="row wrapper">
+                                    <h2 class="col-2">DESCRIPCIÓN:</h2>
+                                    <p class="col-lg-7">{{event.report.description | capitalize}}</p>
                                  </div>   
-                                 <div class="wrapper">
-                                    <h2>ÚLTIMA VALIDACIÓN:</h2>
-                                    <p>{{event.report.lastCheckAt | date:'dd-mm-yyyy'}} {{event.report.lastCheckAt | date: 'H:mm:ss'}}</p>
+                                 <div class="row wrapper">
+                                    <h2 class="col-2">ÚLTIMA VALIDACIÓN:</h2>
+                                    <p class="col-4 col-lg-7">{{event.report.lastCheckAt | date:'dd-mm-yyyy'}} {{event.report.lastCheckAt | date: 'H:mm:ss'}}</p>
                                  </div>  
                                  </td>
                             </tr> 
