@@ -19,7 +19,7 @@ export class TableCategoryComponent implements OnInit {
   filterBreed!: string;
   dogSelected: any;
   value!: string;
-  filterReport!: string;
+  filterCategory!: string;
   idSelected: any;
   categorySelected: any;
   categorysSlice!: Category[];
@@ -29,6 +29,16 @@ export class TableCategoryComponent implements OnInit {
   endPage: number = 7;
   public mostrar:Boolean;
   visualizar:boolean;
+  numberPage: number = 1;
+
+  //buttoms pages
+  numberPages:number = 1;
+  page: number = 1;
+
+  //cargar pagina
+public loader: boolean;
+
+
 
 
 
@@ -39,13 +49,21 @@ export class TableCategoryComponent implements OnInit {
     this.categorySelected =null;
     this.category= [];
     this.visualizar=true;
+    this.loader = false;
+   }
+
+   async setCategory(){
+    const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
+    this.category = data;
+
+    this.numberPages = Math.ceil(this.category.length / this.sizePageTable) ;
    }
 
 
    async ngOnInit(): Promise<void> {
-    const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
-    this.category = data;
-    
+
+    this.setCategory();
+    this.loader = true;
   }
 
   ngDoCheck(){
@@ -89,7 +107,7 @@ export class TableCategoryComponent implements OnInit {
         });
         const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
         this.category = data;
-        this.notificationService.success('Categoria eliminado exitosamente');
+        this.notificationService.success('Categoría eliminado exitosamente');
       }
     }
     else{
@@ -99,11 +117,11 @@ export class TableCategoryComponent implements OnInit {
 
 
   categoryFilter(event:any) {
-    this.filterReport = event.target.value;
+    this.filterCategory = event.target.value;
   }
 
   clearFilter() {
-    this.filterReport= '';
+    this.filterCategory= '';
   }
 
   onValue(value: string) {
@@ -111,18 +129,18 @@ export class TableCategoryComponent implements OnInit {
     if(this.value === ''){
       this.clearFilter();
     } else {
-      this.filterReport = this.value;
+      this.filterCategory = this.value;
     }
     
   }
 
   onEnter(value: string) {
-    this.filterReport = value;
+    this.filterCategory = value;
   }
 
   searchButton() {
     if(this.value){
-      this.filterReport = this.value;
+      this.filterCategory = this.value;
     }else{
       this.clearFilter();
     }
@@ -130,6 +148,8 @@ export class TableCategoryComponent implements OnInit {
   
   sizePage(event: any) {
     this.sizePageTable = parseInt(event.target.value);
+    this.numberPages = Math.ceil(this.category.length / this.sizePageTable) ;
+
     this.startPage = 0;
     this.endPage = this.sizePageTable;
 
@@ -138,15 +158,17 @@ export class TableCategoryComponent implements OnInit {
   prevPage() {
     this.endPage = this.startPage;
     this.startPage = this.startPage - this.sizePageTable;
+    this.page--;
   }
 
   nextPage() {
     this.startPage = this.endPage;
     this.endPage = this.endPage + this.sizePageTable;
+    this.page++;
   }
 
   selectReport(category: Category){
-    this.categorySelected =category;
+    this.categorySelected = category;
 
   }
 

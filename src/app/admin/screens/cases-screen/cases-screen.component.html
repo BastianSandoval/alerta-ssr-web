@@ -7,8 +7,8 @@
         </div>
         <div class="row mt-2">
             <div class="col-12">
-                <button [ngClass]="shows ? 'activo' : 'noActivo' " (click)="show('mapa')"  routerLink="/admin/cases" routerLinkActive="active" class="btn btn-sm  btn-success mapa">Mapa</button> 
-                <button [ngClass]="!shows ? 'activo' : 'noActivo'" (click)="show('lista')" routerLink="/admin/cases" routerLinkActive="active" class="btn btn-sm btn-success lista">Lista</button> 
+                <button [ngClass]="shows ? 'activo' : 'noActivo' " (click)="show('mapa')"  routerLink="/admin/cases" routerLinkActive="active" class="btn btn-sm  btn-success mapa" style="color: white !important;">Mapa</button> 
+                <button [ngClass]="!shows ? 'activo' : 'noActivo'" (click)="show('lista')" routerLink="/admin/cases" routerLinkActive="active" class="btn btn-sm btn-success lista" style="color: white !important;">Lista</button> 
                 <div class="mt-5">
 
                         <div *ngIf="shows; then mapa else lista"></div>

@@ -11,6 +11,8 @@ import { Region } from '../../../core/models/region.model';
 
 import { NotificationService } from '@core/services/notification/notification.service';
 
+import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
+
 
 @Component({
   selector: 'app-table-reports',
@@ -34,24 +36,43 @@ export class TableReportsComponent implements OnInit{
   visualizar:boolean;
   reportId : string;
   numberPage: number = 1;
+  categoryList: any;
 
+
+  //response Query
+  public totalDocs: number;
+  public hasNextPage: boolean;
+  public hasPrevPage: boolean;
+  public limit: number;
+  public nextPages: number;
+  public page: number;
+  public pagingCounter: number;
+  public prevPages: number;
+  public totalPages: number;
+
+//cargar pagina
+public loader: boolean;
 
 
   constructor(
     private reportProviderService: ReportProviderService,
     private communeProviderService:CommuneProviderService,
     private regionProviderService:RegionProviderService,
-    private notificationService:NotificationService
+    private notificationService:NotificationService,
+    private categoryProviderService: CategoryProviderService,
     ) {
     this.reportSelected = false;
     this.visualizar=true;
     this.reports= [];
+    this.loader = false;
    }
 
 
   async ngOnInit(): Promise<void> {
     
     this.setReport();
+
+    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
 
     // console.log(this.reports);
   }
@@ -94,7 +115,7 @@ export class TableReportsComponent implements OnInit{
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
 
-    if (this.startPage === 0) {
+    if (!this.hasPrevPage) {
       prevButton?.setAttribute('disabled', 'disabled');
 
     } else {
@@ -102,7 +123,7 @@ export class TableReportsComponent implements OnInit{
       
     }
 
-    if (this.endPage >= this.reports.length) {
+    if (!this.hasNextPage) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');
@@ -112,6 +133,17 @@ export class TableReportsComponent implements OnInit{
 
   async setReport(){
     const data :any = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
+    //set queries
+   this.totalDocs= data.totalDocs;
+   this.hasNextPage= data.hasNextPage;
+   this.hasPrevPage= data.hasPrevPage;
+   this.limit= data.limit;
+   this.nextPages= data.nextPage;
+   this.page= data.page;
+   this.pagingCounter= data.pagingCounter;
+   this.prevPages= data.prevPage;
+   this.totalPages= data.totalPages;
+   
     this.reports = data.docs;
     this.communes = await this.communeProviderService.getAllCommunes().toPromise();
     this.regions = await this.regionProviderService.getAllRegions().toPromise();
@@ -122,13 +154,14 @@ export class TableReportsComponent implements OnInit{
         if(location.commune === commune._id){
           this.regions.forEach((region) => {
             if(commune.region._id === region._id){
-              report.ubication = `${location.streetName} ${location.streetNumber}, ${commune.name}, ${region.name}`
-              console.log(report.ubication);
+              report.ubication = `${location.fullAddress}, ${commune.name}, ${region.name}`
             }
           })
         }
       })
     });
+
+    this.loader = true;
 
     console.log(this.reports);
   }
@@ -164,28 +197,31 @@ export class TableReportsComponent implements OnInit{
       this.clearFilter();
     }
   }
-  
-  sizePage(event: any) {
-    this.sizePageTable = parseInt(event.target.value);
-    this.startPage = 0;
-    this.endPage = this.sizePageTable;
-
-  }
-
-  prevPage() {
-    this.endPage = this.startPage;
-    this.startPage = this.startPage - this.sizePageTable;
-    this.numberPage--;
-  }
-
-  nextPage() {
-    this.startPage = this.endPage;
-    this.endPage = this.endPage + this.sizePageTable;
-    this.numberPage++;
-  }
 
   selectReport(report: Report){
     this.reportSelected = true;
 
   }
+  
+  //botones
+  sizePage(event: any) {
+    this.sizePageTable = parseInt(event.target.value);
+    this.setReport();
+  }
+
+  prevPage() {
+    if(this.hasPrevPage){
+      this.numberPage = this.prevPages;
+      this.setReport();
+    }
+  }
+
+  nextPage() {
+    if(this.hasNextPage){
+      this.numberPage = this.nextPages;
+      this.setReport();
+    }
+
+  }
+
 }

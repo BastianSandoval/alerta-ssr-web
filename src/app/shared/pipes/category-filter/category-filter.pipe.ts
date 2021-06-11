@@ -6,8 +6,8 @@ import { Report } from '../../../core/models/report.model';
 })
 export class CategoryFilterPipe implements PipeTransform {
 
-  transform(list: Report[], value: string): any{
-    return value ? list.filter(item => item.category.toLocaleLowerCase() === value.toLocaleLowerCase()) : list;
+  transform(list: any, value: string): any{
+    return value ? list.filter(item => item.category.name.toLocaleLowerCase() === value.toLocaleLowerCase()) : list;
   }
 
 }

@@ -1,7 +1,7 @@
 
-<div class="row justify-content-end">
+<div class="row justify-content-end mb-4">
     <div class="col-12 col-lg-10" style="background-color: rgb(234, 238, 226)">
-        <div class="container-fluid pt-4">
+        <div class="container-fluid pt-4 pb-4">
             <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <form >
-                            <label for="nameCategory" class="fw-bolder">Categoria</label>
+                            <label for="nameCategory" class="fw-bolder">Categoría</label>
                             <div class="bg-white">
                                 <angular2-multiselect
                                 [formControl]="categoryFormControl"
@@ -42,7 +42,7 @@
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5 form-row align-items-center justify-content-center">
                         <div class="col-md-12 mb-2">
                           <label class="fw-bolder " for="labelGoogleMaps">UBICACIÓN</label>
-                          <input formControlName="location" class="form-control" type="text" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+                          <input formControlName="location" class="form-control" type="text" ngx-google-places-autocomplete [options]='options' placeholder="Ingrese la ubicación" #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
 
                           <div id="mensaje">
                             <small id="location" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('location')"> Requerido</small>

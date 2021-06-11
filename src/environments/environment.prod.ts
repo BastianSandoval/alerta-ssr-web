@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://dog.ceo/api'
+  baseUrl: 'https://dev-api-alertaverde.tribul.cl/api'
 };

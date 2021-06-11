@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-12">
+        <div class="col-12 col-lg-12" *ngIf="loader; else showLoader">
             <div class="table-responsive">
                 <table class="table table-borderless">
                     <thead>
@@ -35,10 +35,10 @@
                             <th width="10%" style="text-align: center;"scope="col-3 ">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let category of categorysSlice | categoryFilter: filterReport">
+                    <tbody *ngFor="let category of categorysSlice | categoryFilterName: filterCategory">
                         <tr>
-                            <td scope="col-2">{{category.name}}</td>
-                            <td scope="col-2">{{category.description}}</td>
+                            <td scope="col-2">{{category.name | capitalize }}</td>
+                            <td scope="col-2">{{category.description | capitalize}}</td>
                             <td class="btnRight" scope="col-2">
                                 <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-category', category._id]">Editar</a>
                                 
@@ -62,7 +62,7 @@
                     <div class="p-0 p-lg-2">
                         <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i class="fas fa-angle-left"></i>
-                        </button> 1 - 4 de 4
+                        </button> {{page}} - {{page}} de {{numberPages}}
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i class="fas fa-angle-right"></i>
                         </button>
@@ -70,5 +70,8 @@
                 </div>
             </nav>
         </div>
+        <ng-template #showLoader>
+            <shared-loader></shared-loader>
+        </ng-template>
     </div>
 </section>
