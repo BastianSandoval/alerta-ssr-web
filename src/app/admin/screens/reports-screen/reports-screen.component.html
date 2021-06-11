@@ -1,5 +1,5 @@
 <section id="reports">
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <div class="row" style="margin-top: 6%;">
             <div class="col-9 col-lg-10">
                 <h5 style="font-weight:normal;">REPORTES AMBIENTALES</h5>
@@ -13,7 +13,7 @@
                 >Lista</a> -->
                 <button [ngClass]="shows ? 'activo' : 'noActivo' " (click)="show('mapa')" routerLink="/admin/" routerLinkActive="active" class="btn btn-sm mapa btn-success" style="color: white !important;" >Mapa</button> 
                 <button [ngClass]="!shows ? 'activo' : 'noActivo' "  (click)="show('lista')" routerLink="/admin/" routerLinkActive="active" class="btn btn-sm lista btn-success" style="color: white !important;">Lista</button>   
-                <div class="mt-5">
+                <div class="my-5">
 
                         <div *ngIf="shows; then mapa else lista"></div>
                         <ng-template #lista><app-table-reports></app-table-reports></ng-template> 
