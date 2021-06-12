@@ -19,6 +19,8 @@
                             <option selected disabled value id="1">Buscar por categoría</option>
                             <option *ngFor="let category of categoryList">{{ category.name[0].toUpperCase() + category.name.slice(1) }}</option>
                             <option value>Todas Las Categorías</option>     
+                            <option *ngFor="let category of categoryList" value={{category._id}}>{{ category.name }}</option>
+                            <option value=''>Todas Las Categorias</option>     
                         </select>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-5 text-end">
@@ -46,7 +48,7 @@
                             <th scope="col" width="19%" style="padding-left: 20px;">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let report of reportsSlice | categoryFilter: filterCategory | reportFilter: filterReport ; let index = index" >
+                    <tbody *ngFor="let report of reportsSlice | reportFilter: filterReport ; let index = index" >
                        
                             <tr (click)="selectReport(report)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
                                 <td scope="col">{{report.title | capitalize}}</td>
@@ -61,7 +63,7 @@
                                     <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-report', report._id]">Editar</a>
                                     
                                     <button class="btn rounded-pill eliminar-table" (click)= "reportSelect(report)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
-                                    <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [report]="reportSelected"></app-modal-delete>
+                                    <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleReport" [report]="reportSelected"></app-modal-delete>
                                 </td>
                             </tr>
 
@@ -69,17 +71,17 @@
                         
                             <tr scope="col" class="collapse" id="collapse{{index}}">
                                 <td colspan="7" *ngIf="reportSelected">
-                                 <div class="wrapper">
-                                    <h2>USUARIO:</h2> 
-                                    <p>{{report.user.names | titlecase}}</p>
+                                 <div class="row wrapper">
+                                    <h2 class="col-2">USUARIO:</h2> 
+                                    <p class="col-4 col-lg-7">{{report.user.names | titlecase}}</p>
                                  </div>   
-                                 <div class="wrapper">
-                                    <h2>DESCRIPCIÓN:</h2>
-                                    <p >{{report.description | capitalize}}</p>
+                                 <div class="row wrapper">
+                                    <h2 class="col-2">DESCRIPCIÓN:</h2>
+                                    <p class="col-lg-7">{{report.description | capitalize}}</p>
                                  </div>   
-                                 <div class="wrapper">
-                                    <h2>ÚLTIMA VALIDACIÓN:</h2>
-                                    <p>{{report.lastCheckAt | date:'dd-mm-yyyy'}} {{report.lastCheckAt | date: 'H:mm:ss'}}</p>
+                                 <div class="row wrapper">
+                                    <h2 class="col-2">ÚLTIMA VALIDACIÓN:</h2>
+                                    <p class="col-4 col-lg-7">{{report.lastCheckAt | date:'dd-mm-yyyy'}} {{report.lastCheckAt | date: 'H:mm:ss'}}</p>
                                  </div>  
                                  </td>
                             </tr>

@@ -18,3 +18,20 @@
     padding: 4% 5%
 } */
 
+@media (min-width: 2500px){
+    .container-fluid{
+        padding: 2.4vh 0px;
+    }
+}
+
+@media (min-width: 3500px){
+    .container-fluid{
+        padding: 4.5vh 0px;
+    }
+}
+
+@media (min-width: 4900px){
+    .container-fluid{
+        padding: 6.5vh 0px;
+    }
+}

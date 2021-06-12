@@ -30,4 +30,8 @@ export class EventProviderService {
   deleteEvent(id: string): Observable<Event>{
     return this.http.delete<Event>(`/event/${id}`);
   }
+
+  getEventsPerCategory(id:string, limit?:number, page?:number): Observable<Event[]>{
+    return this.http.get<Event[]>(`/event/category/${id}?page=${page}&limit=${limit}`);
+  }
 }

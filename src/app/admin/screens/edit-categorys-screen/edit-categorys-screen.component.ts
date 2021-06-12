@@ -64,7 +64,7 @@ export class EditCategorysScreenComponent implements OnInit {
       console.log(this.form.value);
       this.router.navigate(['admin/category']);
       await this.categoryProviderService.updateCategory(this.id, this.form.value as Category).toPromise();
-      this.notificationService.success('La categoría ha sido actualizado');
+      this.notificationService.success('La categoría ha sido actualizada');
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido actualizar la categoría');

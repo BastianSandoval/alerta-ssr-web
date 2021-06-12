@@ -24,6 +24,7 @@ export class TableCategoryComponent implements OnInit {
   categorySelected: any;
   categorysSlice!: Category[];
   sizePageTable: number = 7;
+  titleCategory: string;
   
   startPage: number = 0;
   endPage: number = 7;
@@ -37,6 +38,7 @@ export class TableCategoryComponent implements OnInit {
 
   //cargar pagina
 public loader: boolean;
+  
 
 
 
@@ -90,6 +92,7 @@ public loader: boolean;
 
   categorySelect(category: Category){
     this.idSelected = category._id;
+    this.titleCategory = category.name;
   }
 
   async deleteItem(categoryId){

@@ -38,8 +38,8 @@ export class ReportProviderService {
     return this.http.delete<Report>(`/complaint/${id}`);
   }
 
-  getComplaintsPerCategory(id:string): Observable<Report[]>{
-    return this.http.get<Report[]>(`/complaint/category/${id}`);
+  getComplaintsPerCategory(id:string, limit?:number, page?:number): Observable<Report[]>{
+    return this.http.get<Report[]>(`/complaint/category/${id}?page=${page}&limit=${limit}`);
   }
 
 
