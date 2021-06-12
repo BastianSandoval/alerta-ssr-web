@@ -4,7 +4,7 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <form class="container-fluid ps-0 pe-lg-0">
                     <div class="col-11 col-lg-4 py-2 py-lg-0 pe-0">
-                        <input class="form-control border-0" list="datalistOptions" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" id="exampleDataList" placeholder="Buscar denuncias" size="80" style="background-color:rgb(234, 238, 226)">
+                        <input class="form-control border-0" list="datalistOptions" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" id="exampleDataList" placeholder="Buscar reportes" size="80" style="background-color:rgb(234, 238, 226)">
                         <datalist id="datalistOptions" >
                             <option *ngFor="let report of reportsSlice" value="{{report.title}}">
                         </datalist>
@@ -17,8 +17,8 @@
                     <div class="col-10 col-sm-10 col-md-6 col-lg-4 col-xl-3">
                         <select id="raza" type="text" (change)="categoryFilter($event)" class="form-select style btn1 me-auto my-2 my-lg-0 d-block">
                             <option selected disabled value id="1">Buscar por categoría</option>
-                            <option *ngFor="let category of categoryList">{{ category.name }}</option>
-                            <option value>Todas Las Categorias</option>     
+                            <option *ngFor="let category of categoryList">{{ category.name[0].toUpperCase() + category.name.slice(1) }}</option>
+                            <option value>Todas Las Categorías</option>     
                         </select>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-5 text-end">
