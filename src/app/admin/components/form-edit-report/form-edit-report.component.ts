@@ -5,15 +5,15 @@ import { Report } from '../../../core/models/report.model';
 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
-import { google } from "google-maps";
+import { google } from 'google-maps';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 
 import { FormService } from '../../../core/services/form/form.service';
 import { ReportProviderService} from '../../../core/providers/report/report-provider.service';
 import { UserProviderService} from '../../../core/providers/user/user-provider.service';
-import { User } from '../../../core/models/user.model'
+import { User } from '../../../core/models/user.model';
 
-import { NotificationService} from '../../../core/services/notification/notification.service'
+import { NotificationService} from '../../../core/services/notification/notification.service';
 
 import {RegionProviderService} from '../../../core/providers/region/region-provider.service';
 import {Region} from '../../../core/models/region.model';
@@ -25,7 +25,7 @@ import {CategoryProviderService} from '../../../core/providers/category/category
 import {Category} from '../../../core/models/category.model';
 
 
-declare var google : google;
+declare var google: google;
 
 @Component({
   selector: 'app-form-edit-report',
@@ -36,29 +36,29 @@ export class FormEditReportComponent implements OnInit{
 
   @Output() form: EventEmitter<FormGroup>;
 
-  @Input() id:string;
+  @Input() id: string;
 
   @ViewChild('inputFile') inputFile: ElementRef;
 
   @ViewChild('inputAddress') inputAddress: ElementRef;
   public autocomplete: google.maps.places.Autocomplete;
 
-  @ViewChild("placesRef") placesRef : GooglePlaceDirective;
+  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
 
   report: Report[] = [];
-  reportId : string;
+  reportId: string;
   checkoutForm: FormGroup;
   userFormControl: FormControl;
   categoryFormControl: FormControl;
   ngForm: FormGroupDirective;
-  user : User[] = [];
+  user: User[] = [];
   category: Category[] = [];
   address: any;
-  selectedUser : User;
-  fechaActual: Date= new Date();
-  
+  selectedUser: User;
+  fechaActual: Date = new Date();
+
 ////////////////////////////
-  
+
   itemList = [];
   settings = {};
   settingsCategories = {};
@@ -70,7 +70,7 @@ export class FormEditReportComponent implements OnInit{
   public changePhoto: boolean;
 
   public options: any = {
-    componentRestrictions: { country: "CL" },
+    componentRestrictions: { country: 'CL' },
   };
 
 
@@ -135,7 +135,7 @@ export class FormEditReportComponent implements OnInit{
         enableSearchFilter: true,
         addNewItemOnFilter: false,
         singleSelection: true,
-        text:"Seleccionar Categoria",
+        text:"Seleccionar Categoría",
         searchPlaceholderText:"Buscar",
         noDataLabel:"No Hay Resultado",
         primaryKey:"_id",
