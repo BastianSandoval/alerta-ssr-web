@@ -4,38 +4,43 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <form class="container-fluid ps-0 pe-lg-0">
                     <div class="col-11 col-lg-4 py-2 py-lg-0 pe-0">
-                        <input class="form-control border-0" list="datalistOptions" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" placeholder="Buscar monto" aria-label="Search" size="80" style="background-color:rgb(234, 238, 226)">
-                            <datalist id="datalistOptions" >
-                                <option *ngFor="let donation of donationsSlice" value="{{donation.donation}}">
-                            </datalist>
+                        <input class="form-control border-0" list="datalistOptions" #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" id="exampleDataList" placeholder="Buscar donación" size="80" style="background-color:rgb(234, 238, 226)">
+                        <datalist id="datalistOptions" >
+                            <option *ngFor="let donation of donationsSlice" value="{{donation.amount}}">
+                        </datalist>
                     </div>
-                    <div class="col-1 col-lg-1 py-2 py-lg-0 px-0">
+                    <div class="col-1 col-lg-3 py-2 py-lg-0 px-0">
                         <button type="button" (click)="searchButton()" class="btn btn-secondary btn1 mx-3 mx-lg-3">
-                            <i class="lupa fas fa-search fa-1x"></i>
+                            <i class="lupa fas fa-search fa-1x "></i>
                         </button>
                     </div>
-                    <div id="limpiar" class="col-12 col-sm-4 col-lg-8 text-end">
+                    <div id="limpiar" class="col-12 col-sm-4 col-lg-6 text-end">
+                        <button type="reset" routerLink="/admin/donation" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                            <i class="far fa-plus-square"></i>
+                            Agregar
+                        </button>
                     </div>
                 </form>
             </nav>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-12">
+        <div class="col-12 col-lg-12" *ngIf="loader; else showLoader">
             <div class="table-responsive">
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
-                            <th width="50%" scope="col-3">MONTO</th>
-                            <th width="20%" style="text-align:center;"scope="col-3 ">ACCIONES</th>
+                            <th width="70%" scope="col">Monto</th>
+                            <th width="30%" style="text-align: center;" scope="col">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let donation of donation | donationFilter : filterDonation">
+                    <tbody *ngFor="let donation of donationsSlice | donationFilter: filterDonation">
                         <tr>
-                            <td scope="col-2">{{donation.donation | currency:'CLP':'symbol-narrow':'3.0'}}</td>
+                            <td scope="col-2">{{ donation.amount | currency: 'CLP' }}</td>
                             <td class="btnRight" scope="col-2">
-                                <button class="btn rounded-pill eliminar-table" (click)="idSelected = donation._id" (click)="donationSelected=donation.username" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
-                                <app-modal-delete [id]="idSelected" [report]="donationSelected"></app-modal-delete>   
+                                <a class="btn rounded-pill editar" [routerLink]="['/admin/donation', donation._id]">Editar</a>
+                                <button class="btn rounded-pill eliminar-table" (click)="selectDonation(donation)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
+                                <app-modal-delete (idDelete)="deleteDonation($event)" [id]="idSelected" [title]="titleDonation"></app-modal-delete>   
                             </td>
                         </tr>
                     </tbody>
@@ -54,7 +59,7 @@
                     <div class="p-0 p-lg-2">
                         <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i class="fas fa-angle-left"></i>
-                        </button> 1 - 4 de 4
+                        </button> {{page}} - {{numberPages}} de {{numberPages}}
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i class="fas fa-angle-right"></i>
                         </button>
@@ -62,6 +67,8 @@
                 </div>
             </nav>
         </div>
+        <ng-template #showLoader>
+            <shared-loader></shared-loader>
+        </ng-template>
     </div>
 </section>
-

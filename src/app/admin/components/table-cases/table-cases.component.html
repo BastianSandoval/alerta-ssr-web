@@ -56,7 +56,7 @@
                                 </td>
                                 <td scope="col">{{event.rejections}}</td>
                                 <td class="btnRight text-center" scope="col">
-                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-case', event.idReporte]">Editar</a>
+                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/case', event.idReporte]">Editar</a>
                                     
                                     <button class="btn rounded-pill eliminar-table" (click)="titleCase = event.report.title" (click)="idSelected = event._id" (click)="reportSelected=event.report.title" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                     <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleCase" [report]="reportSelected"></app-modal-delete>

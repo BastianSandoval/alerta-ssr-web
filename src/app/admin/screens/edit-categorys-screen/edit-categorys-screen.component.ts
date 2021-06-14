@@ -49,8 +49,8 @@ export class EditCategorysScreenComponent implements OnInit {
 
   public async addPlan(form: FormGroup): Promise<void> {
     try {
-      this.router.navigate(['admin/category']);
       await this.categoryProviderService.addCategory(this.form.value).toPromise();
+      this.router.navigate(['admin/categories']);
       this.notificationService.success('La categoría ha sido creada');
       this.form.reset();
     } catch (error) {
@@ -62,8 +62,8 @@ export class EditCategorysScreenComponent implements OnInit {
   public async updatePlan(): Promise<void> {
     try {
       console.log(this.form.value);
-      this.router.navigate(['admin/category']);
       await this.categoryProviderService.updateCategory(this.id, this.form.value as Category).toPromise();
+      this.router.navigate(['admin/categories']);
       this.notificationService.success('La categoría ha sido actualizada');
     } catch (error) {
       console.log(error);

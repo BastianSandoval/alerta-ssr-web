@@ -24,7 +24,7 @@
                         </select>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-5 text-end">
-                        <button type="reset" routerLink="/admin/edit-report" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                        <button type="reset" routerLink="/admin/report" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
                             <i class="far fa-plus-square"></i>
                             Agregar
                         </button>
@@ -56,11 +56,11 @@
                                 <td scope="col">{{report.createdAt |date:'dd-MM-yyyy'}}</td>
                                 <td scope="col">{{report.ubication | titlecase}}</td>
                                 <td scope="col">{{report.checks}}  
-                                    <span style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-MM-yyyy'}}</span>
+                                    <span *ngIf="report.lastCheckAt" style="font-size: 12px;"> última {{report.lastCheckAt | date:'dd-MM-yyyy'}}</span>
                                 </td>
                                 <td scope="col">{{report.rejections}}</td>
                                 <td class="btnRight text-center" scope="col" width="19%">
-                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-report', report._id]">Editar</a>
+                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/report', report._id]">Editar</a>
                                     
                                     <button class="btn rounded-pill eliminar-table" (click)= "reportSelect(report)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                     <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleReport" [report]="reportSelected"></app-modal-delete>

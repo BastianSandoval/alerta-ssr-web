@@ -30,6 +30,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { ModalLogoutComponent } from './components/modal-logout/modal-logout.component';
+import { FormEditDonationComponent } from './components/form-edit-donation/form-edit-donation.component';
+import { EditDonationScreenComponent } from './screens/edit-donation-screen/edit-donation-screen.component';
 
 const component = [
   AdminComponent,SidebarComponent,
@@ -41,7 +43,7 @@ const component = [
 ]
 
 @NgModule({
-  declarations: [...component],
+  declarations: [...component, FormEditDonationComponent, EditDonationScreenComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

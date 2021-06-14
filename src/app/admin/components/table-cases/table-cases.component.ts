@@ -111,6 +111,11 @@ public loader: boolean;
       index++;
       });
       this.setReport()
+      if (!this.eventos.length) {
+        if (this.prevPages >= 1) {
+          this.prevPage();
+        }
+      }
       this.notificationService.success('Caso eliminado exitosamente');
     }else{
       this.notificationService.error('No fue posible eliminar el caso');

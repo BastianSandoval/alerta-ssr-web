@@ -79,9 +79,8 @@ export class FormEditReportComponent implements OnInit{
   public idCommune: any;
   public idLocation: any;
   public idCategoria: any;
-  public ubicacion : any = {region:'',commune:'',latitude:'', longitude:'',fullAddress:''}; 
-  
-  
+  public ubicacion : any;
+
 
   constructor(
     private formService:FormService,
@@ -96,15 +95,24 @@ export class FormEditReportComponent implements OnInit{
     private router: Router,
 
     ){
-    this.checkoutForm;
-    this.userFormControl = new FormControl([],[Validators.required]);
-    this.categoryFormControl = new FormControl([],[Validators.required]);
-    this.createFormGroup();
-    this.imageChangedEvent = null;
-    this.changePhoto = false;
-    this.loader = false;
-    this.id = '';
-    this.form= new EventEmitter<FormGroup>();
+      this.checkoutForm;
+      this.userFormControl = new FormControl([],[Validators.required]);
+      this.categoryFormControl = new FormControl([],[Validators.required]);
+      this.createFormGroup();
+      this.imageChangedEvent = null;
+      this.changePhoto = false;
+      this.loader = false;
+      this.id = '';
+      this.form= new EventEmitter<FormGroup>();
+      this.ubicacion = {
+        region: '',
+        commune: '',
+        latitude: '',
+        longitude: '',
+        fullAddress: '', 
+        streetName: '', 
+        streetNumber: ''
+      }; 
     }
 
     exportForm(){
@@ -153,23 +161,21 @@ export class FormEditReportComponent implements OnInit{
     //guardar region
     for (let i = 0; i < address.address_components.length; i++) {
       if(address.address_components[i].types[0] === "administrative_area_level_1"){
-        this.ubicacion.region = address.address_components[i].long_name;
+        this.ubicacion.region = ', ' + address.address_components[i].long_name;
       }
       if(address.address_components[i].types[0] === "administrative_area_level_3"){
-        this.ubicacion.commune = address.address_components[i].long_name;
+        this.ubicacion.commune = ', ' + address.address_components[i].long_name;
         console.log(this.ubicacion.commune);
       }
-      // if(address.address_components[i].types[0] === "street_number"){
-      //   this.ubicacion.street_number = parseInt(address.address_components[i].long_name);
-      //   console.log(address.address_components[i].long_name);
-      // }
-      // if(address.address_components[i].types[0] === "route"){
-      //   this.ubicacion.street_name = address.address_components[i].long_name;
-      //   console.log(address.address_components[i].long_name);
-      // }
+      if(address.address_components[i].types[0] === "street_number"){
+        this.ubicacion.street_number = ' ' + parseInt(address.address_components[i].long_name);
+      }
+      if(address.address_components[i].types[0] === "route"){
+        this.ubicacion.street_name = address.address_components[i].long_name;
+      }
 
     }
-    this.ubicacion.fullAddress = address.name;
+    this.ubicacion.fullAddress = `${this.ubicacion.street_name}${this.ubicacion.street_number}${this.ubicacion.commune}${this.ubicacion.region}`;
     console.log(this.ubicacion.fullAddress);
     this.ubicacion.latitude = address.geometry.location.lat().toString();
     this.ubicacion.longitude = address.geometry.location.lng().toString();
@@ -183,7 +189,7 @@ export class FormEditReportComponent implements OnInit{
       
       console.log(this.ubicacion.region)
       var region: Region = {
-        name: this.ubicacion.region
+        name: this.ubicacion.region? this.ubicacion.region : ''
       }
 
       let regiones: Region[] = await this.regionProviderService.getAllRegions().toPromise();
@@ -192,7 +198,7 @@ export class FormEditReportComponent implements OnInit{
 
       if(!result){
        console.log("no se encontro");
-        await this.regionProviderService.addRegion(region)
+        this.regionProviderService.addRegion(region)
        .subscribe(data => {
          this.idRegion = data._id;
 
@@ -220,8 +226,8 @@ export class FormEditReportComponent implements OnInit{
 
       console.log(this.idRegion);
       var commune: Commune = {
-        name: this.ubicacion.commune,
-        region: this.idRegion
+        name: this.ubicacion.commune? this.ubicacion.commune : '' ,
+        region: this.idRegion? this.idRegion : ''
       }
 
       let communes: Commune[] = await this.communeProviderService.getAllCommunes().toPromise();
@@ -231,7 +237,7 @@ export class FormEditReportComponent implements OnInit{
       if(!result){
        console.log("no se encontro");
        console.log(commune);
-       await this.communeProviderService.addCommune(commune)
+       this.communeProviderService.addCommune(commune)
        .subscribe((data) => {
          this.idCommune = data._id;
          console.log(data._id);
@@ -262,7 +268,7 @@ export class FormEditReportComponent implements OnInit{
         latitude: this.ubicacion.latitude,
         longitude: this.ubicacion.longitude,
         fullAddress: this.ubicacion.fullAddress,
-        commune: this.idCommune
+        commune: this.idCommune? this.idCommune: ''
       }
       let locations: Location[] = await this.locationProviderService.getAllLocations().toPromise();
             
@@ -271,12 +277,13 @@ export class FormEditReportComponent implements OnInit{
       if(!result){
        console.log("no se encontro");
        console.log(location);
-       await this.locationProviderService.addLocation(location)
+       this.locationProviderService.addLocation(location)
        .subscribe((data) => {
          this.idLocation= data._id;
         });
       } else {
-         this.idLocation = result._id;
+        this.idLocation = result._id;
+        console.log('id encontrado: ', this.idLocation)
       }
       
     } catch(error){
@@ -290,19 +297,19 @@ export class FormEditReportComponent implements OnInit{
     event.preventDefault();
     //hacer lista de categorias
 
-    this.checkoutForm.get('user').setValue(this.userFormControl.value[0]._id);
-    this.checkoutForm.get('category').setValue(this.categoryFormControl.value[0]._id);
+    
     
     // this.userFormControl.setValue(this.userFormControl.value[0]._id);
     // this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id);
      this.checkoutForm.controls['location'].setValue(this.idLocation);
   
 
-    console.log(this.checkoutForm.value);
+    console.log(this.checkoutForm);
 
-    if (reportForm.valid)
-    this.submitReport();
-    reportForm.resetForm(); // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
+    if (this.checkoutForm.valid) {
+      this.submitReport(reportForm);
+    }
+     // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
   }
 
   private createFormGroup() {
@@ -374,27 +381,31 @@ export class FormEditReportComponent implements OnInit{
     return new File([u8arr], filename, { type: mime });
   }
 
-  public async submitReport(): Promise<void> {
+  public async submitReport(report: FormGroupDirective): Promise<void> {
+    
     if (this.checkoutForm.valid) {
-      console.log(this.checkoutForm.value)
+      this.checkoutForm.get('user').setValue(this.userFormControl.value[0]._id);
+      this.checkoutForm.get('category').setValue(this.categoryFormControl.value[0]._id);
       if (this.id != '') {
         await this.updateReport();
       } else {
-        await this.addReport(this.checkoutForm);
+        await this.addReport(this.checkoutForm, report);
       }
     }
   }
 
-   public async addReport(form: FormGroup): Promise<void> {
+  public async addReport(form: FormGroup, report: FormGroupDirective): Promise<void> {
     try {
       const fileName = this.imageChangedEvent.target.files[0].name;
+      console.log(this.imageChangedEvent.target.files)
       const img = this.base64ToFile(this.croppedImage, fileName);
       this.checkoutForm.get('image').setValue(img);
-
-      this.router.navigate(['admin/reports']);
       await this.reportProviderService.addReport(this.checkoutForm.value).toPromise();
+      this.checkoutForm.reset();
+      this.router.navigate(['admin/reports']);
+      console.log('primero')
       this.notificationService.success('El reporte ha sido creado');
-     
+      report.resetForm();
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido crear el reporte');
@@ -446,9 +457,9 @@ export class FormEditReportComponent implements OnInit{
         const img = this.base64ToFile(this.croppedImage, fileName);
         this.checkoutForm.get('image').setValue(img);
       }
-
-      this.router.navigate(['admin/reports']);
+      
       await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
+      this.router.navigate(['admin/reports']);
       this.notificationService.success('El reporte ha sido actualizado');
     } catch (error) {
       console.log(error);
@@ -460,6 +471,10 @@ export class FormEditReportComponent implements OnInit{
   fromJsonDate(jDate): string {
     const bDate: Date = new Date(jDate);
     return bDate.toISOString().substring(0, 10);  //Ignore time
+  }
+
+  cancel() {
+    this.router.navigate(['admin/reports'])
   }
 
 

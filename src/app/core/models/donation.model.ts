@@ -1,5 +1,6 @@
-export interface Donation {
-    _id: string;
-    username:string;
-    donation:number;
+export interface DonationAmount {
+    _id?: string;
+    amount: number;
+    updatedAt?: Date;
+    createdAt?: Date;
   }
