@@ -98,7 +98,6 @@ public loader: boolean;
   async deleteItem(categoryId){
     let index:number=0;
     let existeReporte : any = await this.reportProviderService.getComplaintsPerCategory(categoryId).toPromise();
-    console.log(existeReporte.docs);
     if (!existeReporte.docs.length){
       await this.categoryProviderService.deleteCategory(categoryId).toPromise();
       if (categoryId){
@@ -110,6 +109,12 @@ public loader: boolean;
         });
         const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
         this.category = data;
+        this.numberPages = Math.ceil(this.category.length / this.sizePageTable);
+        if (!this.categorysSlice.length) {
+          if (this.numberPages >= 1) {
+            this.prevPage();
+          }
+        }
         this.notificationService.success('Categoría eliminado exitosamente');
       }
     }

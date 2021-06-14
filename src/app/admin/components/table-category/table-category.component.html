@@ -15,7 +15,7 @@
                         </button>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-lg-6 text-end">
-                        <button type="reset" routerLink="/admin/edit-category" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                        <button type="reset" routerLink="/admin/category" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
                             <i class="far fa-plus-square"></i>
                             Agregar
                         </button>
@@ -40,7 +40,7 @@
                             <td scope="col-2">{{category.name | capitalize }}</td>
                             <td scope="col-2">{{category.description | capitalize}}</td>
                             <td class="btnRight" scope="col-2">
-                                <a class="btn rounded-pill editar" [routerLink]="['/admin/edit-category', category._id]">Editar</a>
+                                <a class="btn rounded-pill editar" [routerLink]="['/admin/category', category._id]">Editar</a>
                                 
                                 <button class="btn rounded-pill eliminar-table" (click)="categorySelect(category)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
                                 <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleCategory"></app-modal-delete>   
@@ -62,7 +62,7 @@
                     <div class="p-0 p-lg-2">
                         <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i class="fas fa-angle-left"></i>
-                        </button> {{page}} - {{page}} de {{numberPages}}
+                        </button> {{page}} - {{numberPages}} de {{numberPages}}
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i class="fas fa-angle-right"></i>
                         </button>

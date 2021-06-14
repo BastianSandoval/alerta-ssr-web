@@ -93,8 +93,13 @@ public loader: boolean;
         }
       index++;
       });
+
       this.setReport();
-      
+      if (!this.reports.length) {
+        if (this.prevPages >= 1) {
+          this.prevPage();
+        }
+      }
       this.notificationService.success('Reporte eliminado exitosamente');
     }
     else {
@@ -140,6 +145,7 @@ public loader: boolean;
       data = dataCategory;
     }else{
      data = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
+     console.log(data)
     }
     //set queries
    this.totalDocs= data.totalDocs;
@@ -162,7 +168,7 @@ public loader: boolean;
         if(location.commune === commune._id){
           this.regions.forEach((region) => {
             if(commune.region._id === region._id){
-              report.ubication = `${location.fullAddress}, ${commune.name}, ${region.name}`
+              report.ubication = `${location.fullAddress}`
             }
           })
         }
