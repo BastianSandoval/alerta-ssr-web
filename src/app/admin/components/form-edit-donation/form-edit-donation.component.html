@@ -1,0 +1,22 @@
+<div class="row justify-content-center mb-4">
+    <div class="col-11 col-lg-10 " style="background-color: rgb(234, 238, 226)">
+        <div class="container-fluid pt-4 pb-4">
+            <form [formGroup]="donationForm" #donationform="ngForm" (ngSubmit)="saveDonation($event,donationform)">
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-6 col-lg-6 py-3 py-lg-4 px-5 px-lg-5">
+                        <label for="nameAmount" class="fw-bolder">MONTO</label>
+                        <input id="nameAmount" type="number" class="form-control" formControlName="amount" aria-label="nameAmount">
+                        <div id="mensaje">
+                            <small id="inputAmount" class="form-text text-muted" *ngIf="donationform.submitted && controlIsRequired('amount')"> Requerido</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group text-center mt-3">
+                    <button class="btn btn-lg btn-danger text-center me-4" (click)="cancel()">Cancelar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
