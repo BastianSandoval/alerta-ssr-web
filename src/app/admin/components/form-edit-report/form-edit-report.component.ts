@@ -161,21 +161,22 @@ export class FormEditReportComponent implements OnInit{
     //guardar region
     for (let i = 0; i < address.address_components.length; i++) {
       if(address.address_components[i].types[0] === "administrative_area_level_1"){
-        this.ubicacion.region = ', ' + address.address_components[i].long_name;
+        this.ubicacion.region = address.address_components[i].long_name;
       }
       if(address.address_components[i].types[0] === "administrative_area_level_3"){
-        this.ubicacion.commune = ', ' + address.address_components[i].long_name;
-        console.log(this.ubicacion.commune);
+        this.ubicacion.commune = address.address_components[i].long_name;
+      } else if (address.address_components[i].types[0] === "colloquial_area"){
+        this.ubicacion.commune = address.address_components[i].long_name
       }
       if(address.address_components[i].types[0] === "street_number"){
-        this.ubicacion.street_number = ' ' + parseInt(address.address_components[i].long_name);
+        this.ubicacion.streetNumber = ' ' + parseInt(address.address_components[i].long_name) + ', ';
       }
       if(address.address_components[i].types[0] === "route"){
-        this.ubicacion.street_name = address.address_components[i].long_name;
+        this.ubicacion.streetName = address.address_components[i].long_name;
       }
 
     }
-    this.ubicacion.fullAddress = `${this.ubicacion.street_name}${this.ubicacion.street_number}${this.ubicacion.commune}${this.ubicacion.region}`;
+    this.ubicacion.fullAddress = `${this.ubicacion.streetName}${this.ubicacion.streetNumber}${this.ubicacion.commune}, ${this.ubicacion.region}`;
     console.log(this.ubicacion.fullAddress);
     this.ubicacion.latitude = address.geometry.location.lat().toString();
     this.ubicacion.longitude = address.geometry.location.lng().toString();
@@ -305,18 +306,15 @@ export class FormEditReportComponent implements OnInit{
   
 
     console.log(this.checkoutForm);
-
-    if (this.checkoutForm.valid) {
-      this.submitReport(reportForm);
-    }
+    this.submitReport(reportForm);
      // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
   }
 
   private createFormGroup() {
       this.checkoutForm = this.formService.buildFormGroup({
       title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
-      category: this.categoryFormControl,
-      user: this.userFormControl,
+      category: new FormControl('', [Validators.required]),
+      user: new FormControl('', [Validators.required]),
       location: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
       date: new FormControl('',[Validators.required]),
@@ -382,14 +380,16 @@ export class FormEditReportComponent implements OnInit{
   }
 
   public async submitReport(report: FormGroupDirective): Promise<void> {
-    
-    if (this.checkoutForm.valid) {
+    if (this.userFormControl.valid && this.categoryFormControl.valid) {
       this.checkoutForm.get('user').setValue(this.userFormControl.value[0]._id);
       this.checkoutForm.get('category').setValue(this.categoryFormControl.value[0]._id);
-      if (this.id != '') {
-        await this.updateReport();
-      } else {
-        await this.addReport(this.checkoutForm, report);
+      if (this.checkoutForm.valid) {
+        if (this.id != '') {
+          await this.updateReport();
+        } else {
+          await this.addReport(this.checkoutForm, report);
+        }
+        report.resetForm()
       }
     }
   }
@@ -402,10 +402,9 @@ export class FormEditReportComponent implements OnInit{
       this.checkoutForm.get('image').setValue(img);
       await this.reportProviderService.addReport(this.checkoutForm.value).toPromise();
       this.checkoutForm.reset();
-      this.router.navigate(['admin/reports']);
-      console.log('primero')
-      this.notificationService.success('El reporte ha sido creado');
       report.resetForm();
+      this.router.navigate(['admin/reports']);
+      this.notificationService.success('El reporte ha sido creado');
     } catch (error) {
       console.log(error);
       this.notificationService.error('No se ha podido crear el reporte');
