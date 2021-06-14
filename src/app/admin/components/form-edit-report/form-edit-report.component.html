@@ -24,7 +24,7 @@
                             </div>
                             
                             <div id="mensaje">
-                                <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('category')"> Requerido</small>
+                                <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && categoryFormControl.hasError('required')"> Requerido</small>
                             </div>
                         </form>                   
                     </div>

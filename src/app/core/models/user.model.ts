@@ -6,6 +6,7 @@ export interface User {
     address: string;
     phone: string;
     password: string;
+    profilePictureUrl?: string;
     complaints?: string[];
     comments?: string[];
     checks?: string[];
