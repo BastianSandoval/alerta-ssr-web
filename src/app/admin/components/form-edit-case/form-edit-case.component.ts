@@ -179,6 +179,10 @@ export class FormEditCaseComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.router.navigate(['admin/cases'])
+  }
+
 }
 
 

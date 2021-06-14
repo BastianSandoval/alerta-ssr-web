@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormService } from '../../../core/services/form/form.service';
 import { NotificationService} from '../../../core/services/notification/notification.service'
 import { CategoryProviderService} from '../../../core/providers/category/category-provider.service'
@@ -27,8 +27,8 @@ export class FormEditCategoryComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private formService:FormService,
     private categoryProviderService: CategoryProviderService,
-    private notificationService: NotificationService
-    
+    private notificationService: NotificationService,
+    private router: Router
     
     ){
     this.checkoutForm;
@@ -96,9 +96,14 @@ export class FormEditCategoryComponent implements OnInit {
           });
         } catch (error) {
           console.log(error);
-          this.notificationService.error('No se ha podido cargar el producto');
+          this.notificationService.error('No se ha podido cargar la categoría');
         }
       }
     });
   }
+
+  cancel() {
+    this.router.navigate(['admin/categories'])
+  }
+
 }
