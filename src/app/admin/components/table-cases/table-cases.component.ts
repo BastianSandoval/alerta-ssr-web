@@ -64,7 +64,8 @@ public loader: boolean;
   constructor(
     private reportProviderService: ReportProviderService,
     private eventProviderService: EventProviderService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    private categoryProviderService: CategoryProviderService) {
 
     this.eventosSlice = []   
     this.reportSelected = false;
@@ -75,6 +76,9 @@ public loader: boolean;
 
   async ngOnInit(): Promise<void> {
     await this.setReport();
+
+    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
+
   }
 
   async ngDoCheck(){
