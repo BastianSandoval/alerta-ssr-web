@@ -11,7 +11,7 @@ export class LoaderComponent implements OnInit {
   public size: number;
 
   constructor() {
-    this.sizeRem != undefined ? this.size = this.sizeRem : this.size = 2;
+    this.sizeRem != undefined ? this.size = this.sizeRem : this.size = 5;
    }
 
   ngOnInit(): void {
