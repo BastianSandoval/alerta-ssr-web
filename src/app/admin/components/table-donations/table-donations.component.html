@@ -10,14 +10,14 @@
                         </datalist>
                     </div>
                     <div class="col-1 col-lg-3 py-2 py-lg-0 px-0">
-                        <button type="button" (click)="searchButton()" class="btn btn-secondary btn1 mx-3 mx-lg-3">
+                        <button type="button" (click)="searchButton()" class="btn btn-secondary btn1 mx-3 mx-lg-3" style="padding: 0.7vh 2vh;">
                             <i class="lupa fas fa-search fa-1x "></i>
                         </button>
                     </div>
                     <div id="limpiar" class="col-12 col-sm-4 col-lg-6 text-end">
-                        <button type="reset" routerLink="/admin/donation" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
-                            <i class="far fa-plus-square"></i>
-                            Agregar
+                        <button style="width: 20vh;" type="reset" routerLink="/admin/donation" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                            <i style="font-size: 2.3vh;" class="far fa-plus-square"></i>
+                            <span>Agregar</span>
                         </button>
                     </div>
                 </form>
@@ -39,7 +39,7 @@
                             <td scope="col-2">{{ donation.amount | currency: 'CLP' }}</td>
                             <td class="btnRight" scope="col-2">
                                 <a class="btn rounded-pill editar" [routerLink]="['/admin/donation', donation._id]">Editar</a>
-                                <button class="btn rounded-pill eliminar-table" (click)="selectDonation(donation)" type="submit" data-bs-toggle="modal" data-bs-target="#delete">Eliminar </button>
+                                <button class="btn rounded-pill eliminar-table" (click)="selectDonation(donation)" type="submit" data-bs-toggle="modal" data-bs-target="#delete"><span>Eliminar</span> </button>
                                 <app-modal-delete (idDelete)="deleteDonation($event)" [id]="idSelected" [title]="titleDonation"></app-modal-delete>   
                             </td>
                         </tr>
@@ -49,7 +49,7 @@
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="container-fluid ps-0">
                     <div class="ms-auto p-2 bd-highlight nextPage">
-                        Ítems por página:
+                       <span> Ítems por página:</span>
                         <select id="page" type="number" (change)="sizePage($event)" class="btn btn1 btn-sm">
                             <option selected >7</option>
                             <option type="number" >5</option>
@@ -58,10 +58,10 @@
                     </div>
                     <div class="p-0 p-lg-2">
                         <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
-                            <i class="fas fa-angle-left"></i>
-                        </button> {{page}} - {{numberPages}} de {{numberPages}}
+                            <i style="font-size: 2.3vh; padding: 0.2vh;" class="fas fa-angle-left"></i>
+                        </button> <span> {{page}} - {{numberPages}} de {{numberPages}} </span>
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
-                            <i class="fas fa-angle-right"></i>
+                            <i style="font-size: 2.3vh; padding: 0.2vh;" class="fas fa-angle-right"></i>
                         </button>
                     </div>
                 </div>
