@@ -146,7 +146,7 @@ export class FormEditReportComponent implements OnInit{
         text:"Seleccionar Categoría",
         searchPlaceholderText:"Buscar",
         noDataLabel:"No Hay Resultado",
-        primaryKey:"_id",
+        primaryKey:"_id"
       };
 
       this.setReport();
