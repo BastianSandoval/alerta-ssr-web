@@ -1,0 +1,50 @@
+.sidebar{
+    padding:0px 0px;
+    background-color: #EEF2E9;
+    margin:0;
+    position: fixed;
+    height: 100%;
+    width: 16.5%;
+}
+
+.dogAPI{
+    padding: 10vh 5px;
+    color: #96AC78;
+}
+
+.options{
+    background: #EEF2E9;
+    text-align: center;
+
+}
+
+.active{
+    background: white;
+    min-height: 10vh;
+    padding-top: 25px;
+    cursor: pointer;
+}
+
+.noActive{
+    min-height: 10vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 4vh;
+    padding-top: 3.6vh;
+}
+
+i{
+    color: #96AC78;
+    font-size: 26px;
+}
+
+.logout{
+    color:rgb(224, 120, 102); 
+    font-weight: bold;
+    text-decoration: none;
+}
+
+span{
+    font-size: 2.3vh;
+}
