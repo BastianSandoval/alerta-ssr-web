@@ -6,13 +6,6 @@ option, span, a, select {
 i{
     font-size: 2.3vh;
 }
-.card{
-    background-color: #EEF2E9;
-}
-.card:hover{
-    background-color: #eef2e988;
-    cursor: pointer;
-}
 
 .card-body{
     padding: 2vh 1vh 2vh 2vh; 
