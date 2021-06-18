@@ -1,0 +1,44 @@
+
+
+<div class="row justify-content-start vh-100">
+    <div class="col-12">
+        <div class="container-fluid pt-4">
+            <p class="mt-5 mb-5 xs title-screen">ACTUALIZAR CONTRASEÑA</p>
+            <form [formGroup]="checkoutForm" #configForm="ngForm" (ngSubmit)="saveChange($event, configForm)">
+                <div class="row">
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                        <label for="currentLocationRadius" class="fw-normal">CONTRASEÑA ACTUAL</label>
+                        <input id="currentLocationRadius" type="text" class="form-control" formControlName="currentLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="currentLocationRadius">
+                        <div id='mensaje'>
+                            <small id="currentLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('currentLocationRadius')"> Requerido  </small>
+                            <small id="currentLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('currentLocationRadius')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                        <label for="anotherLocationRadius" class="fw-normal">NUEVA CONTRASEÑA</label>
+                        <input id="anotherLocationRadius" type="text" class="form-control" formControlName="anotherLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="anotherLocationRadius">
+                        <div id='mensaje'>
+                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('anotherLocationRadius')"> Requerido  </small>
+                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('anotherLocationRadius')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                        <label for="anotherLocationRadius" class="fw-normal">REPETIR CONTRASEÑA</label>
+                        <input id="anotherLocationRadius" type="text" class="form-control" formControlName="anotherLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="anotherLocationRadius">
+                        <div id='mensaje'>
+                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('anotherLocationRadius')"> Requerido  </small>
+                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('anotherLocationRadius')"> Invalido </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row py-3 py-lg-4">
+                    <div class="px-3 px-lg-5">
+                        <button type="submit" disabled class="btn text-white px-4" style="background-color: rgb(158, 172, 136);"><span>Actualizar</span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
