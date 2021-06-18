@@ -5,6 +5,9 @@ import { ReportsScreenComponent } from './screens/reports-screen/reports-screen.
 import { InstitutionComponent } from './institution.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { PasswordRecoveryComponent } from './screens/password-recovery/password-recovery.component';
+import { CasesScreenComponent } from './screens/cases-screen/cases-screen.component'
+import { SettingsComponent } from './screens/settings/settings.component';
+import { DetailReportComponent } from './components/detail-report/detail-report.component'
 
 const routes: Routes = [
   {
@@ -27,6 +30,19 @@ const routes: Routes = [
       {
         path: 'reports',
         component: ReportsScreenComponent
+      },
+      {
+        path: 'report/:id',
+        component: DetailReportComponent
+      },
+      {
+        path: 'cases',
+        component: CasesScreenComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
+
       }
     ]
   }
