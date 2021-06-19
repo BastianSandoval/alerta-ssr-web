@@ -24,6 +24,7 @@ export class TableCategoryComponent implements OnInit {
   categorySelected: any;
   categorysSlice!: Category[];
   sizePageTable: number = 7;
+  titleCategory: string;
   
   startPage: number = 0;
   endPage: number = 7;
@@ -37,6 +38,7 @@ export class TableCategoryComponent implements OnInit {
 
   //cargar pagina
 public loader: boolean;
+  
 
 
 
@@ -90,12 +92,12 @@ public loader: boolean;
 
   categorySelect(category: Category){
     this.idSelected = category._id;
+    this.titleCategory = category.name;
   }
 
   async deleteItem(categoryId){
     let index:number=0;
     let existeReporte : any = await this.reportProviderService.getComplaintsPerCategory(categoryId).toPromise();
-    console.log(existeReporte.docs);
     if (!existeReporte.docs.length){
       await this.categoryProviderService.deleteCategory(categoryId).toPromise();
       if (categoryId){
@@ -107,6 +109,12 @@ public loader: boolean;
         });
         const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
         this.category = data;
+        this.numberPages = Math.ceil(this.category.length / this.sizePageTable);
+        if (!this.categorysSlice.length) {
+          if (this.numberPages >= 1) {
+            this.prevPage();
+          }
+        }
         this.notificationService.success('Categoría eliminado exitosamente');
       }
     }

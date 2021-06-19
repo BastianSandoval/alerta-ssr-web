@@ -6,8 +6,8 @@
             <p class="mt-5 mb-5 xs title-screen">AJUSTES</p>
             <form [formGroup]="checkoutForm" #configForm="ngForm" (ngSubmit)="saveChange($event, configForm)">
                 <div class="row">
-                    <p class="title py-3 py-lg-0 px-3 px-lg-5 xs">Ubicación</p>
-                    <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <p class="title py-3 py-lg-0 px-3 px-lg-5 xs"><span>Ubicación</span></p>
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="currentLocationRadius" class="fw-normal">UBICACIÓN ACTUAL (metros)</label>
                         <input id="currentLocationRadius" type="text" class="form-control" formControlName="currentLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="currentLocationRadius">
                         <div id='mensaje'>
@@ -15,7 +15,7 @@
                             <small id="currentLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('currentLocationRadius')"> Invalido </small>
                         </div>
                     </div>
-                    <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="anotherLocationRadius" class="fw-normal">OTRA UBICACIÓN (metros)</label>
                         <input id="anotherLocationRadius" type="text" class="form-control" formControlName="anotherLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="anotherLocationRadius">
                         <div id='mensaje'>
@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div class="row py-3 py-lg-5">
-                    <p class="title py-3 py-lg-0 px-3 px-lg-5 xs">Denuncias</p>
-                    <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <p class="title py-3 py-lg-0 px-3 px-lg-5 xs"><span>Denuncias</span></p>
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="minimalChecks" class="fw-normal">COMPROBACIONES MÍNIMAS</label>
                         <input id="minimalChecks" type="text" class="form-control" formControlName="minimalChecks" placeholder="Ingresar radio (ej:20)" aria-label="minimalChecks">
                         <div id='mensaje'>
@@ -34,7 +34,7 @@
                             <small id="minimalChecks" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('minimalChecks')"> Invalido </small>
                         </div>
                     </div>
-                    <div class="col-10 col-sm-4 col-md-4 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
+                    <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
                         <label for="minimalRejections" class="fw-normal">RECHAZOS MÍNIMOS</label>
                         <input id="minimalRejections" type="text" class="form-control" formControlName="minimalRejections" placeholder="Ingresar radio (ej:20)" aria-label="minimalRejections">
                         <div id='mensaje'>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row py-3 py-lg-4">
                     <div class="px-3 px-lg-5">
-                        <button type="submit" class="btn text-white px-4" style="background-color: rgb(158, 172, 136);">Aceptar</button>
+                        <button type="submit" class="btn text-white px-4" style="background-color: rgb(158, 172, 136);"><span>Actualizar</span></button>
                     </div>
                 </div>
             </form>

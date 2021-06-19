@@ -1,0 +1,80 @@
+<div class="container"
+  *ngIf="report$ | async;
+  let report;"
+>
+  <div class="row pt-2 d-flex justify-content-between" >
+    <div class="col-5">
+      <img [src]="report.imageUrl" alt="" class="img-fluid img-thumbnail shadow-sm" style="max-height: 31vh;" data-toggle="modal" data-target="#exampleModal2">
+    </div>
+
+    <div class="col-7 ps-5"> 
+      <app-map
+        [lat]="report.location.latitude"
+        [lng]="report.location.longitude"
+      ></app-map>
+    </div>
+  </div>
+  
+  <div class="row mt-3">
+    <div class="col-5 pe-5">
+      <h4 class="mb-0" style="color: #000000; font-size: 2.8vh; font-weight: bold;">{{report.title | uppercase}}</h4>
+      <p class="mb-5" class="lead" style="color: #96AC78; font-size: 2vh; font-weight: normal;">Fecha: {{report.createdAt | date: 'd/M/yy h:mm:ss'}}</p>
+
+      <h5 class="text-uppercase mt-3" style="color: #000000; font-size:2.2vh; font-weight: bold;">Descripción de la denuncia</h5>
+      <p class="pe-4 mb-1" style="color: #676767;">{{report.description | capitalize}}</p>
+
+      
+      <div class="row mt-5">
+        <div class="col-6">
+          <div class="card bg-brand" style="border-radius: 20px;">
+            <div class="card-body py-1 text-center">
+              <h5 class="text-white" style="font-weight: normal; font-size: 2.4vh; margin-bottom: 0.8vh;">Validaciones</h5>
+              <h4 class="lead text-white text-brand-secondary mb-0" style="font-size: 2.4vh; margin-bottom:1vh;">{{report.checks}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-7 ps-5">
+      <h4 class="text-uppercase mb-0" style="color: #000000; font-size:2.2vh; font-weight: 700;">Comentarios</h4>
+      <hr class="py-0">
+
+      <div class="row" style="max-height: 30vh; overflow-y: scroll;">
+        <div class="col">
+          <div class="card shadow-sm mb-2" style="border-radius: 30px;"
+            *ngFor="let comment of comments"
+          >
+            <div class="card-body py-2">
+              <h5 class="card-title text-brand mb-0" style="font-size: 1.9vh; font-weight: 700;">{{comment.user.names | uppercase}}</h5>
+              <p class="card-text" style="color: #000000; font-size: 2vh; font-weight:700;">{{comment.description | capitalize}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+        <label class="offset-5 col-7 ps-5" for="comment" style="display: block;">ESCRIBIR NUEVO COMENTARIO
+            <textarea id="comment" type="text" style="display: block;"></textarea>
+        </label>
+    </div>
+  </div>
+
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body bg-dark">
+          <div class="row">
+            <div class="col">
+              <img class="img-fluid" [src]="report.imageUrl" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

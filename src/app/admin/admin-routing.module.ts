@@ -13,6 +13,7 @@ import { MapOperator } from 'rxjs/internal/operators/map';
 import { MapComponent } from './components/map/map.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { AdminGuard } from './../core/guards/admin/admin.guard';
+import { EditDonationScreenComponent } from './screens/edit-donation-screen/edit-donation-screen.component';
 
 const routes: Routes = [
   {
@@ -34,41 +35,49 @@ const routes: Routes = [
         component: ReportsScreenComponent
       },
       {
+        path:'report',
+        component: EditReportsScreenComponent
+      },
+      {
+        path: 'report/:id',
+        component: EditReportsScreenComponent
+      },
+      {
         path: 'cases',
         component: CasesScreenComponent
       },
       {
-        path: 'edit-report/:id',
-        component: EditReportsScreenComponent
-      },
-      {
-        path:'edit-report',
-        component: EditReportsScreenComponent
-      },
-      {
-        path:'edit-case/:id',
+        path:'case/:id',
         component: EditCasesScreenComponent
       },
       {
-        path:'edit-category/:id',
-        component:EditCategorysScreenComponent
-      },
-      {
-        path:'edit-category',
-        component:EditCategorysScreenComponent
-      },
-      {
-        path: 'category',
+        path: 'categories',
         component: CategoryScreenComponent
       },
       {
-        path: 'donation',
+        path:'category',
+        component:EditCategorysScreenComponent
+      },
+      {
+        path:'category/:id',
+        component:EditCategorysScreenComponent
+      },
+      {
+        path: 'donations',
         component: DonationScreenComponent
+      },
+      {
+        path: 'donation',
+        component: EditDonationScreenComponent
+      },
+      {
+        path: 'donation/:id',
+        component: EditDonationScreenComponent
       },
       {
         path: 'settings',
         component: SettingsScreenComponent
-      }
+      },
     ]
   },
 ];

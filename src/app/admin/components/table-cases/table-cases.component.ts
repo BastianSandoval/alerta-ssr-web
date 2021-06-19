@@ -24,7 +24,8 @@ export class TableCasesComponent implements OnInit {
   reportSelected: boolean;
   eventosSlice!: any[];
   sizePageTable: number = 7;
-
+  titleCase: string;
+  isCategory: boolean = false;
 
   //Evento
   
@@ -63,7 +64,8 @@ public loader: boolean;
   constructor(
     private reportProviderService: ReportProviderService,
     private eventProviderService: EventProviderService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    private categoryProviderService: CategoryProviderService) {
 
     this.eventosSlice = []   
     this.reportSelected = false;
@@ -74,6 +76,9 @@ public loader: boolean;
 
   async ngOnInit(): Promise<void> {
     await this.setReport();
+
+    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
+
   }
 
   async ngDoCheck(){
@@ -110,15 +115,25 @@ public loader: boolean;
       index++;
       });
       this.setReport()
+      if (!this.eventos.length) {
+        if (this.prevPages >= 1) {
+          this.prevPage();
+        }
+      }
       this.notificationService.success('Caso eliminado exitosamente');
     }else{
       this.notificationService.error('No fue posible eliminar el caso');
     }
   }
   
-  async setReport(){
+  async setReport(dataCategory?:any){
+    let eventos: any;
+    if(this.isCategory){
+      eventos = dataCategory;
+    }else{
+      eventos = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
+    }
     //Events
-    const eventos: any = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
     this.totalDocs= eventos.totalDocs;
     this.hasNextPage= eventos.hasNextPage;
     this.hasPrevPage= eventos.hasPrevPage;
@@ -132,16 +147,32 @@ public loader: boolean;
     this.eventos = eventos.docs;
 
     for(const event of this.eventos){
-      event.idReporte = event.complaints[event.complaints.length - 1];
+      event.idReporte = event.complaints[event.complaints.length - 1]._id;
+      console.log(event.idReporte);
       event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
+      event.category = event.report.category.name;
+      event.idCategory = event.report.category._id;
     }
-   this.loader = true;
+
+   
+    this.isCategory = false;
+    this.loader = true;
     
   }
 
 
-  categoryFilter(event:any) {
-    this.filterCategory = event.target.value;
+  async categoryFilter(event:any) {
+    if(event.target.value != ''){
+      this.isCategory = true;
+      this.filterCategory = event.target.value;
+      let data: any = await this.eventProviderService.getEventsPerCategory(this.filterCategory).toPromise();
+      
+      this.setReport(data)
+    }else{
+      this.isCategory = false;
+      this.setReport();
+    }
+
   }
 
   clearFilter() {

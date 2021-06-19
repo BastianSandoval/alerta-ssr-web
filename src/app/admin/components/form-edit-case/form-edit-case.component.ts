@@ -149,7 +149,7 @@ export class FormEditCaseComponent implements OnInit {
           
         } catch (error) {
           console.log(error);
-          this.notificationService.error('No se ha podido cargar el producto');
+          this.notificationService.error('No se ha podido cargar el caso');
         }
       }
     });
@@ -172,11 +172,15 @@ export class FormEditCaseComponent implements OnInit {
       console.log(this.checkoutForm.value)
       this.router.navigate(['admin/cases']);
       await this.reportProviderService.updateReport(this.id, this.checkoutForm.value, this.changePhoto).toPromise();
-      this.notificationService.success('El producto ha sido actualizado');
+      this.notificationService.success('El caso ha sido actualizado');
     } catch (error) {
       console.log(error);
-      this.notificationService.error('No se ha podido actualizar el producto');
+      this.notificationService.error('No se ha podido actualizar el caso');
     }
+  }
+
+  cancel() {
+    this.router.navigate(['admin/cases'])
   }
 
 }

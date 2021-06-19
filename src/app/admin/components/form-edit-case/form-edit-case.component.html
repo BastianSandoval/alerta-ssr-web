@@ -20,52 +20,8 @@
                     </div>
                 </div>
                
-
-                    <div class="row align-items-center justify-content-center my-2"> 
-                        <div class="col-md-11 text-center">
-                            <input class="d-none" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" #inputFile>
-                            <ng-container *ngIf="!id || changePhoto; else showPhoto">
-                                <ng-container *ngIf="!imageChangedEvent; else cropper">
-                                    <div class="container-fluid py-4 pointer" (click)="inputFile.click()" style="cursor: pointer;">
-                                        <span><i class="fas fa-images fa-4x"></i></span>
-                                        <div class="row text-center mt-2">
-                                            <div class="col-md-12">
-                                                <h6 class="text-black">Subir foto</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                                <ng-template #cropper>
-                                    <div class="row align-items-center justify-content-center mt-3">
-                                        <div class="col-md-10 text-center">
-                                            <form>
-                                                <image-cropper
-                                                    [imageChangedEvent]="imageChangedEvent"
-                                                    [maintainAspectRatio]="false"
-                                                    [aspectRatio]="4 / 3"
-                                                    format="png"
-                                                    (imageCropped)="imageCropped($event)"
-                                                ></image-cropper>
-                                                <div class="row mt-4">
-                                                    <div class="col-md-8">
-                                                        <img [src]="croppedImage" class="img-fluid" width="500" height="500">
-                                                    </div>
-                                                    <div class="col-md-4 align-self-center">
-                                                        <button class="btn btn-block btn-success" (click)="inputFile.click()">Cambiar foto</button>
-                                                        <button class="btn btn-block btn-danger mt-3" (click)="cancelPhotoChange()">Cancelar</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </ng-container>
-                            <ng-template #showPhoto>
-                                <img class="img-fluid" [src]="checkoutForm.get('imageUrl')?.value" (click)="inputFile.click()">
-                            </ng-template>
-                        </div>
-                    </div>
                 <div class="button-group text-center mt-3">
+                    <button class="btn btn-lg btn-primary btn-danger me-4" (click)="cancel()">Cancelar</button>
                     <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
                 </div>
             </form>

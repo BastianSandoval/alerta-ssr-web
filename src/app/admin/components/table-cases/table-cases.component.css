@@ -44,8 +44,8 @@
 .editar {
     background: rgb(158, 172, 136);
     color: rgb(236, 233, 233);
-    padding-left: 3vh;
-    padding-right: 3vh;
+    /* padding-left: 3vh;
+    padding-right: 3vh; */
     padding-top: 0px;
     padding-bottom: 0px;
     border: none;
@@ -69,8 +69,8 @@
 .eliminar-table {
     background: rgb(224, 120, 102);
     color: rgb(236, 233, 233);
-    padding-left: 3vh;
-    padding-right: 3vh;
+    /* padding-left: 3vh;
+    padding-right: 3vh; */
     padding-top: 1px;
     padding-bottom: 1px;
     margin-right: 8px;
@@ -86,9 +86,10 @@
 }
 
 .wrapper h2{
-    width: 13%;
     font-size: 13px;
     font-weight: bolder;
+    /* margin-right: 10px;
+    width: 13%; */
 }
 
 .wrapper p{
@@ -98,4 +99,21 @@
 .fa-plus-square{
     margin-right: 7px;
     font-size: 20px;
+}
+
+
+/*responsive table*/
+td{
+    font-size: 2.3vh;
+    font-family: 'Roboto Condensed';
+}
+
+th{
+    font-size: 2.3vh;
+    font-family: 'Roboto Condensed';
+}
+
+select{
+    font-size: 2.3vh;
+    font-family: 'Roboto Condensed';
 }

@@ -11,6 +11,7 @@ export class ModalDeleteComponent implements OnInit {
 
 
   @Input() id!: string;
+  @Input() title!: string;
   @Output() idDelete:EventEmitter<string>;
   constructor(
     private notificationService: NotificationService,

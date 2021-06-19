@@ -1,3 +1,13 @@
+th, tr, input, option, span, a, select{
+    font-family: 'Roboto Condensed';
+    font-size: 2.3vh;
+}
+
+i{
+    font-size: 2.3vh;
+}
+
+
 .cabezera {
     background-color: rgb(234, 238, 226);
     font-family:'Roboto Condensed';
@@ -6,7 +16,7 @@
 .btn {
     background-color: rgb(158, 172, 136);
     color: white;
-    margin-right: 5px;
+    margin-right: 0.7vh;
     border: none;
 }
 
@@ -44,11 +54,8 @@
 .editar {
     background: rgb(158, 172, 136);
     color: rgb(236, 233, 233);
-    /* padding-left: 3vh;
-    padding-right: 3vh; */
-    padding-top: 0px;
-    padding-bottom: 0px;
     border: none;
+    padding: 0.5vh 2vh;
 }
 
 .ver {
@@ -69,11 +76,8 @@
 .eliminar-table {
     background: rgb(224, 120, 102);
     color: rgb(236, 233, 233);
-    /* padding-left: 3vh;
-    padding-right: 3vh; */
-    padding-top: 1px;
-    padding-bottom: 1px;
     margin-right: 8px;
+    padding: 0.5vh 2vh;
     border: none;
 }
 
@@ -86,7 +90,7 @@
 }
 
 .wrapper h2{
-    width: 13%;
+    /* width: 13%; */
     font-size: 13px;
     font-weight: bolder;
 }
@@ -99,5 +103,3 @@
     margin-right: 7px;
     font-size: 20px;
 }
-
-

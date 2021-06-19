@@ -1,0 +1,5 @@
+/* la fuente Roboto Condensed se importa en style.css */
+*{
+    font-family: 'Roboto Condensed';
+    /* font-weight: bold; */
+}
