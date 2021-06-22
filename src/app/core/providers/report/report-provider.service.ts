@@ -11,7 +11,7 @@ export class ReportProviderService {
 
   constructor(private http: HttpService) { }
 
-  getAllReports(page:number, limite: number): Observable<Report[]>{
+  getAllReports(page?:number, limite?: number): Observable<Report[]>{
     return this.http.get<Report[]>(`/complaint/all?page=${page}&limit=${limite}`);
   }
 
