@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ReportProviderService } from '../../../core/providers/report/report-provider.service';
 import { EventProviderService } from '../../../core/providers/event/event-provider.service';
 import { CommentProviderService } from '../../../core/providers/comment/comment-provider.service';
+import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
 
 @Component({
   selector: 'app-global-map',
@@ -25,6 +26,15 @@ export class GlobalMapComponent implements OnInit {
 
   reportList: any[];
   reporte: any;
+  url :any;
+
+  //buscador
+  filterCategory!: string;
+  value!: string;
+  filterReport!: string;
+  isCategory: boolean = false;
+  categoryList: any;
+  titulo: string;
 
   eventos: any[];
 
@@ -39,6 +49,7 @@ export class GlobalMapComponent implements OnInit {
     private router:Router,
     private formService: FormService,
     private eventProviderService: EventProviderService,
+    private categoryProviderService: CategoryProviderService
     ){
 
     this.createFormGroup();
@@ -51,21 +62,50 @@ export class GlobalMapComponent implements OnInit {
   }
   
   async ngOnInit(){
+
+  //busco categorias
+  this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
   let data: any;
-  const url = this.router.url.slice(13,this.router.url.length)
-  console.log(url);
-  if(url === 'reports'){
+  this.url = this.router.url.slice(13,this.router.url.length)
+  console.log(this.url);
+  if(this.url === 'reports'){
 
-    data = await this.reportProviderService.getAllReports().toPromise();
-    this.reportList = data.docs;
-    this.lat = -33.449125;
-    this.lng = -70.701529;
-    console.log(this.lat);
-    this.getCurrentPosition();
-
+    this.setReports();
+    this.titulo = "reporte";
+   
   }else{
-    data = await this.eventProviderService.getEvents().toPromise();
-    console.log(data);
+    this.setEvents();
+    this.titulo = "caso";
+  }
+
+  this.lat = -33.449125;
+  this.lng = -70.701529;
+  console.log(this.lat);
+  this.getCurrentPosition();
+	
+  
+  }
+
+  async setReports(dataCategory?: any){
+    let data: any;
+    if(this.isCategory){
+      data = dataCategory
+    }else{
+      data = await this.reportProviderService.getAllReports().toPromise();
+      console.log(data);
+    }
+    this.reportList = data.docs;
+  }
+
+  async setEvents(dataCategory?: any){
+    let data: any;
+    if(this.isCategory){
+      data = dataCategory
+    }else{
+      data = await this.eventProviderService.getEvents().toPromise();
+      console.log(data);
+    }
+
     if(data.docs.length != 0){
       this.eventos = data.docs;
 
@@ -81,9 +121,8 @@ export class GlobalMapComponent implements OnInit {
       }
     }
   }
-	
-  
-  }
+
+
 
   private createFormGroup(){
     this.checkoutForm = this.formService.buildFormGroup({
@@ -97,6 +136,7 @@ export class GlobalMapComponent implements OnInit {
   }
 
   markerClicked(event:any){
+    console.log(this.reportList);
     let filterReport = this.reportList.filter(report => 
       report.location.latitude == event.latitude && report.location.longitude == event.longitude
     );
@@ -140,6 +180,67 @@ export class GlobalMapComponent implements OnInit {
 		  this.located=true;
 	  })
   }
+
+  //method filters
+
+  async categoryFilter(event:any) {
+    //cambio el zoom y center
+    this.centerChange({lat: -33.449125, lng: -70.701529});
+    this.changeMapZoom(5);
+
+    if(event.target.value != ''){
+      this.isCategory = true;
+      this.filterCategory = event.target.value;
+      if(this.url === 'reports'){
+        const data: any = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory).toPromise();
+        console.log(data);
+        this.setReports(data);
+      }else{
+        const data: any = await this.eventProviderService.getEventsPerCategory(this.filterCategory).toPromise();
+        console.log(data);
+        this.setEvents(data);
+      }
+     
+     
+    }else{
+      this.isCategory = false;
+      
+      if(this.url === 'reports'){
+        this.setReports();
+      }else{
+        this.setEvents();
+      }
+    }
+
+  }
+
+  clearFilter() {
+    this.filterCategory = '';
+    this.filterReport= '';
+  }
+
+  onValue(value: string) {
+    this.value = value;
+    if(this.value === ''){
+      this.clearFilter();
+    } else {
+      this.filterReport = this.value;
+    }
+    
+  }
+
+  onEnter(value: string) {
+    this.filterReport = value;
+  }
+
+  searchButton() {
+    if(this.value){
+      this.filterReport = this.value;
+    }else{
+      this.clearFilter();
+    }
+  }
+
 
 
   public controlIsRequired(formControlName: string): boolean {
