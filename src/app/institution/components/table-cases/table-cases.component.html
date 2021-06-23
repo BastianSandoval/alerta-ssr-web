@@ -33,29 +33,31 @@
             </nav>
         </div>
     </div>
-    <div class="container-fluid px-0">
-        <div *ngIf="hayEventos" > 0" class="row" >
-            
-            <!-- class="card mx-2 mb-3 col-xs-12 col-sm-6 col-md card-width text-start" -->
-            <div *ngFor="let event of eventosSlice" class="card mx-2 mb-3 card-width" style="background-color: #EEF2E9;" >
-                <div class="row g-0 ">
-                    <div class="col-4 align-self-center text-center">
-                        <img [src]="event.imageUrl" alt="..." class="image-fluid" style="width: 11vh; height: 11vh;">
-                    </div>
-                    <div class="col-8">
-                        <div class="card-body" style="height: 14.8vh;">
-                            <h5 class="card-title mb-0" style="color:#4c4c4c" >{{event.title | capitalize}}</h5>
-                            <p class="card-text" style="color: #759958;">{{event.category.name | capitalize}}</p>
-                            <p class="card-text"><small style="color:#4c4c4c" class="text-muted">{{event.ubication | capitalize}}</small></p>
-                            <p class="card-text"><small style="color:#4c4c4c" class="text-muted">{{event.updatedAt}}</small></p>
+    <div *ngIf="hayEventos">
+        <div *ngIf="loader; else showLoader" class="container-fluid px-0">
+            <div class="row">
+                
+                <!-- class="card mx-2 mb-3 col-xs-12 col-sm-6 col-md card-width text-start" -->
+                <div *ngFor="let event of eventosSlice | eventFilter: filterReport" [routerLink]="['/institution/cases', event._id]"class="hover card mx-2 mb-3 card-width" >
+                    <div class="row g-0 ">
+                        <div class="col-4 align-self-center text-center">
+                            <img [src]="event.imageUrl" alt="..." class="image-fluid" style="width: 11vh; height: 11vh;">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body" >
+                                <h5 class="card-title mb-0" style="color:#4c4c4c" >{{event.title | capitalize}}</h5>
+                                <p class="card-text" style="color: #759958;">{{event.category.name | capitalize}}</p>
+                                <p class="card-text"><small style="color:#4c4c4c" class="text-muted">{{event.ubication | capitalize}}</small></p>
+                                <p class="card-text"><small style="color:#4c4c4c" class="text-muted">{{event.updatedAt}}</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-    
+
     <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid ps-0">
             <div style="font-size: 2.3vh;" class="ms-auto p-2 bd-highlight nextPage">
@@ -76,5 +78,8 @@
             </div>
         </div>
     </nav>
+    <ng-template #showLoader>
+        <shared-loader></shared-loader>
+    </ng-template>
     
 </section>
