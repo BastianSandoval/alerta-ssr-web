@@ -43,7 +43,7 @@
       <div class="row" style="max-height: 30vh; overflow-y: scroll;">
         <div class="col">
           <div class="card shadow-sm mb-2" style="border-radius: 30px;"
-            *ngFor="let comment of comments"
+            *ngFor="let comment of report.comments"
           >
             <div class="card-body py-2">
               <h5 class="card-title text-brand mb-0" style="font-size: 1.9vh; font-weight: 700;">{{comment.user.names | uppercase}}</h5>

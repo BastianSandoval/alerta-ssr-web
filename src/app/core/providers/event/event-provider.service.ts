@@ -11,7 +11,7 @@ export class EventProviderService {
 
   constructor(private http: HttpService) { }
 
-  getEvents(page:number, limite: number): Observable<Event[]>{
+  getEvents(page?:number, limite?: number): Observable<Event[]>{
     return this.http.get<Event[]>(`/event/all?page=${page}&limit=${limite}`);
   }
 

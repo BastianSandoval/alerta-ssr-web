@@ -27,6 +27,7 @@ export class DetailReportComponent implements OnInit {
   public location: any;
   public reportId: string;
   public checkoutForm: FormGroup;
+  idComment: any;
 
   constructor(
     private reportProviderService: ReportProviderService, 
@@ -42,14 +43,8 @@ export class DetailReportComponent implements OnInit {
     this.createFormGroup();
     }
 
-  async ngOnInit(): Promise<void>{
-    let data: any = await this.commentProviderService.getAllComments().toPromise();
-    let comentarios: any[] = data.docs;
-    comentarios.forEach((element) => {
-        if(element.complaint = this.reportId){
-          this.comments.push(element);
-        }
-    });
+  ngOnInit(){
+
   }
 
   private createFormGroup(){
@@ -58,13 +53,24 @@ export class DetailReportComponent implements OnInit {
     });
   }
 
-  async saveComment(event){
+  async saveComment(event: any){
     event.preventDefault;
     if(this.checkoutForm.valid){
       try{
-        let comment: Comment = this.checkoutForm.value;
-        console.log(comment);
-        await this.commentProviderService.addComment(comment).toPromise();
+        const commentDescription: string = this.checkoutForm.value.comentario;
+        console.log(commentDescription);
+        console.log();
+        
+        // const comment: Comment = {
+        //   description: commentDescription,
+        //   complaint: this.reportId,
+        //   user:
+        // }
+      
+        // await this.commentProviderService.addComment(comment)
+        // .subscribe((data) =>{
+        //   this.idComment = data._id
+        // });
       }
       catch(error){
         console.log(error)

@@ -6,10 +6,12 @@ import { DonationFilterPipe } from './pipes/donation-filter/donation-filter.pipe
 import { CategoryFilterNamePipe } from './pipes/category-filter-name/category-filter-name.pipe';
 import { CapitalizePipe } from './pipes/capitalize/capitalize.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
+import { EventFilterPipe } from './pipes/event-filter/event-filter.pipe';
+
 
 
 @NgModule({
-  declarations: [ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe, CapitalizePipe, LoaderComponent],
+  declarations: [ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe, CapitalizePipe, LoaderComponent, EventFilterPipe],
   imports: [
     CommonModule
   ],
@@ -19,7 +21,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     DonationFilterPipe,
     CategoryFilterNamePipe,
     CapitalizePipe,
-    LoaderComponent
+    LoaderComponent,
+    EventFilterPipe
   ]
 })
 export class SharedModule { }
