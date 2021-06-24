@@ -161,6 +161,10 @@ export class GlobalMapComponent implements OnInit {
     this.zoom = event;
   }
 
+  cambioDeCentro(event:any){
+    return event;
+  }
+
   centerChange(event: any){
     this.lat = event.lat;
     this.lng = event.lng;
@@ -185,9 +189,10 @@ export class GlobalMapComponent implements OnInit {
 
   async categoryFilter(event:any) {
     //cambio el zoom y center
-    this.centerChange({lat: -33.449125, lng: -70.701529});
+    //if(this.cambioDeCentro())
+    this.centerChange({lat:parseFloat("-33.449125"), lng: parseFloat("-70.701529")});
     this.changeMapZoom(5);
-
+    
     if(event.target.value != ''){
       this.isCategory = true;
       this.filterCategory = event.target.value;

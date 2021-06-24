@@ -47,13 +47,14 @@
          [zoom]="zoom" 
          [mapTypeId]="mapTypeId" 
          (zoomChange)="changeMapZoom($event)"
+         (centerChange)="cambioDeCentro($event)"
          (mapClick)="mapClicked($event)">
 
-         <agm-marker [latitude]="lat" [longitude] ="lng" *ngIf="located">
+         <!-- <agm-marker [latitude]="lat" [longitude] ="lng" *ngIf="located">
             <agm-info-window>
                Reportes ambiental 
             </agm-info-window>
-         </agm-marker>
+         </agm-marker> -->
          <agm-marker *ngFor="let report of reportList | reportFilter: filterReport" 
             [latitude]="report.location.latitude" 
             [longitude] ="report.location.longitude"
