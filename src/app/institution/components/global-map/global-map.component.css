@@ -2,3 +2,43 @@ agm-map{
     height:100vh;
     width: 100%;
 }
+
+option, span, a, select {
+    font-family: 'Roboto Condensed';
+    font-size: 2.3vh;
+}
+
+i{
+    font-size: 2.3vh;
+}
+
+.cabezera {
+    background-color: rgb(234, 238, 226);
+    font-family:'Roboto Condensed';
+}
+
+.btn {
+    background-color: rgb(158, 172, 136);
+    color: white;
+    margin-right: 0.7vh;
+    border: none;
+}
+
+.btn:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+.style {
+    background-color: rgb(158, 172, 136);
+    color: white;
+    margin-right: 5px;
+    border: none;
+}
+
+.btnRight {
+    text-align: end;
+}
+
+.btn1:hover {
+    background-color: rgb(183, 194, 166);
+}
