@@ -7,7 +7,8 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 import { PasswordRecoveryComponent } from './screens/password-recovery/password-recovery.component';
 import { CasesScreenComponent } from './screens/cases-screen/cases-screen.component'
 import { SettingsComponent } from './screens/settings/settings.component';
-import { DetailReportComponent } from './components/detail-report/detail-report.component'
+import { DetailReportComponent } from './components/detail-report/detail-report.component';
+import { PerfilScreenComponent } from './screens/perfil-screen/perfil-screen.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'cases',
         component: CasesScreenComponent
+      },
+      {
+        path: 'perfil',
+        component: PerfilScreenComponent
       },
       {
         path: 'settings',
