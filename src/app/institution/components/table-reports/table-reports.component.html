@@ -37,8 +37,8 @@
         <div class="row">
             
             <!-- class="card mx-2 mb-3 col-xs-12 col-sm-6 col-md card-width text-start" -->
-            <div *ngFor="let report of reportsSlice | reportFilter: filterReport" [routerLink]="['/institution/report', report._id]"class="hover card mx-2 mb-3 card-width" >
-                <div class="row g-0 ">
+            <div *ngFor="let report of reportsSlice | reportFilter: filterReport" [routerLink]="['/institution/report', report._id]"class="hover card mx-1 mx-xl-2 mb-3 card-width" >
+                <div class="row g-0">
                     <div class="col-4 align-self-center text-center">
                         <img [src]="report.imageUrl" alt="..." class="image-fluid" style="width: 11vh; height: 11vh;">
                     </div>
