@@ -43,7 +43,7 @@
       <div class="row" style="max-height: 30vh; overflow-y: scroll;">
         <div class="col">
           <div class="card shadow-sm mb-2" style="border-radius: 30px;"
-            *ngFor="let comment of comments"
+            *ngFor="let comment of report.comments"
           >
             <div class="card-body py-2">
               <h5 class="card-title text-brand mb-0" style="font-size: 1.9vh; font-weight: 700;">{{comment.user.names | uppercase}}</h5>
@@ -52,12 +52,32 @@
           </div>
         </div>
       </div>
+      <div class="container-fluid px-0">
+
+        <div class="row mt-4 px-0"  > 
+          <div class="card px-0" style="border:none">
+            <form [formGroup]="checkoutForm" #commentForm="ngForm"  (ngSubmit)="saveComment($event)">
+              <div class="pt-3" style="font-weight: 600;">
+                ESCRIBIR NUEVO COMENTARIO
+              </div>
+              <div  class="card-body px-0">
+                <textarea type="text" class="form-control" formControlName="comentario"></textarea>
+                <small id="comment" class="form-text text-muted" *ngIf=" commentForm.submitted && controlIsRequired('comentario')"> Requerido  </small>
+                <div class="row justify-content-end">
+                  <button class="btn bg-brand text-white mt-3 me-3 col-4"  type="submit" style="font-size: 2.4vh; border-radius: 50px; padding-bottom: 5px;">COMENTAR</button>
+                </div>
+                
+              </div>
+              
+          </form>
+          </div>
+            
+        </div>
+
+      </div>
+      
     </div>
-    <div class="row mt-4">
-        <label class="offset-5 col-7 ps-5" for="comment" style="display: block;">ESCRIBIR NUEVO COMENTARIO
-            <textarea id="comment" type="text" style="display: block;"></textarea>
-        </label>
-    </div>
+    
   </div>
 
   

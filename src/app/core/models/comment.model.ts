@@ -3,6 +3,6 @@ export interface Comment{
     description: string;
     user: string;
     complaint: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

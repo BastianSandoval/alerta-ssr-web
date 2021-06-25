@@ -6,7 +6,6 @@ import { InstitutionRoutingModule } from './institution-routing.module';
 import { InstitutionComponent } from './institution.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 
-
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordRecoveryComponent } from './screens/password-recovery/password-recovery.component';
@@ -22,10 +21,15 @@ import { CasesScreenComponent } from './screens/cases-screen/cases-screen.compon
 import { SettingsComponent } from './screens/settings/settings.component';
 import { DetailReportComponent } from './components/detail-report/detail-report.component';
 import { MapComponent } from './components/map/map.component';
+import { GlobalMapComponent } from './components/global-map/global-map.component';
+import { PerfilScreenComponent } from './screens/perfil-screen/perfil-screen.component';
 
 
 @NgModule({
-  declarations: [InstitutionComponent, LoginScreenComponent, PasswordRecoveryComponent, VerifyCodeComponent, NewPasswordComponent, SidebarComponent, SidebarBootstrapComponent, ModalLogoutComponent, ReportsScreenComponent, TableReportsComponent, TableCasesComponent, CasesScreenComponent, SettingsComponent, DetailReportComponent, MapComponent],
+  declarations: [InstitutionComponent, LoginScreenComponent, PasswordRecoveryComponent, VerifyCodeComponent,
+     NewPasswordComponent, SidebarComponent, SidebarBootstrapComponent, ModalLogoutComponent, 
+     ReportsScreenComponent, TableReportsComponent, TableCasesComponent, CasesScreenComponent, 
+     SettingsComponent, DetailReportComponent, MapComponent, GlobalMapComponent, PerfilScreenComponent],
   imports: [
     CommonModule,
     InstitutionRoutingModule,
