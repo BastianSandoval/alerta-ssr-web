@@ -34,7 +34,7 @@
 </div>
 
 <div class="row">
-   <div [ngClass]="clickMark ? 'col-7' : 'col-12'">
+   <div [ngClass]="clickMark ? 'col-xl-7' : 'col-12'">
       <agm-map [styles]='[
          {
             elementType : "labels.icon",
@@ -43,9 +43,10 @@
             }]
          }]' 
          [latitude]="lat" 
-         [longitude] ="lng" 
+         [longitude]="lng" 
          [zoom]="zoom" 
          [mapTypeId]="mapTypeId" 
+         [fitBounds]="fitBounds"
          (zoomChange)="changeMapZoom($event)"
          (centerChange)="cambioDeCentro($event)"
          (mapClick)="mapClicked($event)">
@@ -59,12 +60,13 @@
             [latitude]="report.location.latitude" 
             [longitude] ="report.location.longitude"
             [iconUrl]="icon"
+            [agmFitBounds]="fitBounds"
             (markerClick)="markerClicked($event)">
          </agm-marker >
       </agm-map>
    </div>
    <ng-template [ngIf]="clickMark">
-      <div class="col-5">
+      <div class="col-12 col-xl-5 mt-5 mt-xl-0">
          <div class="row m-0 mb-3">
             <div class="col text-center">
                <img [src]="reporte.imageUrl" alt="" class="img-fluid img-thumbnail shadow-sm" style="max-height: 15vh;" data-toggle="modal" data-target="#exampleModal2">
@@ -78,11 +80,11 @@
 
          <div class="row">
             <h5 class="text-uppercase mt-1 mb-0" style="color: #000000; font-size:2.2vh; font-weight: bold;">Descripción del Reporte</h5>
-            <p class=" mb-1" style="color: #676767;">{{reporte.description}}</p>
+            <p class=" mb-1" style="color: #676767; font-size: 2.2vh;">{{reporte.description}}</p>
          </div>
 
          <div class="row mt-4 justify-content-center">
-            <div class="col-6">
+            <div class="col-10 col-sm-6">
               <div class="card bg-brand" style="border-radius: 20px;">
                 <div class="card-body py-1 text-center">
                   <h5 class="text-white" style="font-weight: normal; font-size: 2.4vh; margin-bottom: 0.8vh;">Validaciones</h5>
@@ -115,14 +117,14 @@
                    <div class="card" style="border:none">
                      <form [formGroup]="checkoutForm" #commentForm="ngForm"  (ngSubmit)="saveComment($event)">
                        <div class="pt-3" style="font-weight: 600;">
-                         ESCRIBIR NUEVO COMENTARIO
+                        <h4 style="font-size:2.2vh">ESCRIBIR NUEVO COMENTARIO</h4> 
                        </div>
                        <div  class="card-body">
-                         <textarea type="text" class="form-control" formControlName="comentario"></textarea>
+                         <textarea style="font-size:2.2vh" type="text" class="form-control" formControlName="comentario"></textarea>
                          <small id="comment" class="form-text text-muted" *ngIf=" commentForm.submitted && controlIsRequired('comentario')"> Requerido  </small>
                          <div class="row text-end">
                             <div class="col">
-                              <button class="btn bg-brand text-white mt-3 col-4"  type="submit" style="font-size: 2.4vh; border-radius: 50px; padding-bottom: 5px;">COMENTAR</button>
+                              <button class="btn bg-brand text-white mt-3 col-8 col-sm-4"  type="submit" style="font-size: 2.4vh; border-radius: 50px; padding-bottom: 5px;">COMENTAR</button>
                            </div>
                          </div>
                          

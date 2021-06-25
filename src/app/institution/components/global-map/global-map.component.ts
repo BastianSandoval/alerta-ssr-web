@@ -19,6 +19,9 @@ export class GlobalMapComponent implements OnInit {
   checkoutForm: FormGroup;
   lat: number = -33;
   lng: number = -71;
+  //current position
+  currentLat: number;
+  currentLng: number;
   zoom: number;
   mapTypeId:string;
   located:boolean;
@@ -27,6 +30,8 @@ export class GlobalMapComponent implements OnInit {
   reportList: any[];
   reporte: any;
   url :any;
+
+  fitBounds:boolean = false;
 
   //buscador
   filterCategory!: string;
@@ -143,7 +148,6 @@ export class GlobalMapComponent implements OnInit {
 
     console.log(filterReport);
     this.clickMark = true;
-    this.fitBound = false;
     let latLng : any = {
       lat: parseFloat(filterReport[0].location.latitude),
       lng: parseFloat(filterReport[0].location.longitude),
@@ -162,7 +166,8 @@ export class GlobalMapComponent implements OnInit {
   }
 
   cambioDeCentro(event:any){
-    return event;
+    this.currentLat = event.lat;
+    this.currentLng = event.lng;
   }
 
   centerChange(event: any){
@@ -189,17 +194,21 @@ export class GlobalMapComponent implements OnInit {
 
   async categoryFilter(event:any) {
     //cambio el zoom y center
-    //if(this.cambioDeCentro())
     this.centerChange({lat:parseFloat("-33.449125"), lng: parseFloat("-70.701529")});
     this.changeMapZoom(5);
-    
+    this.fitBounds = true;
+
     if(event.target.value != ''){
       this.isCategory = true;
       this.filterCategory = event.target.value;
       if(this.url === 'reports'){
         const data: any = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory).toPromise();
         console.log(data);
+        if(data.docs.length === 0){
+          this.isCategory = false;
+        }
         this.setReports(data);
+        
       }else{
         const data: any = await this.eventProviderService.getEventsPerCategory(this.filterCategory).toPromise();
         console.log(data);
@@ -216,7 +225,6 @@ export class GlobalMapComponent implements OnInit {
         this.setEvents();
       }
     }
-
   }
 
   clearFilter() {
