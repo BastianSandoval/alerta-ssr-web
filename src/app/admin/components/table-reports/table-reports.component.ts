@@ -39,6 +39,7 @@ export class TableReportsComponent implements OnInit{
   categoryList: any;
   titleReport: string;
   isCategory: boolean = false;
+  dataCategory: any;
 
   //response Query
   public totalDocs: number;
@@ -139,10 +140,13 @@ public loader: boolean;
     
   }
 
-  async setReport(dataCategory?: any){
+  async setReport(){
     let data: any;
+    console.log(this.isCategory);
     if(this.isCategory){
-      data = dataCategory;
+      
+      data = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory,this.sizePageTable,this.numberPage).toPromise();
+      console.log(data.docs);
     }else{
      data = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
      console.log(data)
@@ -176,7 +180,6 @@ public loader: boolean;
     });
 
     this.loader = true;
-    this.isCategory = false;
     console.log(this.reports);
   }
 
@@ -185,8 +188,7 @@ public loader: boolean;
     if(event.target.value != ''){
       this.isCategory = true;
       this.filterCategory = event.target.value;
-      let data: any = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory).toPromise();
-      this.setReport(data)
+      this.setReport();
     }else{
       this.isCategory = false;
       this.setReport();

@@ -126,10 +126,10 @@ public loader: boolean;
     }
   }
   
-  async setReport(dataCategory?:any){
+  async setReport(){
     let eventos: any;
     if(this.isCategory){
-      eventos = dataCategory;
+      eventos = await this.eventProviderService.getEventsPerCategory(this.filterCategory, this.sizePageTable, this.numberPage).toPromise();;
     }else{
       eventos = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
     }
@@ -153,9 +153,6 @@ public loader: boolean;
       event.category = event.report.category.name;
       event.idCategory = event.report.category._id;
     }
-
-   
-    this.isCategory = false;
     this.loader = true;
     
   }
@@ -164,10 +161,8 @@ public loader: boolean;
   async categoryFilter(event:any) {
     if(event.target.value != ''){
       this.isCategory = true;
-      this.filterCategory = event.target.value;
-      let data: any = await this.eventProviderService.getEventsPerCategory(this.filterCategory).toPromise();
-      
-      this.setReport(data)
+      this.filterCategory = event.target.value;      
+      this.setReport()
     }else{
       this.isCategory = false;
       this.setReport();
