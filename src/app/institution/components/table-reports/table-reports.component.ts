@@ -29,9 +29,9 @@ export class TableReportsComponent implements OnInit {
   idSelected: any;
   reportSelected: boolean;
   reportsSlice!: Report[];
-  sizePageTable: number = 7;
+  sizePageTable: number = 9;
   startPage: number = 0;
-  endPage: number = 7;
+  endPage: number = 9;
   visualizar:boolean;
   reportId : string;
   numberPage: number = 1;
@@ -138,10 +138,10 @@ public loader: boolean;
     
   }
 
-  async setReport(dataCategory?: any){
+  async setReport(){
     let data: any;
     if(this.isCategory){
-      data = dataCategory;
+      data = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory, this.sizePageTable, this.numberPage).toPromise();;
     }else{
      data = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
      console.log(data)
@@ -175,8 +175,7 @@ public loader: boolean;
     });
 
     this.loader = true;
-    this.isCategory = false;
-    console.log(this.reports);
+    
   }
 
 
@@ -184,8 +183,7 @@ public loader: boolean;
     if(event.target.value != ''){
       this.isCategory = true;
       this.filterCategory = event.target.value;
-      let data: any = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory).toPromise();
-      this.setReport(data)
+      this.setReport()
     }else{
       this.isCategory = false;
       this.setReport();
