@@ -4,10 +4,15 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } f
 import { FormService } from '../../../core/services/form/form.service';
 import { Router } from '@angular/router';
 
+import { Comment } from '../../../core/models/comment.model';
+import { Institution } from '@core/models/institution.model';
+
 import { ReportProviderService } from '../../../core/providers/report/report-provider.service';
 import { EventProviderService } from '../../../core/providers/event/event-provider.service';
 import { CommentProviderService } from '../../../core/providers/comment/comment-provider.service';
 import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
+import { TokenService } from '../../../core/services/token/token.service';
+import { InstitutionProviderService } from '../../../core/providers/institution/institution-provider.service';
 
 @Component({
   selector: 'app-global-map',
@@ -40,6 +45,8 @@ export class GlobalMapComponent implements OnInit {
   isCategory: boolean = false;
   categoryList: any;
   titulo: string;
+  userId: string;
+  idComment: string;
 
   eventos: any[];
 
@@ -54,7 +61,9 @@ export class GlobalMapComponent implements OnInit {
     private router:Router,
     private formService: FormService,
     private eventProviderService: EventProviderService,
-    private categoryProviderService: CategoryProviderService
+    private categoryProviderService: CategoryProviderService,
+    private tokenService: TokenService,
+    private institutionProviderService: InstitutionProviderService,
     ){
 
     this.createFormGroup();
@@ -68,25 +77,25 @@ export class GlobalMapComponent implements OnInit {
   
   async ngOnInit(){
 
-  //busco categorias
-  this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
-  let data: any;
-  this.url = this.router.url.slice(13,this.router.url.length)
-  console.log(this.url);
-  if(this.url === 'reports'){
+    //busco categorias
+    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
+    let data: any;
+    this.url = this.router.url.slice(13,this.router.url.length)
+    console.log(this.url);
+    if(this.url === 'reports'){
 
-    this.setReports();
-    this.titulo = "reporte";
-   
-  }else{
-    this.setEvents();
-    this.titulo = "caso";
-  }
+      this.setReports();
+      this.titulo = "reporte";
+    
+    }else{
+      this.setEvents();
+      this.titulo = "caso";
+    }
 
-  this.lat = -33.449125;
-  this.lng = -70.701529;
-  console.log(this.lat);
-  this.getCurrentPosition();
+    this.lat = -33.449125;
+    this.lng = -70.701529;
+    console.log(this.lat);
+    this.getCurrentPosition();
 	
   
   }
@@ -116,17 +125,45 @@ export class GlobalMapComponent implements OnInit {
 
       for(const event of this.eventos){
         event.idReporte = event.complaints[event.complaints.length - 1]._id;
-        console.log(event.idReporte);
         let report = await this.reportProviderService.getReport(event.idReporte).toPromise();
         this.reportList.push(report);
-        console.log(report);
-        // event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
-        // event.category = event.report.category.name;
-        // event.idCategory = event.report.category._id;
       }
     }
   }
 
+  async saveComment(event: any){
+    event.preventDefault;
+    if(this.checkoutForm.valid){
+      try{
+        const commentDescription: string = this.checkoutForm.value.comentario;
+        console.log(commentDescription);
+        this.userId = JSON.parse(this.tokenService.getToken()).userId; //se obtiene la id del usuario
+        const comment: Comment = {  //se construye el objeto comentario
+          description: commentDescription,
+          complaint: this.reporte._id,
+          user: this.userId
+        }
+        //se agrega a la BDD de comments y se recibe la id asignada
+        await this.commentProviderService.addComment(comment)
+        .subscribe((data) =>{
+          this.idComment = data._id
+        });
+
+        //se vincula la id del comentario al reporte comentado
+        this.reporte.comments.push(this.idComment);
+        this.reportProviderService.updateReport(this.reporte._id,this.reporte,false);
+
+        //se vincula la id del comentario a la institucion que realizo el comentario
+        let institution: Institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
+        institution.comments.push(this.idComment);
+        this.institutionProviderService.updateInstitution(institution._id, institution);
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    
+  }
 
 
   private createFormGroup(){
