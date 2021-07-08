@@ -65,7 +65,7 @@ export class LoginScreenComponent implements OnInit {
         await this.authService.login(this.checkoutForm.value).toPromise();
       } catch (error) {
         if (error.message === 'Access denied!') {
-          this.notificationService.error('Tu cuenta no esta registrada como administrador');
+          this.notificationService.error('Tu cuenta no esta registrada como institución');
         } else {
           this.notificationService.error('Los datos ingresados son incorrectos');
         }

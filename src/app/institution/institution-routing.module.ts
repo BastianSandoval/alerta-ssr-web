@@ -9,6 +9,7 @@ import { CasesScreenComponent } from './screens/cases-screen/cases-screen.compon
 import { SettingsComponent } from './screens/settings/settings.component';
 import { DetailReportComponent } from './components/detail-report/detail-report.component';
 import { PerfilScreenComponent } from './screens/perfil-screen/perfil-screen.component';
+import { InstitutionGuard } from '../core/guards/institution/institution.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
   },
   {
     path:'',
+    //canActivate: [InstitutionGuard],
     component: InstitutionComponent,
     children: [
       {
@@ -41,6 +43,10 @@ const routes: Routes = [
         component: CasesScreenComponent
       },
       {
+        path: 'cases/:id',
+        component: DetailReportComponent
+      },
+      {
         path: 'perfil',
         component: PerfilScreenComponent
       },
@@ -51,67 +57,7 @@ const routes: Routes = [
       }
     ]
   }
-  // {
-  //   path: '',
-  //   canActivate: [AdminGuard],
-  //   component: AdminComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       redirectTo: 'reports',
-  //       pathMatch: 'full'
-  //     },
-  //     {
-  //       path: 'reports',
-  //       component: ReportsScreenComponent
-  //     },
-  //     {
-  //       path:'report',
-  //       component: EditReportsScreenComponent
-  //     },
-  //     {
-  //       path: 'report/:id',
-  //       component: EditReportsScreenComponent
-  //     },
-  //     {
-  //       path: 'cases',
-  //       component: CasesScreenComponent
-  //     },
-  //     {
-  //       path:'case/:id',
-  //       component: EditCasesScreenComponent
-  //     },
-  //     {
-  //       path: 'categories',
-  //       component: CategoryScreenComponent
-  //     },
-  //     {
-  //       path:'category',
-  //       component:EditCategorysScreenComponent
-  //     },
-  //     {
-  //       path:'category/:id',
-  //       component:EditCategorysScreenComponent
-  //     },
-  //     {
-  //       path: 'donations',
-  //       component: DonationScreenComponent
-  //     },
-  //     {
-  //       path: 'donation',
-  //       component: EditDonationScreenComponent
-  //     },
-  //     {
-  //       path: 'donation/:id',
-  //       component: EditDonationScreenComponent
-  //     },
-  //     {
-  //       path: 'settings',
-  //       component: SettingsScreenComponent
-  //     },
-  //   ]
-  // },
-
+ 
 ];
 
 @NgModule({

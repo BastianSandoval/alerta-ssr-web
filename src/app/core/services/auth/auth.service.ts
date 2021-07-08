@@ -45,9 +45,18 @@ export class AuthService {
           this.tokenService.addToken(token);
           this.authenticated = true;
           this.router.navigate(['admin/reports']);
-        } else {
+        } else if(data.entity === 'Institution'){
+          const token: string = data.token;
+          this.currentUser = { user: data.authenticated, entity: data.entity };
+          const userData = {userId: this.currentUser.user._id, token: token };
+          this.tokenService.addToken(JSON.stringify(userData));
+          this.authenticated = true;
+          this.router.navigate(['admin/reports']);
+
+        }else{
           throw new Error('Access denied!');
         }
+
       })
     );
   }

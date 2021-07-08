@@ -7,11 +7,12 @@ import { CategoryFilterNamePipe } from './pipes/category-filter-name/category-fi
 import { CapitalizePipe } from './pipes/capitalize/capitalize.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { EventFilterPipe } from './pipes/event-filter/event-filter.pipe';
+import { CommentFilterPipe } from './pipes/comment-filter/comment-filter.pipe';
 
 
 
 @NgModule({
-  declarations: [ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe, CapitalizePipe, LoaderComponent, EventFilterPipe],
+  declarations: [ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe, CapitalizePipe, LoaderComponent, EventFilterPipe, CommentFilterPipe],
   imports: [
     CommonModule
   ],
