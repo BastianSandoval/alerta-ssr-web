@@ -7,6 +7,7 @@ export interface Report {
     description:string;
     imageUrl: string | File;
     user:string;
+    comments?: string[];
     checks?: number;
     reject?: number;
     date: Date;

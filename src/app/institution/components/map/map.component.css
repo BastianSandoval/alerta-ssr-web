@@ -1,0 +1,13 @@
+@media (min-width: 1200px) {
+    agm-map{
+        height: 31vh;
+        width: 37vw;
+    }
+}
+
+@media (max-width: 1199px){
+    agm-map{
+        height: 31vh;
+        width: 100%;
+    }
+}

@@ -1,17 +1,22 @@
 import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Report } from '../../../core/models/report.model';
-import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
-
-import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
-import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
-
 import { Commune } from '../../../core/models/commune.model';
 import { Region } from '../../../core/models/region.model';
+import { Institution } from '@core/models/institution.model';
 
-import { NotificationService } from '@core/services/notification/notification.service';
 
+import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
+import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
 import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
+import { InstitutionProviderService } from '../../../core/providers/institution/institution-provider.service';
+import { CommentProviderService} from '../../../core/providers/comment/comment-provider.service';
+
+import { TokenService } from '../../../core/services/token/token.service';
+import { NotificationService } from '@core/services/notification/notification.service';
+import { Comment } from '@core/models/comment.model';
 
 
 @Component({
@@ -39,6 +44,7 @@ export class PerfilScreenComponent implements OnInit {
   categoryList: any;
   titleReport: string;
   isCategory: boolean = false;
+  userId! : string;
 
   //response Query
   public totalDocs: number;
@@ -50,9 +56,11 @@ export class PerfilScreenComponent implements OnInit {
   public pagingCounter: number;
   public prevPages: number;
   public totalPages: number;
+  public comments$: Observable<Comment[]>;
+  public institution$: Observable<Institution>;
 
-//cargar pagina
-public loader: boolean;
+  //cargar pagina
+  public loader: boolean;
 
 
   constructor(
@@ -60,7 +68,10 @@ public loader: boolean;
     private communeProviderService:CommuneProviderService,
     private regionProviderService:RegionProviderService,
     private notificationService:NotificationService,
+    private tokenService: TokenService,
     private categoryProviderService: CategoryProviderService,
+    private institutionProviderService: InstitutionProviderService,
+    private commentProviderService: CommentProviderService
     ) {
     this.reportSelected = false;
     this.visualizar=true;
@@ -111,6 +122,13 @@ public loader: boolean;
       nextButton?.removeAttribute('disabled');
     }
     
+  }
+
+  setComment(){
+    this.userId = JSON.parse(this.tokenService.getToken()).userId;
+    this.institution$ = this.institutionProviderService.getInstitution(this.userId);
+    this.comments$ = this.commentProviderService.getAllComments();
+
   }
 
   async setReport(dataCategory?: any){

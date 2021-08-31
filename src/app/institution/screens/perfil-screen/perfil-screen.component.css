@@ -87,3 +87,14 @@ i{
 }
 
 
+@media (min-width: 1200px) {
+    .padding{
+        padding-left: 7%;
+    }
+}
+
+@media (max-width: 1199px) {
+    .padding{
+        padding-left: 3%;
+    }
+}
