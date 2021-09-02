@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://dev-api-alertaverde.tribul.cl/api',
+  baseUrl: 'http://dev-alerta-verde-api-auth.eba-if3damwi.sa-east-1.elasticbeanstalk.com/api',
   PRIVATE_KEY: `-----BEGIN RSA PRIVATE KEY-----\n\
   MIIBOgIBAAJBAL7g8KpvjcJEa4nOJIpzOuDmXec25Sw2Pzmm9GWmuO2sXP7WaPdQ\n\
   lCAz6ZkOGb9yoxghShIvOnEMkofDZrbNoKsCAwEAAQJAXM4RNUy3p9SMVJwduBL+\n\

@@ -51,7 +51,7 @@ export class AuthService {
           const userData = {userId: this.currentUser.user._id, token: token };
           this.tokenService.addToken(JSON.stringify(userData));
           this.authenticated = true;
-          this.router.navigate(['admin/reports']);
+          this.router.navigate(['institution/reports']);
 
         }else{
           throw new Error('Access denied!');
