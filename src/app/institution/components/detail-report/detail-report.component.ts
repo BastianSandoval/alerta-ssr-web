@@ -70,9 +70,12 @@ export class DetailReportComponent implements OnInit {
          this.userId = JSON.parse(this.tokenService.getToken()).userId; //se obtiene la id del usuario
         const comment: Comment = {  //se construye el objeto comentario
           description: commentDescription,
+          entity: this.userId,
           complaint: this.reportId,
-          user: this.userId
         }
+        /* console.log('aca');        
+        console.log(comment); */
+        
         //se agrega a la BDD de comments y se recibe la id asignada
         await this.commentProviderService.addComment(comment)
         .subscribe((data) =>{
@@ -80,14 +83,14 @@ export class DetailReportComponent implements OnInit {
         });
 
         //se vincula la id del comentario al report comentado
-        let report: Report = await this.report$.toPromise();
+        /* let report: Report = await this.report$.toPromise();
         report.comments.push(this.idComment);
-        this.reportProviderService.updateReport(report._id,report,false);
+        this.reportProviderService.updateReport(report._id,report,false); */
 
         //se vincula la id del comentario a la institucion que realizo el comentario
-        let institution: Institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
+        /* let institution: Institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
         institution.comments.push(this.idComment);
-        this.institutionProviderService.updateInstitution(institution._id, institution);
+        this.institutionProviderService.updateInstitution(institution._id, institution); */
       }
       catch(error){
         console.log(error)
