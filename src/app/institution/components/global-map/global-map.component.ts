@@ -141,7 +141,7 @@ export class GlobalMapComponent implements OnInit {
         const comment: Comment = {  //se construye el objeto comentario
           description: commentDescription,
           complaint: this.reporte._id,
-          user: this.userId
+          entity: this.userId
         }
         //se agrega a la BDD de comments y se recibe la id asignada
         await this.commentProviderService.addComment(comment)

@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path:'',
-    //canActivate: [InstitutionGuard],
+    canActivate: [InstitutionGuard],
     component: InstitutionComponent,
     children: [
       {

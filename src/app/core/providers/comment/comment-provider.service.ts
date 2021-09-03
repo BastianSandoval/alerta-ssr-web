@@ -19,7 +19,7 @@ export class CommentProviderService {
   }
 
   addComment(comment: Comment): Observable<Comment>{
-    return this.http.post<Comment>('/comment', comment);
+    return this.http.post<Comment>('/comment/institution', comment);
   }
 
   updateComment(id: string, comment: Comment): Observable<Comment>{
