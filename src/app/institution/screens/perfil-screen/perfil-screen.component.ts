@@ -57,7 +57,7 @@ export class PerfilScreenComponent implements OnInit {
   public prevPages: number;
   public totalPages: number;
   public comments$: Observable<Comment[]>;
-  public institution$: Observable<Institution>;
+  public institution: Institution;
 
   //cargar pagina
   public loader: boolean;
@@ -82,9 +82,10 @@ export class PerfilScreenComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     
+    this.setComment();
     this.setReport();
-
     this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
+    this.loader = true
 
     // console.log(this.reports);
   }
@@ -124,11 +125,14 @@ export class PerfilScreenComponent implements OnInit {
     
   }
 
-  setComment(){
+  async setComment(){
     this.userId = JSON.parse(this.tokenService.getToken()).userId;
-    this.institution$ = this.institutionProviderService.getInstitution(this.userId);
+    this.institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
     this.comments$ = this.commentProviderService.getAllComments();
 
+    console.log('acaaaa');
+    console.log(this.institution);
+    
   }
 
   async setReport(dataCategory?: any){
@@ -137,7 +141,7 @@ export class PerfilScreenComponent implements OnInit {
       data = dataCategory;
     }else{
      data = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
-     console.log(data)
+     /* console.log(data) */
     }
     //set queries
    this.totalDocs= data.totalDocs;
@@ -169,6 +173,6 @@ export class PerfilScreenComponent implements OnInit {
 
     this.loader = true;
     this.isCategory = false;
-    console.log(this.reports);
+    /* console.log(this.reports); */
   }
 }
