@@ -10,24 +10,24 @@ export class InstitutionProviderService {
 
   constructor(private http: HttpService) { }
 
-  getAllInstitutions(page?:number, limite?: number): Observable<Institution[]>{
-    return this.http.get<Institution[]>(`/complaint/all?page=${page}&limit=${limite}`);
+  getAllInstitutions(): Observable<Institution[]>{
+    return this.http.get<Institution[]>('/institution/all');
   }
 
   getInstitution(id: string): Observable<Institution>{
-    return this.http.get<Institution>(`/complaint/${id}`);
+    return this.http.get<Institution>(`/institution/${id}`);
   }
 
   addInstitution(institution: Institution): Observable<Institution>{
-    return this.http.post<Institution>('/complaint', institution);
+    return this.http.post<Institution>('/institution', institution);
   }
 
   updateInstitution(id: string, institution: Institution): Observable<Institution>{
-     return this.http.patch<Institution>(`/complaint/${id}`, institution);
+     return this.http.patch<Institution>(`/institution/${id}`, institution);
   }
 
   deleteInstitution(id: string): Observable<Institution>{
-    return this.http.delete<Institution>(`/complaint/${id}`);
+    return this.http.delete<Institution>(`/institution/${id}`);
   }
 
   // getInstitutionsPerCategory(id:string, limit?:number, page?:number): Observable<Institution[]>{

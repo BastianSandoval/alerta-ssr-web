@@ -1,16 +1,18 @@
 export interface Institution{
-    _id?:string;
+    _id?: string;
     name: string;
-    addres: string;
+    address: string;
     atentionHour: string;
-    phonesNumbers: string[];
-    profilePicture?: string | File;
-    email: string;
-    password: string;
+    phonesNumbers: string[]; 
+    profilePicture: string;
+    email?: string;
+    password?: string;
     description: string;
     categories: string[];
     assignedCommunes: string[];
-    comments?: string[];
+    comments: string[];
+    checks?: string[];
+    rejects?: string[];
+    updatedAt?: Date;
     createdAt?: Date;
-    updateAt?: Date;
-}
+};

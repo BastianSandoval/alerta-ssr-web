@@ -1,4 +1,4 @@
-<div *ngIf="institution$ | async; let institution" class="container-fluid">
+<div *ngIf="loader;" class="container-fluid">
 
     <!--AVATAR INSTITUCION-->
     <div class="row justify-content-center" style="margin-top: 2%;" >
@@ -10,7 +10,7 @@
             </svg>
             
         </div>
-        <h1 class="text-center mt-5 title-institution">Nombre de la institution</h1> 
+        <h1 class="text-center mt-5 title-institution">{{institution?.name}}</h1> 
             
     </div>
 
@@ -19,22 +19,25 @@
         <div class=" pt-5 pt-lg-0 col-12 col-lg-5">
             <h2 class="title-body">CATEGORÍA(S) ASIGANDA(S)</h2>
             <div class="mt-3" style="background-color: #EEF2E9; padding:3%; border-radius: 2vh;">
-                <p style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda inventore</p>
+                <p *ngFor="let category of institution?.categories; let i = index" style="font-size: 2.2vh; font-weight: bold; color: #96AC78">
+                    {{category.name}}
+                </p>
             </div>
 
             <h2 class="title-body mt-3 mt-lg-5">DESCRIPCIÓN</h2>
             <div class="mt-3" style="background-color: #EEF2E9; padding:3%; border-radius: 2vh;">
-                <p style="font-size: 2vh; color: #96AC78">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda inventore, obcaecati dignissimos saepe nisi provident qui voluptates molestias commodi fugiat ut autem quaerat est velit dolor architecto quos mollitia accusantium.</p>
+                <p style="font-size: 2vh; color: #96AC78">{{institution?.description}}</p>
             </div>
         </div>
 
         <div class="pt-4 pt-lg-0 col-12 col-lg-5">
             <h2 class="title-body">INFORMACIÓN</h2>
             <div class="mt-3" style="background-color: #EEF2E9; padding:3%; border-radius: 2vh;">
-                <p style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Dirección:</p>
-                <p class="mt-2"style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Horario de atención: </p>
+                <p style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Dirección:</p><span>{{institution?.address}}</span>
+                <p class="mt-2"style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Horario de atención:</p><span>{{institution?.atentionHour}}</span>
                 <p class="mt-2" style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Teléfonos:</p>
-                <p class="mt-2" style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Correo electrónico:</p>
+                <span *ngFor="let phone of institution?.phonesNumbers">{{phone}}</span>
+                <p class="mt-2" style="font-size: 2.2vh; font-weight: bold; color: #96AC78">Correo electrónico:</p><span>{{institution?.email}}</span>
             </div>
 
         </div>
@@ -48,11 +51,11 @@
             <div class="row">
                 
                 <!-- class="card mx-2 mb-3 col-xs-12 col-sm-6 col-md card-width text-start" -->
-                <div *ngFor="let comment of comments$ | async | commentFilter: institution" class="hover card mx-2 mb-3 card-width" >
+                <div *ngFor="let comment of institution?.comments" class="hover card mx-2 mb-3 card-width" >
                     <div class="row g-0 ">
                         <div class="col-8">
                             <div class="card-body" >
-                                <h5 class="card-title mb-0" style="color:#4c4c4c" >{{comment.report.title | capitalize}}</h5>
+                                <h5 class="card-title mb-0" style="color:#4c4c4c" >{{comment.complaint | capitalize}}</h5>
                                 <!-- <p class="card-text"><small style="color:#4c4c4c" class="text-muted">{{report.ubication | capitalize}}</small></p> -->
                                 <p class="card-text"><small style="color:#4c4c4c" class="text-muted">{{comment.description}}</small></p>
                             </div>
