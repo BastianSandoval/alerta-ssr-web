@@ -23,7 +23,8 @@ import { CommentFilterPipe } from './pipes/comment-filter/comment-filter.pipe';
     CategoryFilterNamePipe,
     CapitalizePipe,
     LoaderComponent,
-    EventFilterPipe
+    EventFilterPipe,
+    CommentFilterPipe
   ]
 })
 export class SharedModule { }
