@@ -31,6 +31,7 @@ export class DetailReportComponent implements OnInit {
   public comments: any[];
   public location: any;
   public reportId: string;
+  public reportTitle: string;
   public checkoutForm: FormGroup;
   idComment: any;
   userId! : any; 
@@ -45,6 +46,9 @@ export class DetailReportComponent implements OnInit {
   ) { 
     this.reportId = this.activeRoute.snapshot.params['id'];
     this.report$ = this.reportProviderService.getReport(this.reportId);
+    this.report$.subscribe(data => {
+      this.reportTitle = data.title      
+    })
     // this.comments$ = this.commentProviderService.getAllComments();
     // console.log(this.comments$);
     this.comments = [];
@@ -67,7 +71,9 @@ export class DetailReportComponent implements OnInit {
       try{
         const commentDescription: string = this.checkoutForm.value.comentario;
         console.log(commentDescription);
-         this.userId = JSON.parse(this.tokenService.getToken()).userId; //se obtiene la id del usuario
+        this.userId = JSON.parse(this.tokenService.getToken()).userId; //se obtiene la id del usuario       
+        
+        
         const comment: Comment = {  //se construye el objeto comentario
           description: commentDescription,
           entity: this.userId,
