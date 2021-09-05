@@ -17,6 +17,7 @@ import { CommentProviderService} from '../../../core/providers/comment/comment-p
 import { TokenService } from '../../../core/services/token/token.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Comment } from '@core/models/comment.model';
+import { Complaint } from '../../../core/models/complaint.model';
 
 
 @Component({
@@ -56,8 +57,9 @@ export class PerfilScreenComponent implements OnInit {
   public pagingCounter: number;
   public prevPages: number;
   public totalPages: number;
-  public comments$: Observable<Comment[]>;
+  public comments: Comment[];
   public institution: Institution;
+  public institution2: Partial<Institution>;
 
   //cargar pagina
   public loader: boolean;
@@ -84,9 +86,11 @@ export class PerfilScreenComponent implements OnInit {
     
     this.setComment();
     this.setReport();
-    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
+    this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();    
     this.loader = true
-
+    this.institution2 = {
+      address: '613225f9c8bf967d8c480ef4'
+    }
     // console.log(this.reports);
   }
 
@@ -128,11 +132,13 @@ export class PerfilScreenComponent implements OnInit {
   async setComment(){
     this.userId = JSON.parse(this.tokenService.getToken()).userId;
     this.institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
-    this.comments$ = this.commentProviderService.getAllComments();
+    /* await this.institutionProviderService.updateInstitution(this.userId, this.institution2).toPromise(); */
+    this.comments = await this.commentProviderService.getAllComments().toPromise();
 
     console.log('acaaaa');
+    console.log(this.institution.profilePictureUrl);
     console.log(this.institution);
-    
+    console.log(this.comments);    
   }
 
   async setReport(dataCategory?: any){
