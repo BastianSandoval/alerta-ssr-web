@@ -79,14 +79,14 @@ export class DetailReportComponent implements OnInit {
           entity: this.userId,
           complaint: this.reportId,
         }
-        /* console.log('aca');        
-        console.log(comment); */
+        console.log('aca');        
+        console.log(comment);
         
         //se agrega a la BDD de comments y se recibe la id asignada
-        await this.commentProviderService.addComment(comment)
+        /* await this.commentProviderService.addComment(comment)
         .subscribe((data) =>{
           this.idComment = data._id
-        });
+        }); */
 
         //se vincula la id del comentario al report comentado
         /* let report: Report = await this.report$.toPromise();
