@@ -12,7 +12,10 @@ import { CommentFilterPipe } from './pipes/comment-filter/comment-filter.pipe';
 
 
 @NgModule({
-  declarations: [ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe, CapitalizePipe, LoaderComponent, EventFilterPipe, CommentFilterPipe],
+  declarations: [
+    ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe,
+    CapitalizePipe, LoaderComponent, EventFilterPipe, CommentFilterPipe
+  ],
   imports: [
     CommonModule
   ],

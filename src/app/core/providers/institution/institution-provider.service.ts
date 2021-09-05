@@ -22,7 +22,7 @@ export class InstitutionProviderService {
     return this.http.post<Institution>('/institution', institution);
   }
 
-  updateInstitution(id: string, institution: Institution): Observable<Institution>{
+  updateInstitution(id: string, institution: Partial<Institution>): Observable<Institution>{
      return this.http.patch<Institution>(`/institution/${id}`, institution);
   }
 

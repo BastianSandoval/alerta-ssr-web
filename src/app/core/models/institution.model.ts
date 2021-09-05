@@ -1,10 +1,11 @@
+import { Address } from './address.model';
 export interface Institution{
     _id?: string;
     name: string;
-    address: string;
+    address: string | Address;
     atentionHour: string;
     phonesNumbers: string[]; 
-    profilePicture: string;
+    profilePictureUrl: string;
     email?: string;
     password?: string;
     description: string;
