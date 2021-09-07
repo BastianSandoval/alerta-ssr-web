@@ -45,7 +45,8 @@ export class PerfilScreenComponent implements OnInit {
   categoryList: any;
   titleReport: string;
   isCategory: boolean = false;
-  userId! : string;
+  userId!: string;
+  
 
   //response Query
   public totalDocs: number;
@@ -59,7 +60,8 @@ export class PerfilScreenComponent implements OnInit {
   public totalPages: number;
   public comments: Comment[];
   public institution: Institution;
-  public institution2: Partial<Institution>;
+  public infoInstitution: Institution;
+  public imageEvent: any;
 
   //cargar pagina
   public loader: boolean;
@@ -88,9 +90,6 @@ export class PerfilScreenComponent implements OnInit {
     this.setReport();
     this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();    
     this.loader = true
-    this.institution2 = {
-      address: '613225f9c8bf967d8c480ef4'
-    }
     // console.log(this.reports);
   }
 
@@ -132,13 +131,15 @@ export class PerfilScreenComponent implements OnInit {
   async setComment(){
     this.userId = JSON.parse(this.tokenService.getToken()).userId;
     this.institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
-    /* await this.institutionProviderService.updateInstitution(this.userId, this.institution2).toPromise(); */
     this.comments = await this.commentProviderService.getAllComments().toPromise();
+    this.infoInstitution = await this.institutionProviderService.getInfoInstitution(this.userId).toPromise();
 
     console.log('acaaaa');
-    console.log(this.institution.profilePictureUrl);
+    /* console.log(this.infoInstitution);
+    
+    console.log(this.institution.profilePictureUrl); */
     console.log(this.institution);
-    console.log(this.comments);    
+    /* console.log(this.comments); */
   }
 
   async setReport(dataCategory?: any){
@@ -180,5 +181,22 @@ export class PerfilScreenComponent implements OnInit {
     this.loader = true;
     this.isCategory = false;
     /* console.log(this.reports); */
+  }
+
+  public selectFile(event: any): void {
+    this.imageEvent = event;    
+  }
+
+  mostrar() {
+    /* const institutionImage: Institution = {
+      profilePictureUrl: this.imageEvent.target.file[0]
+    }
+    try {
+    
+    } catch (error) {
+      
+    } */
+    console.log(this.imageEvent.target.files[0]);
+    
   }
 }

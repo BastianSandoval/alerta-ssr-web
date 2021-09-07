@@ -18,11 +18,15 @@ export class InstitutionProviderService {
     return this.http.get<Institution>(`/institution/${id}`);
   }
 
+  getInfoInstitution(id: string): Observable<Institution>{
+    return this.http.get<Institution>(`/institution/info/${id}`);
+  }
+
   addInstitution(institution: Institution): Observable<Institution>{
     return this.http.post<Institution>('/institution', institution);
   }
 
-  updateInstitution(id: string, institution: Partial<Institution>): Observable<Institution>{
+  updateInstitution(id: string, institution: Institution): Observable<Institution>{
      return this.http.patch<Institution>(`/institution/${id}`, institution);
   }
 
