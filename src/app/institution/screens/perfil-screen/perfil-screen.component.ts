@@ -183,20 +183,16 @@ export class PerfilScreenComponent implements OnInit {
     /* console.log(this.reports); */
   }
 
-  public selectFile(event: any): void {
-    this.imageEvent = event;    
-  }
-
-  mostrar() {
-    /* const institutionImage: Institution = {
-      profilePictureUrl: this.imageEvent.target.file[0]
+   async  selectFile(event: any) {
+    this.imageEvent = event.target.files[0];
+    /* console.log(this.imageEvent); */
+    const institutionImage: any = {
+      profilePictureUrl: this.imageEvent
     }
     try {
-    
+      await this.institutionProviderService.addProfilePicture(this.userId, institutionImage, this.institution).toPromise();
     } catch (error) {
-      
-    } */
-    console.log(this.imageEvent.target.files[0]);
-    
+      console.log('algo salio mal');      
+    }    
   }
 }
