@@ -26,6 +26,20 @@ export class InstitutionProviderService {
     return this.http.post<Institution>('/institution', institution);
   }
 
+  addProfilePicture(id: string, images: any, institution: Institution): Observable<Institution> {
+
+    if (institution.profilePictureUrl) {
+      /* return this.http.post<Institution>(`/institution'/${id}/profile-picture`) */
+    } else {
+      /* const imgInstitution = new FormData();
+      imgInstitution.append('image', images.profilePictureUrl)
+      return this.http.post<Institution>(`/institution'/${id}/profile-picture`, imgInstitution) */
+    }
+    const imgInstitution = new FormData();
+    imgInstitution.append('image', images.profilePictureUrl)
+    return this.http.post<Institution>(`/institution/${id}/profile-picture`, imgInstitution)
+  }
+
   updateInstitution(id: string, institution: Institution): Observable<Institution>{
      return this.http.patch<Institution>(`/institution/${id}`, institution);
   }
