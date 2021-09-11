@@ -45,12 +45,14 @@
       <div class="row" style="max-height: 300px; overflow-y: scroll;">
         <div class="col">
           <div class="card shadow-sm mb-2" style="border-radius: 30px;"
-            *ngFor="let comment of comments"
+            *ngFor="let comment of report.comments"
           >
-            <div class="card-body py-2">
-              <h5 class="card-title text-brand">{{comment.user.names | uppercase}}</h5>
-              <p class="card-text" style="color: #000000;">{{comment.description | capitalize}}</p>
-            </div>
+            <ng-container *ngIf="reportId === comment.complaint">
+              <div class="card-body py-2">
+                <!-- <h5 class="card-title text-brand">{{comment.user.names | uppercase}}</h5> -->
+                <p class="card-text" style="color: #000000;">{{comment.description | capitalize}}</p>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
