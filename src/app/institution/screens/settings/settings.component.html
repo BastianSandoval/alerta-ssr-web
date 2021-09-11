@@ -7,34 +7,34 @@
             <form [formGroup]="checkoutForm" #configForm="ngForm" (ngSubmit)="saveChange($event, configForm)">
                 <div class="row">
                     <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
-                        <label for="currentLocationRadius" class="fw-normal">CONTRASEÑA ACTUAL</label>
-                        <input id="currentLocationRadius" type="text" class="form-control" formControlName="currentLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="currentLocationRadius">
+                        <label for="nameOldPassword" class="fw-normal">CONTRASEÑA ACTUAL</label>
+                        <input id="nameOldPassword" type="text" class="form-control" formControlName="oldPassword" placeholder="Contraseña actual" aria-label="nameOldPassword">
                         <div id='mensaje'>
-                            <small id="currentLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('currentLocationRadius')"> Requerido  </small>
-                            <small id="currentLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('currentLocationRadius')"> Invalido </small>
+                            <small id="nameOldPassword" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('oldPassword')"> Requerido  </small>
+                            <small id="nameOldPassword" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('oldPassword')"> Invalido </small>
                         </div>
                     </div>
                     <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
-                        <label for="anotherLocationRadius" class="fw-normal">NUEVA CONTRASEÑA</label>
-                        <input id="anotherLocationRadius" type="text" class="form-control" formControlName="anotherLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="anotherLocationRadius">
+                        <label for="nameNewPassword" class="fw-normal">NUEVA CONTRASEÑA</label>
+                        <input id="nameNewPassword" type="text" class="form-control" formControlName="newPassword" placeholder="Nueva contraseña" aria-label="nameNewPassword">
                         <div id='mensaje'>
-                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('anotherLocationRadius')"> Requerido  </small>
-                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('anotherLocationRadius')"> Invalido </small>
+                            <small id="nameNewPassword" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('newPassword')"> Requerido  </small>
+                            <small id="nameNewPassword" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('newPassword')"> Invalido </small>
                         </div>
                     </div>
                     <div class="col-10 col-sm-4 col-md-6 col-lg-4 py-3 py-lg-0 px-3 px-lg-5 xs">
-                        <label for="anotherLocationRadius" class="fw-normal">REPETIR CONTRASEÑA</label>
-                        <input id="anotherLocationRadius" type="text" class="form-control" formControlName="anotherLocationRadius" placeholder="Ingresar radio (ej:20)" aria-label="anotherLocationRadius">
+                        <label for="nameRepeatNewPassword" class="fw-normal">REPETIR CONTRASEÑA</label>
+                        <input id="nameRepeatNewPassword" type="text" class="form-control" formControlName="repeatNewPassword" placeholder="Repetir nueva contraseña" aria-label="nameRepeatNewPassword">
                         <div id='mensaje'>
-                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('anotherLocationRadius')"> Requerido  </small>
-                            <small id="anotherLocationRadius" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('anotherLocationRadius')"> Invalido </small>
+                            <small id="nameRepeatNewPassword" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsRequired('repeatNewPassword')"> Requerido  </small>
+                            <small id="nameRepeatNewPassword" class="form-text text-muted" *ngIf=" configForm.submitted && controlIsInvalidPattern('repeatNewPassword')"> Invalido </small>
                         </div>
                     </div>
                 </div>
                 
                 <div class="row py-3 py-lg-4">
                     <div class="px-3 px-lg-5 text-start text-lg-center pt-lg-5">
-                        <button type="submit" disabled class="btn text-white px-4 mt-lg-5" style="background-color: #759958; border-radius: 2vh;"><span>Actualizar</span></button>
+                        <button type="submit" class="btn text-white px-4 mt-lg-5" style="background-color: #759958; border-radius: 2vh;"><span>Actualizar</span></button>
                     </div>
                 </div>
             </form>
