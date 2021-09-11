@@ -134,12 +134,8 @@ export class PerfilScreenComponent implements OnInit {
     this.comments = await this.commentProviderService.getAllComments().toPromise();
     this.infoInstitution = await this.institutionProviderService.getInfoInstitution(this.userId).toPromise();
 
-    console.log('acaaaa');
-    /* console.log(this.infoInstitution);
-    
-    console.log(this.institution.profilePictureUrl); */
-    console.log(this.institution);
-    /* console.log(this.comments); */
+    /* console.log('acaaaa');
+    console.log(this.institution); */
   }
 
   async setReport(dataCategory?: any){
@@ -151,15 +147,15 @@ export class PerfilScreenComponent implements OnInit {
      /* console.log(data) */
     }
     //set queries
-   this.totalDocs= data.totalDocs;
-   this.hasNextPage= data.hasNextPage;
-   this.hasPrevPage= data.hasPrevPage;
-   this.limit= data.limit;
-   this.nextPages= data.nextPage;
-   this.page= data.page;
-   this.pagingCounter= data.pagingCounter;
-   this.prevPages= data.prevPage;
-   this.totalPages= data.totalPages;
+    this.totalDocs= data.totalDocs;
+    this.hasNextPage= data.hasNextPage;
+    this.hasPrevPage= data.hasPrevPage;
+    this.limit= data.limit;
+    this.nextPages= data.nextPage;
+    this.page= data.page;
+    this.pagingCounter= data.pagingCounter;
+    this.prevPages= data.prevPage;
+    this.totalPages= data.totalPages;
    
     this.reports = data.docs;
     this.communes = await this.communeProviderService.getAllCommunes().toPromise();
@@ -180,19 +176,18 @@ export class PerfilScreenComponent implements OnInit {
 
     this.loader = true;
     this.isCategory = false;
-    /* console.log(this.reports); */
   }
 
-   async  selectFile(event: any) {
+  async selectFile(event: any) {
     this.imageEvent = event.target.files[0];
-    /* console.log(this.imageEvent); */
     const institutionImage: any = {
       profilePictureUrl: this.imageEvent
     }
     try {
       await this.institutionProviderService.addProfilePicture(this.userId, institutionImage, this.institution).toPromise();
+      this.notificationService.success('Se ha cambiado correctamente la imagen')      
     } catch (error) {
-      console.log('algo salio mal');      
+      this.notificationService.error('Error al cambiar la imagen')     
     }    
   }
 }
