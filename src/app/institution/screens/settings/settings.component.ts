@@ -5,6 +5,8 @@ import { ConfigProviderService } from '../../../core/providers/config/config-pro
 import { NotificationService } from '../../../core/services/notification/notification.service';
 import { ActivatedRoute } from '@angular/router';
 import { Config } from '../../../core/models/config.model';
+import { TokenService } from '../../../core/services/token/token.service';
+import { InstitutionProviderService } from '@core/providers/institution/institution-provider.service';
 
 
 @Component({
@@ -13,16 +15,20 @@ import { Config } from '../../../core/models/config.model';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-
-  public id: string = '';
-  public config: Config[];
   
   checkoutForm: FormGroup;
+  userId: string;
+
+  public id: string = '';
+  public config: Config[]; 
+
   constructor(
     private formService:FormService,
     private configProviderService: ConfigProviderService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
+    private tokenService: TokenService,
+    private institutionProviderService: InstitutionProviderService,
     ){
 
     this.checkoutForm;
@@ -34,20 +40,36 @@ export class SettingsComponent implements OnInit {
     this.setReport();
   };
 
-  saveChange(event: Event, configForm: FormGroupDirective){
+  async saveChange(event: Event, configForm: FormGroupDirective){
     event.preventDefault();
-    if(configForm.valid){
-      console.log(this.checkoutForm.value);
-      this.submitConfig();
+    let password: any = 'asdf';
+    let oldPassword: string = this.checkoutForm.value.oldPassword;
+    let newPassword: string = this.checkoutForm.value.newPassword;
+    let repeatNewPassword: string = this.checkoutForm.value.repeatNewPassword;
+
+    if (configForm.valid) {
+      if (newPassword === repeatNewPassword) {      
+        const newPass: any = {
+          password: this.checkoutForm.value.newPassword
+        }     
+        try {
+          await this.institutionProviderService.changePassword(this.userId, newPass).toPromise();
+          this.notificationService.success('La contraseña se ha cambiado exitosamente')      
+        } catch (error) {
+          console.log(error);
+          this.notificationService.error('Contraseña actual incorrecta')
+        }         
+      } else if (newPassword !== repeatNewPassword) {
+        this.notificationService.error('Las contraseñas no son iguales') 
+      }   
     }
   }
 
   private createFormGroup() {
     this.checkoutForm = this.formService.buildFormGroup({
-      currentLocationRadius: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      anotherLocationRadius: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      minimalChecks: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      minimalRejections: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      oldPassword: new FormControl('', [Validators.required, Validators.pattern('')]), /* Validators.pattern('[a-zA-ZÀ-ÿ ]*') */
+      newPassword: new FormControl('', [Validators.required, Validators.pattern('')]),
+      repeatNewPassword: new FormControl('', [Validators.required, Validators.pattern('')]),
     })
   }
 
@@ -104,21 +126,7 @@ export class SettingsComponent implements OnInit {
 
 
   public async setReport(): Promise<void> {
-    try {
-        this.config = await this.configProviderService.getAllConfigs().toPromise();
-        if(this.config.length === 1){
-          this.checkoutForm.setValue({
-            currentLocationRadius: this.config[0].currentLocationRadius,
-            anotherLocationRadius: this.config[0].anotherLocationRadius,
-            minimalChecks: this.config[0].minimalChecks,            
-            minimalRejections: this.config[0].minimalRejections
-          });
-        }
-    }catch (error) {
-      console.log(error);
-      this.notificationService.error('No se ha podido cargar el producto');
-    }
-
+    this.userId = JSON.parse(this.tokenService.getToken()).userId;
   }
 
 

@@ -41,6 +41,8 @@ export class MobileComplaintDetailScreenComponent implements OnInit {
           this.comments.push(element);
         }
     });
+    /* console.log(this.comments);
+    console.log(this.reportId); */    
   }
 
   toDate(date: any){

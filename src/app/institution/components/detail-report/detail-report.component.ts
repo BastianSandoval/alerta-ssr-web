@@ -17,6 +17,7 @@ import { InstitutionProviderService } from '../../../core/providers/institution/
 
 import { FormService } from '../../../core/services/form/form.service';
 import { TokenService } from '../../../core/services/token/token.service';
+import { NotificationService } from '../../../core/services/notification/notification.service';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class DetailReportComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private formService: FormService,
     private tokenService: TokenService,
+    private notificationService: NotificationService
   ) { 
     this.reportId = this.activeRoute.snapshot.params['id'];
     this.report$ = this.reportProviderService.getReport(this.reportId);
@@ -70,33 +72,24 @@ export class DetailReportComponent implements OnInit {
     if(this.checkoutForm.valid){
       try{
         const commentDescription: string = this.checkoutForm.value.comentario;
-        console.log(commentDescription);
         this.userId = JSON.parse(this.tokenService.getToken()).userId; //se obtiene la id del usuario       
-        
-        
+                
         const comment: Comment = {  //se construye el objeto comentario
           description: commentDescription,
           entity: this.userId,
           complaint: this.reportId,
-        }
-        console.log('aca');        
-        console.log(comment);
+        }       
         
         //se agrega a la BDD de comments y se recibe la id asignada
-        /* await this.commentProviderService.addComment(comment)
-        .subscribe((data) =>{
-          this.idComment = data._id
-        }); */
-
-        //se vincula la id del comentario al report comentado
-        /* let report: Report = await this.report$.toPromise();
-        report.comments.push(this.idComment);
-        this.reportProviderService.updateReport(report._id,report,false); */
-
-        //se vincula la id del comentario a la institucion que realizo el comentario
-        /* let institution: Institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
-        institution.comments.push(this.idComment);
-        this.institutionProviderService.updateInstitution(institution._id, institution); */
+        try {
+          await this.commentProviderService.addComment(comment)
+          .subscribe((data) =>{
+            this.idComment = data._id
+          });
+          this.notificationService.success('Comentario agregado exitosamente')
+        } catch (error) {          
+          this.notificationService.error('Error al comentar')
+        }  
       }
       catch(error){
         console.log(error)
