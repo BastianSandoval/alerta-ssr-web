@@ -44,6 +44,10 @@ export class InstitutionProviderService {
      return this.http.patch<Institution>(`/institution/${id}`, institution);
   }
 
+  changePassword(id: string, newPassword: string): Observable<Institution> {
+    return this.http.patch<Institution>(`/institution/${id}/change-password`, newPassword)
+  }
+
   deleteInstitution(id: string): Observable<Institution>{
     return this.http.delete<Institution>(`/institution/${id}`);
   }
