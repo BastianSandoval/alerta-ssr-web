@@ -42,26 +42,38 @@ export class SettingsComponent implements OnInit {
 
   async saveChange(event: Event, configForm: FormGroupDirective){
     event.preventDefault();
-    let password: any = 'asdf';
     let oldPassword: string = this.checkoutForm.value.oldPassword;
     let newPassword: string = this.checkoutForm.value.newPassword;
     let repeatNewPassword: string = this.checkoutForm.value.repeatNewPassword;
+    const verificationPassword: any = {
+      password: oldPassword
+    }
+    
+    let password: any = await this.institutionProviderService.verificatePassword(this.userId, verificationPassword).toPromise();    
 
     if (configForm.valid) {
-      if (newPassword === repeatNewPassword) {      
-        const newPass: any = {
-          password: this.checkoutForm.value.newPassword
-        }     
-        try {
-          await this.institutionProviderService.changePassword(this.userId, newPass).toPromise();
-          this.notificationService.success('La contraseña se ha cambiado exitosamente')      
-        } catch (error) {
-          console.log(error);
-          this.notificationService.error('Contraseña actual incorrecta')
-        }         
-      } else if (newPassword !== repeatNewPassword) {
-        this.notificationService.error('Las contraseñas no son iguales') 
-      }   
+      if (password) {
+        if (oldPassword !== newPassword) {
+          if (newPassword === repeatNewPassword) {      
+            const newPass: any = {
+              password: this.checkoutForm.value.newPassword
+            }     
+            try {
+              await this.institutionProviderService.changePassword(this.userId, newPass).toPromise();
+              this.notificationService.success('La contraseña se ha cambiado exitosamente')      
+            } catch (error) {
+              console.log(error);
+              this.notificationService.error('No se ha podido cambiar la contraseña')
+            }         
+          } else {
+            this.notificationService.error('Las contraseñas no son iguales') 
+          }  
+        } else {
+          this.notificationService.error('La contraseña nueva no debe ser la misma que la actual') 
+        }        
+      } else {
+        this.notificationService.error('Contrasela actual incorrecta')
+      }       
     }
   }
 
