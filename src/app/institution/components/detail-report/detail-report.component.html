@@ -1,7 +1,7 @@
 <div class="container-fluid"
   style="padding: 5%;"
   *ngIf="report$ | async;
-  let report;"
+  let report; else showLoader"
 >
   <div class="row pt-2 d-flex justify-content-between" >
     <div class="col-12 col-xl-5 text-center text-xl-start">
@@ -57,7 +57,7 @@
 
         <div class="row mt-4 px-1 px-xl-0"  > 
           <div class="card px-0" style="border:none">
-            <form [formGroup]="checkoutForm" #commentForm="ngForm"  (ngSubmit)="saveComment($event)">
+            <form [formGroup]="checkoutForm" #commentForm="ngForm"  (ngSubmit)="saveComment($event, commentForm)">
               <div class="pt-3" style="font-weight: 600;">
                 <h4 style="font-size: 2.2vh;">ESCRIBIR NUEVO COMENTARIO</h4>
               </div>
@@ -82,7 +82,6 @@
   </div>
 
   
-
   <!-- Modal -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -98,4 +97,7 @@
     </div>
   </div>
 </div>
+<ng-template #showLoader>
+  <shared-loader></shared-loader>
+</ng-template>
 

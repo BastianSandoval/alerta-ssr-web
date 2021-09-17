@@ -67,7 +67,7 @@ export class DetailReportComponent implements OnInit {
     });
   }
 
-  async saveComment(event: any){
+  async saveComment(event: any, form: FormGroupDirective){
     event.preventDefault;
     if(this.checkoutForm.valid){
       try{
@@ -82,10 +82,12 @@ export class DetailReportComponent implements OnInit {
         
         //se agrega a la BDD de comments y se recibe la id asignada
         try {
-          await this.commentProviderService.addComment(comment)
+          this.commentProviderService.addComment(comment)
           .subscribe((data) =>{
             this.idComment = data._id
           });
+          this.checkoutForm.reset();
+          form.resetForm();
           this.notificationService.success('Comentario agregado exitosamente')
         } catch (error) {          
           this.notificationService.error('Error al comentar')
