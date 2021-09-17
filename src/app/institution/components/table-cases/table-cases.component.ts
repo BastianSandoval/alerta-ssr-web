@@ -134,6 +134,7 @@ public loader: boolean;
     }else{
       eventos = await this.eventProviderService.getEvents(this.numberPage,this.sizePageTable).toPromise();
     }
+    
     //Events
     this.totalDocs= eventos.totalDocs;
     this.hasNextPage= eventos.hasNextPage;
@@ -149,9 +150,9 @@ public loader: boolean;
 
     if(eventos.docs.length != 0){
       this.eventos = eventos.docs;
-
+      console.log(this.eventos)
       for(const event of this.eventos){
-        event.idReporte = event.complaints[event.complaints.length - 1]._id;
+        event.idReporte = event.complaints[0]._id;
         console.log(event.idReporte);
         event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
         event.category = event.report.category.name;
