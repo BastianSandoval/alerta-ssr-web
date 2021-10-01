@@ -12,6 +12,9 @@ import { Region } from '../../../core/models/region.model';
 import { NotificationService } from '@core/services/notification/notification.service';
 
 import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
+import { Institution } from '@core/models/institution.model';
+import { TokenService } from '@core/services/token/token.service';
+import { InstitutionProviderService } from '@core/providers/institution/institution-provider.service';
 
 @Component({
   selector: 'app-table-reports',
@@ -21,6 +24,7 @@ import { CategoryProviderService } from '../../../core/providers/category/catego
 export class TableReportsComponent implements OnInit {
 
   reports: Report[];
+  reportsShow: any[];
   communes: any;
   regions: Region[];
   filterCategory!: string;
@@ -38,6 +42,7 @@ export class TableReportsComponent implements OnInit {
   categoryList: any;
   titleReport: string;
   isCategory: boolean = false;
+  userId!: string;
 
   //response Query
   public totalDocs: number;
@@ -49,6 +54,7 @@ export class TableReportsComponent implements OnInit {
   public pagingCounter: number;
   public prevPages: number;
   public totalPages: number;
+  public institution: Institution;
 
 //cargar pagina
 public loader: boolean;
@@ -60,11 +66,14 @@ public loader: boolean;
     private regionProviderService:RegionProviderService,
     private notificationService:NotificationService,
     private categoryProviderService: CategoryProviderService,
+    private tokenService: TokenService,
+    private institutionProviderService: InstitutionProviderService,
     ) {
     this.reportSelected = false;
     this.visualizar=true;
     this.reports= [];
     this.loader = false;
+    this.reportsShow = [];
    }
 
 
@@ -83,7 +92,7 @@ public loader: boolean;
   async deleteItem(reportId){
 
     let index:number=0;
-    console.log(reportId);
+    /* console.log(reportId); */
     await this.reportProviderService.deleteReport(reportId).toPromise();
     if (reportId){
       this.reports.forEach((report: Report) => {
@@ -109,15 +118,15 @@ public loader: boolean;
 
   reportSelect(report: Report){
     this.idSelected = report._id;
-    console.log(report._id);
+    /* console.log(report._id); */
     this.titleReport = report.title;
-    console.log(report.title);
+    /* console.log(report.title); */
   }
 
   
   async ngDoCheck(){
 
-    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
+    this.reportsSlice = this.reports;
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
@@ -138,14 +147,20 @@ public loader: boolean;
     
   }
 
-  async setReport(){
+  async setReport() {
+    this.userId = JSON.parse(this.tokenService.getToken()).userId;
+    this.institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
+    /* console.log(this.institution); */
+    
+
     let data: any;
     if(this.isCategory){
-      data = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory, this.sizePageTable, this.numberPage).toPromise();;
+      data = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory, this.sizePageTable, this.numberPage).toPromise();
     }else{
-     data = await this.reportProviderService.getAllReports(this.numberPage,this.sizePageTable).toPromise();
-     console.log(data)
+      data = await this.reportProviderService.getAllReports(this.numberPage, this.sizePageTable).toPromise();      
     }
+    console.log(data);
+    
     //set queries
    this.totalDocs= data.totalDocs;
    this.hasNextPage= data.hasNextPage;
@@ -160,6 +175,9 @@ public loader: boolean;
     this.reports = data.docs;
     this.communes = await this.communeProviderService.getAllCommunes().toPromise();
     this.regions = await this.regionProviderService.getAllRegions().toPromise();
+    /* this.setReportShow(this.reports, this.institution) */
+    /* console.log(this.reports); */
+    
 
     this.reports.forEach((report) =>{
       let location:any = report.location;
@@ -176,6 +194,38 @@ public loader: boolean;
 
     this.loader = true;
     
+  }
+
+  /* async setReportShow(reports: any[], institution: any) {
+    
+    institution.categories.forEach((category) => {        
+      let index = 0;
+      reports.forEach((report) => {      
+        if (report.category.name !== category.name) {
+          this.reports.splice(index,1);
+        }
+        index++;
+      })
+    })
+
+    if (!this.reports.length) {
+      if (this.prevPages >= 1) {
+        this.prevPage();
+      }
+    }
+  } */
+
+  async setReportShow(reports: any[], institution: any) {
+    let i = 0;
+    reports.forEach((report) => {      
+      institution.categories.forEach((category) => {        
+        if (report.category._id === category._id) {
+          this.reportsShow.push(report)
+          console.log(report);
+          
+        }
+      })
+    })
   }
 
 
