@@ -68,6 +68,7 @@ export class FormEditReportComponent implements OnInit{
   public imageChangedEvent: any;
   public croppedImage: any;
   public changePhoto: boolean;
+  public disableButton: boolean;
 
   public options: any = {
     componentRestrictions: { country: 'CL' },
@@ -103,6 +104,7 @@ export class FormEditReportComponent implements OnInit{
       this.changePhoto = false;
       this.loader = false;
       this.id = '';
+      this.disableButton = false;
       this.form= new EventEmitter<FormGroup>();
       this.ubicacion = {
         region: '',
@@ -113,6 +115,7 @@ export class FormEditReportComponent implements OnInit{
         streetName: '', 
         streetNumber: ''
       }; 
+      
     }
 
     exportForm(){
@@ -126,6 +129,7 @@ export class FormEditReportComponent implements OnInit{
 
       const categories: any = await this.categoryProviderService.getAllCategories().toPromise();
       this.category = categories;
+      
 
       this.settings = {
         labelKey: 'names',
@@ -149,13 +153,13 @@ export class FormEditReportComponent implements OnInit{
         primaryKey:"_id"
       };
 
-      this.setReport();
+      this.setReport();  
   };
 
   public handleAddressChange(address: any) {
     //agrego ubicacion al formcontrol location
     // this.checkoutForm.controls['location'].setValue(address.name);
-    this.address = address;
+    this.address = this.checkoutForm.value.location;
     console.log(address);
 
     //guardar region
@@ -297,21 +301,31 @@ export class FormEditReportComponent implements OnInit{
   public saveReport(event: Event, reportForm: FormGroupDirective ){
     event.preventDefault();
     //hacer lista de categorias
-
+    this.disableButton = true;
     
     
-    // this.userFormControl.setValue(this.userFormControl.value[0]._id);
-    // this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id);
-     this.checkoutForm.controls['location'].setValue(this.idLocation);
-  
+    /* this.userFormControl.setValue(this.userFormControl.value[0]._id);
+    this.categoryFormControl.setValue(this.categoryFormControl.value[0]._id); */
+    this.checkoutForm.controls['location'].setValue(this.idLocation);
 
-    console.log(this.checkoutForm);
     this.submitReport(reportForm);
      // se resetea en esta parte, porque no se puede asignar como variable, porque la referencia no pasa al padre
+    /* this.checkoutForm.controls['location'].setValue(this.address) */
+    
+    if (this.id === '') {
+      this.checkoutForm.reset();
+      reportForm.resetForm();      
+    }
+
+  }
+
+  public changeInput(event: any) {
+    this.disableButton = false;
+    
   }
 
   private createFormGroup() {
-      this.checkoutForm = this.formService.buildFormGroup({
+    this.checkoutForm = this.formService.buildFormGroup({
       title: new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZÀ-ÿ ]*')]),
       category: new FormControl('', [Validators.required]),
       user: new FormControl('', [Validators.required]),
