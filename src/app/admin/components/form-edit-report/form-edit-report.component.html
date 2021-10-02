@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameTitle" class="fw-bolder">TÍTULO</label>
-                        <input id="nameTitle" type="text" class="form-control" formControlName="title" aria-label="nameTitle">
+                        <input (input)="changeInput($event)" id="nameTitle" type="text" class="form-control" formControlName="title" aria-label="nameTitle">
                         <div id='mensaje'>
                             <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsRequired('title')"> Requerido  </small>
                             <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsInvalidPattern('title')"> Invalido </small>
@@ -16,10 +16,11 @@
                         <form >
                             <label for="nameCategory" class="fw-bolder">CATEGORÍA</label>
                             <div class="bg-white">
-                                <angular2-multiselect
+                                <angular2-multiselect 
                                 [formControl]="categoryFormControl"
                                 [data]="category" 
-                                [settings]="settingsCategories">
+                                [settings]="settingsCategories"
+                                (input)="changeInput($event)">
                                 </angular2-multiselect>
                             </div>
                             
@@ -32,7 +33,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDate" class="fw-bolder">FECHA REPORTE: </label>
-                        <input formControlName="date" class="form-control" max="{{fechaActual | date:'yyyy-MM-dd'}}" type="date" name="fecha" style="padding-left: 4%;">
+                        <input (input)="changeInput($event)" formControlName="date" class="form-control" max="{{fechaActual | date:'yyyy-MM-dd'}}" type="date" name="fecha" style="padding-left: 4%;">
                         
                         <div id="mensaje">
                             <small id="nameDate" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('date')"> Requerido</small>
@@ -42,8 +43,9 @@
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5 form-row align-items-center justify-content-center">
                         <div class="col-md-12 mb-2">
                           <label class="fw-bolder " for="labelGoogleMaps">UBICACIÓN</label>
-                          <input formControlName="location" class="form-control" type="text" ngx-google-places-autocomplete [options]='options' placeholder="Ingrese la ubicación" #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
-
+                          <input (input)="changeInput($event)" formControlName="location" class="form-control" type="text" 
+                          ngx-google-places-autocomplete [options]='options' placeholder="Ingrese la ubicación" 
+                          #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
                           <div id="mensaje">
                             <small id="location" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('location')"> Requerido</small>
                           </div>
@@ -57,6 +59,7 @@
                             <label for="nameUser" class="fw-bolder">USUARIO</label>
                             <div class="bg-white">
                                 <angular2-multiselect
+                                (input)="changeInput($event)"
                                 [formControl]="userFormControl"
                                 [data]="user" 
                                 [settings]="settings">
@@ -71,7 +74,7 @@
                     </div>
                     <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
                         <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
-                        <textarea id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
+                        <textarea (input)="changeInput($event)" id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
                         <div id="mensaje">
                             <small id="nameDescription" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('description')"> Requerido</small>
                         </div>
@@ -124,7 +127,7 @@
                     </div>
                 <div class="button-group text-center mt-3">
                     <button class="btn btn-lg btn-primary btn-danger me-4" (click)="cancel()">Cancelar</button>
-                    <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
+                    <button type="submit" [disabled]="disableButton" class="btn btn-lg btn-primary text-center">Guardar</button>
                 </div>
             </form>
         </div>
