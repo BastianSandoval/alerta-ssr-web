@@ -16,6 +16,10 @@ export class ReportProviderService {
     return this.http.get<Report[]>(`/complaint/all?page=${page}&limit=${limite}`);
   }
 
+  getAllInstitutionReports(id: string): Observable<Report[]>{
+    return this.http.get<Report[]>(`/complaint/${id}/all`);
+  }
+
   getReport(id: string): Observable<Report>{
     return this.http.get<Report>(`/complaint/${id}`);
   }
