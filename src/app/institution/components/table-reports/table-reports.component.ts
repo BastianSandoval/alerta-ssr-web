@@ -15,6 +15,7 @@ import { CategoryProviderService } from '../../../core/providers/category/catego
 import { Institution } from '@core/models/institution.model';
 import { TokenService } from '@core/services/token/token.service';
 import { InstitutionProviderService } from '@core/providers/institution/institution-provider.service';
+import { Category } from '@core/models/category.model';
 
 @Component({
   selector: 'app-table-reports',
@@ -24,7 +25,7 @@ import { InstitutionProviderService } from '@core/providers/institution/institut
 export class TableReportsComponent implements OnInit {
 
   reports: Report[];
-  reportsShow: any[];
+  allReports: any[];
   communes: any;
   regions: Region[];
   filterCategory!: string;
@@ -39,20 +40,13 @@ export class TableReportsComponent implements OnInit {
   visualizar:boolean;
   reportId : string;
   numberPage: number = 1;
-  categoryList: any;
+  categoryList: Category[];
   titleReport: string;
   isCategory: boolean = false;
   userId!: string;
 
   //response Query
-  public totalDocs: number;
-  public hasNextPage: boolean;
-  public hasPrevPage: boolean;
-  public limit: number;
-  public nextPages: number;
   public page: number;
-  public pagingCounter: number;
-  public prevPages: number;
   public totalPages: number;
   public institution: Institution;
 
@@ -73,20 +67,17 @@ public loader: boolean;
     this.visualizar=true;
     this.reports= [];
     this.loader = false;
-    this.reportsShow = [];
+    this.allReports = [];
+    this.page = 1;
    }
 
 
   async ngOnInit(): Promise<void> {
     
-    this.setReport();
+    await this.setReport();
 
     this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
-
-    // console.log(this.reports);
-  }
-
-  async ngOnChanges() {
+    this.categoryList = this.categoryList.filter((category: Category) => this.institution.categories.find((institutionCategory: any) => category._id == institutionCategory._id));
   }
 
   async deleteItem(reportId){
@@ -102,9 +93,11 @@ public loader: boolean;
       index++;
       });
 
-      this.setReport();
-      if (!this.reports.length) {
-        if (this.prevPages >= 1) {
+      const data :any = await this.reportProviderService.getAllInstitutionReports(this.institution._id).toPromise(); 
+      this.reports = data;
+      this.totalPages = Math.ceil(this.reports.length / this.sizePageTable);
+      if (!this.reportsSlice.length) {
+        if (this.totalPages >= 1) {
           this.prevPage();
         }
       }
@@ -124,14 +117,13 @@ public loader: boolean;
   }
 
   
-  async ngDoCheck(){
-
-    this.reportsSlice = this.reports;
+  ngDoCheck(){
+    this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
     let nextButton = document.getElementById("nextButton");
 
-    if (!this.hasPrevPage) {
+    if (this.startPage === 0) {
       prevButton?.setAttribute('disabled', 'disabled');
 
     } else {
@@ -139,7 +131,7 @@ public loader: boolean;
       
     }
 
-    if (!this.hasNextPage) {
+    if (this.endPage >= this.reports.length) {
       nextButton?.setAttribute('disabled', 'disabled');      
     } else {
       nextButton?.removeAttribute('disabled');
@@ -155,24 +147,14 @@ public loader: boolean;
 
     let data: any;
     if(this.isCategory){
-      data = await this.reportProviderService.getComplaintsPerCategory(this.filterCategory, this.sizePageTable, this.numberPage).toPromise();
+      this.reports = this.allReports.filter((report: any) => report.category._id == this.filterCategory)
     }else{
-      data = await this.reportProviderService.getAllReports(this.numberPage, this.sizePageTable).toPromise();      
+      data = await this.reportProviderService.getAllInstitutionReports(this.institution._id).toPromise();
+      this.allReports = data;
+      this.reports = data;      
     }
-    console.log(data);
-    
-    //set queries
-   this.totalDocs= data.totalDocs;
-   this.hasNextPage= data.hasNextPage;
-   this.hasPrevPage= data.hasPrevPage;
-   this.limit= data.limit;
-   this.nextPages= data.nextPage;
-   this.page= data.page;
-   this.pagingCounter= data.pagingCounter;
-   this.prevPages= data.prevPage;
-   this.totalPages= data.totalPages;
-   
-    this.reports = data.docs;
+
+    this.totalPages = Math.ceil(this.reports.length / this.sizePageTable) ;
     this.communes = await this.communeProviderService.getAllCommunes().toPromise();
     this.regions = await this.regionProviderService.getAllRegions().toPromise();
     /* this.setReportShow(this.reports, this.institution) */
@@ -213,7 +195,7 @@ public loader: boolean;
         this.prevPage();
       }
     }
-  } */
+  } 
 
   async setReportShow(reports: any[], institution: any) {
     let i = 0;
@@ -226,18 +208,18 @@ public loader: boolean;
         }
       })
     })
-  }
-
+  }*/
 
   async categoryFilter(event:any) {
     if(event.target.value != ''){
       this.isCategory = true;
       this.filterCategory = event.target.value;
-      this.setReport()
+      this.setReport();
     }else{
       this.isCategory = false;
       this.setReport();
     }
+    console.log(this.filterCategory)
 
   }
 
@@ -276,22 +258,22 @@ public loader: boolean;
   //botones
   sizePage(event: any) {
     this.sizePageTable = parseInt(event.target.value);
-    this.setReport();
+    this.totalPages = Math.ceil(this.reports.length / this.sizePageTable) ;
+
+    this.startPage = 0;
+    this.endPage = this.sizePageTable;
   }
 
   prevPage() {
-    if(this.hasPrevPage){
-      this.numberPage = this.prevPages;
-      this.setReport();
-    }
+    this.endPage = this.startPage;
+    this.startPage = this.startPage - this.sizePageTable;
+    this.page--;
   }
 
   nextPage() {
-    if(this.hasNextPage){
-      this.numberPage = this.nextPages;
-      this.setReport();
-    }
-
+    this.startPage = this.endPage;
+    this.endPage = this.endPage + this.sizePageTable;
+    this.page++;
   }
 
 }
