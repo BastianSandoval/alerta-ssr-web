@@ -22,8 +22,8 @@ export class InstitutionProviderService {
     return this.http.get<Institution>(`/institution/info/${id}`);
   }
 
-  addInstitution(institution: Institution): Observable<Institution>{
-    return this.http.post<Institution>('/institution', institution);
+  addInstitution(institution: any): Observable<any>{
+    return this.http.post<any>('/auth/institution/signin', institution);
   }
 
   addProfilePicture(id: string, images: any, institution: Institution): Observable<Institution> {

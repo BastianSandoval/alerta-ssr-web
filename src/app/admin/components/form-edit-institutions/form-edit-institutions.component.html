@@ -1,0 +1,214 @@
+<div class="row justify-content-end mb-4">
+    <div class="col-12 col-lg-12" style="background-color: rgb(234, 238, 226)">
+        <div class="container-fluid pt-4 pb-4">
+            <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <label for="nameTitle" class="fw-bolder">NOMBRE</label>
+                        <input (input)="changeInput($event)" id="nameTitle" placeholder="Ingrese el nombre" type="text" class="form-control" formControlName="name" aria-label="nameTitle">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsRequired('name')"> Requerido  </small>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsInvalidPattern('name')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="namePassword" class="fw-bolder">CONSTRASEÑA</label>
+                        <input (input)="changeInput($event)" id="namePassword" placeholder="Ingrese constraseña" type="text" class="form-control" formControlName="password" aria-label="namePassword">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsRequired('password')"> Requerido  </small>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsInvalidPattern('password')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="nameEmail" class="fw-bolder">EMAIL</label>
+                        <input (input)="changeInput($event)" id="nameEmail" placeholder="Ingrese el email" type="email" class="form-control" formControlName="email" aria-label="nameEmail">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsRequired('email')"> Requerido  </small>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsInvalidPattern('email')"> Invalido </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <form>
+                            <label for="nameCommunes" class="fw-bolder">COMUNAS ASIGNADAS</label>
+                            <div id="white-box-select" class="bg-white">
+                                <angular2-multiselect [formControl]="communesFormControl" [data]="communes" [settings]="settingsCommunes" (input)="changeInput($event) ">
+                                </angular2-multiselect>
+                            </div>
+
+                            <div id="mensaje">
+                                <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && communeFormControl.hasError('required')"> Requerido</small>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <form>
+                            <label for="nameCategory" class="fw-bolder">ALERTAS</label>
+                            <div id="white-box-select" class="bg-white">
+                                <angular2-multiselect [formControl]="categoryFormControl" [data]="category" [settings]="settingsCategories" (input)="changeInput($event) ">
+                                </angular2-multiselect>
+                            </div>
+
+                            <div id="mensaje">
+                                <small id="nameCategory" class="form-text text-muted" *ngIf="reportForm.submitted && categoryFormControl.hasError('required')"> Requerido</small>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <form>
+                            <label for="nameCommune" class="fw-bolder">COMUNA</label>
+                            <div id="white-box-select" class="bg-white">
+                                <angular2-multiselect [formControl]="communeFormControl" [data]="communes" [settings]="settingsCommune" (input)="changeInput($event) ">
+                                </angular2-multiselect>
+                            </div>
+
+                            <div id="mensaje">
+                                <small id="nameCommune" class="form-text text-muted" *ngIf="reportForm.submitted && communeFormControl.hasError('required')"> Requerido</small>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <label for="atentionHour" class="fw-bolder">HORARIO</label>
+                        <div class="row mb-1">
+                            <label for="atentionHour" class="fw-bolder col-sm-4 col-form-label">DESDE</label>
+                            <div class="col-sm-8">
+                                <input id="atentionHour" (input)="changeInput($event)" formControlName="atentionHourD" class="form-control" type="time" style="padding-left: 4%;">
+                            </div>
+                        </div>
+                        <div id="mensaje">
+                            <small id="nameDate" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('atentionHourD')"> Requerido</small>
+                        </div>
+                        <div class="row mb-1">
+                            <label for="atentionHour2" class="fw-bolder col-sm-4 col-form-label">HASTA</label>
+                            <div class="col-sm-8">
+                                <input id="atentionHour2" (input)="changeInput($event)" formControlName="atentionHourH" class="form-control" type="time" style="padding-left: 4%;">
+                            </div>
+                        </div>
+                        <div id="mensaje">
+                            <small id="atentionHour" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('atentionHourH')"> Requerido</small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="numberPhone" class="fw-bolder">TELÉFONO</label>
+                        <input id="numberPhone" (input)="changeInput($event)" placeholder="+56912345678" formControlName="phonesNumbers" class="form-control mb-1" type="tel" style="padding-left: 4%;">
+                        <!-- <input id="numberPhone" (input)="changeInput($event)" placeholder="+56912345678" formControlName="phonesNumbers" class="form-control mb-1" type="tel" style="padding-left: 4%;">
+                        <input id="numberPhone" (input)="changeInput($event)" placeholder="+56912345678" formControlName="phonesNumbers" class="form-control mb-1" type="tel" style="padding-left: 4%;">
+                        <input id="numberPhone" (input)="changeInput($event)" placeholder="+56912345678" formControlName="phonesNumbers" class="form-control mb-1" type="tel" style="padding-left: 4%;"> -->
+                        <div id="mensaje">
+                            <small id="numberPhone" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('phonesNumbers')"> Requerido</small>
+                        </div>
+                    </div>
+                    <!-- <div class="col-12 col-lg-4 form-row align-items-center justify-content-center">
+                        <div class="col-md-12 mb-2">
+                            <label class="fw-bolder " for="labelGoogleMaps">UBICACIÓN</label>
+                            <input (input)="changeInput($event)" formControlName="address" class="form-control" type="text" ngx-google-places-autocomplete [options]='options' placeholder="Ingrese la ubicación" #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+                            />
+                            <div id="mensaje">
+                                <small id="location" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('address')"> Requerido</small>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-12 col-lg-4">
+                        <label for="nameStreet" class="fw-bolder">CALLE</label>
+                        <input (input)="changeInput($event)" id="nameStreet" placeholder="Ingrese la calle" type="text" class="form-control" formControlName="street" aria-label="nameTitle">
+                        <div id='mensaje'>
+                            <small id="nameStreet" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsRequired('street')"> Requerido  </small>
+                            <small id="nameStreet" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsInvalidPattern('street')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label for="nameStreetNumber" class="fw-bolder">NUMERO DE CALLE</label>
+                        <input (input)="changeInput($event)" id="nameStreetNumber" placeholder="Ingrese numero" type="number" class="form-control" formControlName="streetNumber" aria-label="nameTitle">
+                        <div id='mensaje'>
+                            <small id="nameStreetNumber" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsRequired('streetNumber')"> Requerido  </small>
+                            <small id="nameStreetNumber" class="form-text text-muted" *ngIf=" reportForm.submitted && controlIsInvalidPattern('streetNumber')"> Invalido </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-12 ">
+                        <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
+                        <textarea (input)="changeInput($event)" id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
+                        <div id="mensaje">
+                            <small id="nameDescription" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('description')"> Requerido</small>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- <div class="row">
+                    <div class="col py-3 py-lg-4 px-3 px-lg-5">
+                        <form>
+                            <label for="nameUser" class="fw-bolder">USUARIO</label>
+                            <div class="bg-white">
+                                <angular2-multiselect (input)="changeInput($event)" [formControl]="userFormControl" [data]="user" [settings]="settings">
+                                </angular2-multiselect>
+                            </div>
+
+                            <div id="mensaje">
+                                <small id="nameUser" class="form-text text-muted" *ngIf="userFormControl.hasError('required') && reportForm.submitted "> Requerido</small>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
+                        <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
+                        <textarea (input)="changeInput($event)" id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
+                        <div id="mensaje">
+                            <small id="nameDescription" class="form-text text-muted" *ngIf="reportForm.submitted && controlIsRequired('description')"> Requerido</small>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="row align-items-center justify-content-center my-2 px-xxl-5">
+                    <div class="col-md-12 text-center">
+                        <input class="d-none" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" #inputFile>
+                        <ng-container *ngIf="!id || changePhoto; else showPhoto">
+                            <ng-container *ngIf="!imageChangedEvent; else cropper">
+                                <div class="container-fluid py-4 pointer custom-image" (click)="inputFile.click()" style="cursor: pointer;">
+                                    <span><i style="font-size: 4vh;" class="fas fa-images fa-4x text-lightgrey"></i></span>
+                                    <div class="row text-center mt-2">
+                                        <div class="col-md-12">
+                                            <h6 class="text-black" style="font-size: 2.3vh;">Subir foto</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-template #cropper>
+                                <div class="row align-items-center justify-content-center mt-3">
+                                    <div class="col-md-10 text-center">
+                                        <form>
+                                            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                                            <div class="row mt-4">
+                                                <div class="col-md-8">
+                                                    <img [src]="croppedImage" class="img-fluid" width="500" height="500">
+                                                </div>
+                                                <div class="col-md-4 align-self-center">
+                                                    <button class="btn btn-block btn-success" (click)="inputFile.click()">Cambiar foto</button>
+                                                    <button class="btn btn-block btn-danger mt-3" (click)="cancelPhotoChange()">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #showPhoto>
+                            <img class="img-fluid" [src]="checkoutForm.get('imageUrl')?.value" (click)="inputFile.click()">
+                        </ng-template>
+                    </div>
+                </div> -->
+                <div class="button-group text-center mt-3">
+                    <button class="btn btn-lg btn-primary btn-danger me-4" (click)="cancel()">Cancelar</button>
+                    <button type="submit" [disabled]="disableButton" class="btn btn-lg btn-primary text-center">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

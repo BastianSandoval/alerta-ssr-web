@@ -1,3 +1,5 @@
+import { Commune } from "./commune.model";
+
 export interface Address{
     _id?: string;
     streetName: string;
