@@ -32,6 +32,10 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 import { ModalLogoutComponent } from './components/modal-logout/modal-logout.component';
 import { FormEditDonationComponent } from './components/form-edit-donation/form-edit-donation.component';
 import { EditDonationScreenComponent } from './screens/edit-donation-screen/edit-donation-screen.component';
+import { InstitutionsScreenComponent } from './screens/institutions-screen/institutions-screen.component';
+import { TableInstitutionsComponent } from './components/table-institutions/table-institutions.component';
+import { EditInstitutionsScreenComponent } from './screens/edit-institutions-screen/edit-institutions-screen.component';
+import { FormEditInstitutionsComponent } from './components/form-edit-institutions/form-edit-institutions.component';
 
 const component = [
   AdminComponent,SidebarComponent,
@@ -43,7 +47,7 @@ const component = [
 ]
 
 @NgModule({
-  declarations: [...component, FormEditDonationComponent, EditDonationScreenComponent],
+  declarations: [...component, FormEditDonationComponent, EditDonationScreenComponent, InstitutionsScreenComponent, TableInstitutionsComponent, EditInstitutionsScreenComponent, FormEditInstitutionsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

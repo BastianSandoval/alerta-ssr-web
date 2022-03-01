@@ -14,6 +14,8 @@ import { MapComponent } from './components/map/map.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { AdminGuard } from './../core/guards/admin/admin.guard';
 import { EditDonationScreenComponent } from './screens/edit-donation-screen/edit-donation-screen.component';
+import { InstitutionsScreenComponent } from './screens/institutions-screen/institutions-screen.component';
+import { EditInstitutionsScreenComponent } from './screens/edit-institutions-screen/edit-institutions-screen.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,18 @@ const routes: Routes = [
       {
         path:'report',
         component: EditReportsScreenComponent
+      },
+      {
+        path: 'institutions',
+        component: InstitutionsScreenComponent
+      },
+      {
+        path:'institution/:id',
+        component: EditInstitutionsScreenComponent
+      },
+      {
+        path:'institution',
+        component: EditInstitutionsScreenComponent
       },
       {
         path: 'report/:id',
