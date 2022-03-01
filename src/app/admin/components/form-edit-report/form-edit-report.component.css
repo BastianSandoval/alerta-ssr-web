@@ -1,0 +1,66 @@
+angular2-multiselect /deep/ span {
+  font-size: 2.2vh;
+  font-family: 'Roboto Condensed';
+}
+
+angular2-multiselect /deep/ li {
+  font-size: 2.2vh;
+  font-family: 'Roboto Condensed';
+}
+
+angular2-multiselect /deep/ input {
+  font-size: 2.2vh;
+  height: 2.3vh;
+  font-family: 'Roboto Condensed';
+}
+
+angular2-multiselect /deep/ .dropdown-list {
+  padding-top: 2vh;
+  font-size: 2.2vh;
+  font-family: 'Roboto Condensed';
+}
+
+angular2-multiselect /deep/ .c-search {
+  top: 1.2vh;
+  left: 1.3vh;
+  width: 2vh;
+  height: 2vh; 
+
+}
+
+angular2-multiselect /deep/ svg {
+  margin-top: -2vh;
+  margin-left: -1vh;
+  height: 2vh;
+  width: 2vw;
+  display: none;
+}
+
+.btn {
+  margin-right: 5px;
+}
+
+.pointer{
+  background: white;
+}
+
+
+.shadow {
+  box-shadow: 0 2px 4px 0 rgba(34, 33, 33, 0.32), 0 6px 10px 0px rgba(39, 38, 38, 0.32) !important;
+}
+
+.form {
+  align-content: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+form #mensaje .text-muted {
+  color: red !important;
+}
+
+/*responsive*/
+label, button, input, textarea{
+  font-family: 'Roboto Condensed';
+  font-size: 2.3vh;
+}

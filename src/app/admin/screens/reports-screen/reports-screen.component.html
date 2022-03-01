@@ -1,0 +1,26 @@
+<section id="reports">
+    <div class="container-fluid mt-5">
+        <div class="row" style="margin-top: 6%;">
+            <div class="col-9 col-lg-10">
+                <h5 style="font-weight:normal;">REPORTES AMBIENTALES</h5>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 col-lg-12">
+                <!-- <a routerLink="/admin/reports-mapa" [queryParams]="{ type: 'news' }"
+                >Mapa</a>
+                <a routerLink="/admin/reports" [queryParams]="{ type: 'news' }"
+                >Lista</a> -->
+                <button [ngClass]="shows ? 'activo' : 'noActivo' " (click)="show('mapa')" routerLink="/admin/" routerLinkActive="active" class="btn btn-sm mapa btn-success" style="color: white !important; font-size: 2.2vh;" >Mapa</button> 
+                <button [ngClass]="!shows ? 'activo' : 'noActivo' "  (click)="show('lista')" routerLink="/admin/" routerLinkActive="active" class="btn btn-sm lista btn-success" style="color: white !important; font-size: 2.2vh;">Lista</button>   
+                <div class="my-5">
+
+                        <div *ngIf="shows; then mapa else lista"></div>
+                        <ng-template #lista><app-table-reports></app-table-reports></ng-template> 
+                        <ng-template #mapa><app-map></app-map></ng-template>
+                    </div>
+                
+            </div>   
+        </div>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+<div class="row justify-content-end mb-4">
+    <div class="col-12 col-lg-10 " style="background-color: rgb(234, 238, 226)">
+        <div class="container-fluid pt-4 pb-4">
+            <form [formGroup]="checkoutForm" #caseForm="ngForm" (ngSubmit)="saveCase($event, caseForm)">
+                <div class="row">
+                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
+                        <label for="nameTitle" class="fw-bolder">TÍTULO</label>
+                        <input id="nameTitle" type="text" class="form-control" formControlName="title" aria-label="nameTitle">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" caseForm.submitted && controlIsRequired('title')"> Requerido  </small>
+                            <small id="nameTitle" class="form-text text-muted" *ngIf=" caseForm.submitted && controlIsInvalidPattern('title')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 py-3 py-lg-4 px-3 px-lg-5">
+                        <label for="nameDescription" class="fw-bolder">DESCRIPCIÓN</label>
+                        <textarea id="nameDescription" type="text" class="form-control" formControlName="description" aria-label="Nombre y Apellido"></textarea>
+                        <div id="mensaje">
+                            <small id="nameDescription" class="form-text text-muted" *ngIf="caseForm.submitted && controlIsRequired('description')"> Requerido</small>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="button-group text-center mt-3">
+                    <button class="btn btn-lg btn-primary btn-danger me-4" (click)="cancel()">Cancelar</button>
+                    <button type="submit" class="btn btn-lg btn-primary text-center">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

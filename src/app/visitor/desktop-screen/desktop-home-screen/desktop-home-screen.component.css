@@ -1,0 +1,37 @@
+/* la fuente Roboto Condensed se importa en style.css */
+/* html{
+    font-size:62.5%
+} */
+
+*{
+    font-family: 'Roboto Condensed';
+}
+
+/* la de estilos al titulo del ultimo apartado del main */
+.last-title{
+    font-size: 3.3vh;
+    font-weight: bold; 
+    color:#676767;
+}
+
+/* .container-fluid{
+    padding: 4% 5%
+} */
+
+@media (min-width: 2500px){
+    .container-fluid{
+        padding: 2.4vh 0px;
+    }
+}
+
+@media (min-width: 3500px){
+    .container-fluid{
+        padding: 4.5vh 0px;
+    }
+}
+
+@media (min-width: 4900px){
+    .container-fluid{
+        padding: 6.5vh 0px;
+    }
+}

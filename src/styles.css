@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.text-brand{
+    color: #96AC78!important;
+  }
+  .text-brand-secondary{
+    color: #e5e8e1!important;
+  }
+  
+  .bg-brand{
+    background: #759958;
+  }
+  
+  .btn-warning {
+    color: #2d2c2c;
+    background-color: #DDBF8A;
+    border-color: #DDBF8A;
+  }
+  
+  .btn-warning:focus {
+    color: #2d2c2c!important;
+    background-color: #DDBF8A!important;
+    border-color: #DDBF8A!important;
+  }
+  
+  .btn-warning:hover {
+    background-color: #dfaf5e!important;
+    border-color: #dfaf5e!important;
+  }
+  
+  .btn-warning:focus {
+    background-color: #dfaf5e!important;
+    border-color: #dfaf5e!important;
+  }
+  
+  .btn-success {
+    color: #2d2c2c!important;
+    background-color: #96AC78!important;
+    border-color: #96AC78!important;
+  }
+  
+  .btn-success:focus {
+    color: #2d2c2c!important;
+    box-shadow: 0 0 0 0.2rem #04200b 50%!important;
+    background-color: #96AC78!important;
+    border-color: #96AC78!important;
+  }
+  
+  .btn-success:hover {
+    color: #2d2c2c!important;
+    background-color: #abc388!important;
+    border-color: #abc388!important;
+  }

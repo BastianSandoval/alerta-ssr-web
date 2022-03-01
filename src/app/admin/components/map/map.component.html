@@ -1,0 +1,33 @@
+<agm-map [styles]='[
+         {
+            elementType : "labels.icon",
+            stylers : [{
+               visibility : "off"
+            }]
+         }]' 
+         [latitude]="lat" 
+         [longitude]="lng" 
+         [zoom]="zoom" 
+         [mapTypeId]="mapTypeId" 
+         [fitBounds]="fitBounds"
+         (zoomChange)="changeMapZoom($event)"
+         (centerChange)="cambioDeCentro($event)"
+         (mapClick)="mapClicked($event)">
+
+         <!-- <agm-marker [latitude]="lat" [longitude] ="lng" *ngIf="located">
+            <agm-info-window>
+               Reportes ambiental 
+            </agm-info-window>
+         </agm-marker> -->
+         <agm-marker *ngFor="let report of reportList | reportFilter: filterReport" 
+            [latitude]="report.location.latitude" 
+            [longitude] ="report.location.longitude"
+            [iconUrl]="icon"
+            [agmFitBounds]="fitBounds"
+            (markerClick)="markerClicked($event)">
+         </agm-marker >
+      </agm-map>
+
+ <!-- [fitBounds]="true"
+ 
+ [agmFitBounds]="true" -->

@@ -1,0 +1,142 @@
+option, span, a, select {
+    font-family: 'Roboto Condensed';
+    font-size: 2.3vh;
+}
+
+i{
+    font-size: 2.3vh;
+}
+.card{
+    background-color: #EEF2E9;
+}
+.card:hover{
+    background-color: #eef2e988;
+    cursor: pointer;
+}
+
+.card-body{
+    padding: 2vh 1vh 2vh 2vh; 
+}
+
+.card-title{
+    font-family: 'Roboto';
+    font-size: 2vh;
+    font-weight: 700;
+}
+
+.card-text{
+    font-family: 'Roboto';
+    font-size: 1.8vh;
+    margin: 0;
+    font-weight: 700;
+}
+
+.cabezera {
+    background-color: rgb(234, 238, 226);
+    font-family:'Roboto Condensed';
+}
+
+.btn {
+    background-color: rgb(158, 172, 136);
+    color: white;
+    margin-right: 0.7vh;
+    border: none;
+}
+
+.btn:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+.style {
+    background-color: rgb(158, 172, 136);
+    color: white;
+    margin-right: 5px;
+    border: none;
+}
+
+.btnRight {
+    text-align: end;
+}
+
+.btn1:hover {
+    background-color: rgb(183, 194, 166);
+}
+
+@media only screen and (max-width: 992px) {
+    .text-end {
+        text-align: left!important;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .nextPage {
+        margin-left: 0px!important;
+    }
+}
+
+.editar {
+    background: rgb(158, 172, 136);
+    color: rgb(236, 233, 233);
+    border: none;
+    padding: 0.5vh 2vh;
+}
+
+.ver {
+    background: rgb(158, 172, 136);
+    color: rgb(236, 233, 233);
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+.eliminar-table:hover {
+    background: rgb(226, 97, 74);
+}
+
+.eliminar-table {
+    background: rgb(224, 120, 102);
+    color: rgb(236, 233, 233);
+    margin-right: 8px;
+    padding: 0.5vh 2vh;
+    border: none;
+}
+
+.collapse{
+    background: #F5F7F3;
+}
+
+.wrapper{
+    display: flex;
+}
+
+.wrapper h2{
+    /* width: 13%; */
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+.wrapper p{
+    max-width: 65%;
+}
+
+.fa-plus-square{
+    margin-right: 7px;
+    font-size: 20px;
+}
+
+@media (min-width:1305px){
+    .card-width{
+        flex-basis: 30%;
+    }
+}
+
+@media(min-width: 700px) and (max-width:1304px) and (max-height: 900px){
+
+    .card-width{
+        flex-basis: 45%;
+    }
+}
+
