@@ -145,15 +145,13 @@ public loader: boolean;
     this.pagingCounter= eventos.pagingCounter;
     this.prevPages= eventos.prevPage;
     this.totalPages= eventos.totalPages;
-
     this.hayEventos = eventos.docs.length;
 
     if(eventos.docs.length != 0){
       this.eventos = eventos.docs;
-      console.log(this.eventos)
       for(const event of this.eventos){
-        event.idReporte = event.complaints[0]._id;
-        console.log(event.idReporte);
+        event.idReporte = event.complaints[0]?._id;
+        if(!event.idReporte) break;
         event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
         event.category = event.report.category.name;
         event.idCategory = event.report.category._id;
