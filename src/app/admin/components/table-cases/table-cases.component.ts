@@ -147,8 +147,8 @@ public loader: boolean;
     this.eventos = eventos.docs;
 
     for(const event of this.eventos){
-      event.idReporte = event.complaints[0]._id;
-      console.log(event.idReporte);
+      event.idReporte = event.complaints[0]?._id;
+      if(!event.idReporte) break;
       event.report = await this.reportProviderService.getReport(event.idReporte).toPromise();
       event.category = event.report.category.name;
       event.idCategory = event.report.category._id;
