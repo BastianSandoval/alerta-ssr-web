@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AgmCoreModule} from '@agm/core';
+import { GlobalMapComponent } from '@shared/components/global-map/global-map.component';
 
 @Component({
   selector: 'app-reports-screen',
@@ -10,7 +10,7 @@ import { AgmCoreModule} from '@agm/core';
 export class ReportsScreenComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
   ) { }
 
   public shows:any

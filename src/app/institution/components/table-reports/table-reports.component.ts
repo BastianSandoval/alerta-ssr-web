@@ -1,7 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Report } from '../../../core/models/report.model';
-import {ReportProviderService} from '../../../core/providers/report/report-provider.service';
+import { ReportProviderService } from '../../../core/providers/report/report-provider.service';
 
 import { CommuneProviderService } from '../../../core/providers/commune/commune-provider.service';
 import { RegionProviderService } from '../../../core/providers/region/region-provider.service';
@@ -23,7 +23,6 @@ import { Category } from '@core/models/category.model';
   styleUrls: ['./table-reports.component.css']
 })
 export class TableReportsComponent implements OnInit {
-
   reports: Report[];
   allReports: any[];
   communes: any;
@@ -37,63 +36,77 @@ export class TableReportsComponent implements OnInit {
   sizePageTable: number = 9;
   startPage: number = 0;
   endPage: number = 9;
-  visualizar:boolean;
-  reportId : string;
+  visualizar: boolean;
+  reportId: string;
   numberPage: number = 1;
   categoryList: Category[];
+  withReviewStatusList: StatusList[];
+  rejectedStatusList: StatusList[];
+  withReview: boolean;
+  rejected: boolean;
   titleReport: string;
   isCategory: boolean = false;
   userId!: string;
 
   //response Query
-  public page: number;
-  public totalPages: number;
   public institution: Institution;
-
-//cargar pagina
-public loader: boolean;
+  public totalDocs: number;
+  public hasNextPage: boolean;
+  public hasPrevPage: boolean;
+  public limit: number;
+  public nextPages: number;
+  public page: number;
+  public pagingCounter: number;
+  public prevPages: number;
+  public totalPages: number;
+  public reportStatus: number = null;
+  // public rejected: boolean = null;
+  //cargar pagina
+  public loader: boolean;
 
 
   constructor(
     private reportProviderService: ReportProviderService,
-    private communeProviderService:CommuneProviderService,
-    private regionProviderService:RegionProviderService,
-    private notificationService:NotificationService,
+    private communeProviderService: CommuneProviderService,
+    private regionProviderService: RegionProviderService,
+    private notificationService: NotificationService,
     private categoryProviderService: CategoryProviderService,
     private tokenService: TokenService,
     private institutionProviderService: InstitutionProviderService,
-    ) {
+  ) {
     this.reportSelected = false;
-    this.visualizar=true;
-    this.reports= [];
+    this.visualizar = true;
+    this.reports = [];
     this.loader = false;
+    this.limit = 9;
     this.allReports = [];
     this.page = 1;
-   }
+  }
 
 
   async ngOnInit(): Promise<void> {
-    
-    await this.setReport();
 
+    await this.setReport();
+    this.withReviewStatusList = [new StatusList("Sin Revisar", 0), new StatusList("Rechazado", 1), new StatusList("Aprovado", 2)];
+    // this.rejectedStatusList = [new StatusList("Rechazado", true), new StatusList("Aprovado", false)];
     this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
     this.categoryList = this.categoryList.filter((category: Category) => this.institution.categories.find((institutionCategory: any) => category._id == institutionCategory._id));
   }
 
-  async deleteItem(reportId){
+  async deleteItem(reportId) {
 
-    let index:number=0;
+    let index: number = 0;
     /* console.log(reportId); */
     await this.reportProviderService.deleteReport(reportId).toPromise();
-    if (reportId){
+    if (reportId) {
       this.reports.forEach((report: Report) => {
         if (reportId === report._id) {
-          this.reports.splice(index,1);
+          this.reports.splice(index, 1);
         }
-      index++;
+        index++;
       });
 
-      const data :any = await this.reportProviderService.getAllInstitutionReports(this.institution._id).toPromise(); 
+      const data: any = await this.reportProviderService.getAllInstitutionReports(this.institution._id).toPromise();
       this.reports = data;
       this.totalPages = Math.ceil(this.reports.length / this.sizePageTable);
       if (!this.reportsSlice.length) {
@@ -109,15 +122,15 @@ public loader: boolean;
   }
 
 
-  reportSelect(report: Report){
+  reportSelect(report: Report) {
     this.idSelected = report._id;
     /* console.log(report._id); */
     this.titleReport = report.title;
     /* console.log(report.title); */
   }
 
-  
-  ngDoCheck(){
+
+  ngDoCheck() {
     this.reportsSlice = this.reports.slice(this.startPage, this.endPage);
 
     let prevButton = document.getElementById("prevButton");
@@ -128,54 +141,66 @@ public loader: boolean;
 
     } else {
       prevButton?.removeAttribute('disabled');
-      
+
     }
 
     if (this.endPage >= this.reports.length) {
-      nextButton?.setAttribute('disabled', 'disabled');      
+      nextButton?.setAttribute('disabled', 'disabled');
     } else {
       nextButton?.removeAttribute('disabled');
     }
-    
+
   }
 
   async setReport() {
     this.userId = JSON.parse(this.tokenService.getToken()).userId;
     this.institution = await this.institutionProviderService.getInstitution(this.userId).toPromise();
     /* console.log(this.institution); */
-    
+
 
     let data: any;
-    if(this.isCategory){
+    data = await this.reportProviderService.getAllInstitutionReports(this.institution._id, this.page, this.limit, this.withReview, this.rejected).toPromise();
+
+
+    this.totalDocs = data.totalDocs;
+    this.hasNextPage = data.hasNextPage;
+    this.hasPrevPage = data.hasPrevPage;
+    this.limit = data.limit;
+    this.nextPages = data.nextPage;
+    this.page = data.page;
+    this.pagingCounter = data.pagingCounter;
+    this.prevPages = data.prevPage;
+    this.totalPages = data.totalPages;
+
+    this.reports = data.docs;
+    this.allReports = data.docs;
+    if (this.isCategory) {
       this.reports = this.allReports.filter((report: any) => report.category._id == this.filterCategory)
-    }else{
-      data = await this.reportProviderService.getAllInstitutionReports(this.institution._id).toPromise();
-      this.allReports = data;
-      this.reports = data;      
     }
 
-    this.totalPages = Math.ceil(this.reports.length / this.sizePageTable) ;
+
+    this.totalPages = Math.ceil(this.reports.length / this.sizePageTable);
     this.communes = await this.communeProviderService.getAllCommunes().toPromise();
     this.regions = await this.regionProviderService.getAllRegions().toPromise();
     /* this.setReportShow(this.reports, this.institution) */
     /* console.log(this.reports); */
-    
 
-    this.reports.forEach((report) =>{
-      let location:any = report.location;
-      this.communes.forEach((commune) =>{
-        if(location.commune === commune._id){
+
+    this.reports.forEach((report) => {
+      let location: any = report.location;
+      this.communes.forEach((commune) => {
+        if (location.commune === commune._id) {
           this.regions.forEach((region) => {
-            if(commune.region._id === region._id){
+            if (commune.region._id === region._id) {
               report.ubication = `${location.fullAddress}`
             }
-          })
+          });
         }
-      })
+      });
     });
 
     this.loader = true;
-    
+
   }
 
   /* async setReportShow(reports: any[], institution: any) {
@@ -210,32 +235,68 @@ public loader: boolean;
     })
   }*/
 
-  async categoryFilter(event:any) {
-    if(event.target.value != ''){
+  async categoryFilter(event: any) {
+    if (event.target.value != '') {
       this.isCategory = true;
       this.filterCategory = event.target.value;
       this.setReport();
-    }else{
+    } else {
       this.isCategory = false;
       this.setReport();
     }
-    console.log(this.filterCategory)
+  }
 
+  async statusReviewFilter(event: any) {
+    if (event.target.value != '') {
+      switch (event.target.value) {
+        case "0":
+          this.withReview = false;
+          this.rejected = null;
+          this.setReport();
+          break;
+        case "1":
+          this.withReview = true;
+          this.rejected = true
+          this.setReport();
+          break;
+        case "2":
+          this.withReview = true;
+          this.rejected = false;
+          this.setReport();
+          break;
+      }
+
+    } else {
+      this.withReview = null;
+      this.rejected = null;
+      this.setReport();
+    }
+
+  }
+
+  async statusRejectedFilter(event: any) {
+    if (event.target.value != '') {
+      this.rejected = event.target.value;
+      this.setReport();
+    } else {
+      this.rejected = null;
+      this.setReport();
+    }
   }
 
   clearFilter() {
     this.filterCategory = '';
-    this.filterReport= '';
+    this.filterReport = '';
   }
 
   onValue(value: string) {
     this.value = value;
-    if(this.value === ''){
+    if (this.value === '') {
       this.clearFilter();
     } else {
       this.filterReport = this.value;
     }
-    
+
   }
 
   onEnter(value: string) {
@@ -243,22 +304,22 @@ public loader: boolean;
   }
 
   searchButton() {
-    if(this.value){
+    if (this.value) {
       this.filterReport = this.value;
-    }else{
+    } else {
       this.clearFilter();
     }
   }
 
-  selectReport(report: Report){
+  selectReport(report: Report) {
     this.reportSelected = true;
 
   }
-  
+
   //botones
   sizePage(event: any) {
     this.sizePageTable = parseInt(event.target.value);
-    this.totalPages = Math.ceil(this.reports.length / this.sizePageTable) ;
+    this.totalPages = Math.ceil(this.reports.length / this.sizePageTable);
 
     this.startPage = 0;
     this.endPage = this.sizePageTable;
@@ -276,4 +337,8 @@ public loader: boolean;
     this.page++;
   }
 
+}
+
+export class StatusList {
+  constructor(public name: string, public data: any) { };
 }

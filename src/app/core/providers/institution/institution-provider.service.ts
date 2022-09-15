@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpService} from './../../services/http/http.service';
 import { Institution } from './../../../core/models/institution.model';
+import { Validator } from '@core/models/validator.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,14 @@ export class InstitutionProviderService {
 
   getAllInstitutions(): Observable<Institution[]>{
     return this.http.get<Institution[]>('/institution/all');
+  }
+
+  getAllInstitutionValidators(id:string): Observable<Validator[]>{
+    return this.http.get<Validator[]>(`/institution/validators/${id}`);
+  }
+
+  getAllInstitutionValidatorsPaginate(id:string,page?:number,limit?:number): Observable<Validator[]>{
+    return this.http.get<Validator[]>(`/institution/validators/${id}?page=${page}&limit=${limit}`);
   }
 
   getInstitution(id: string): Observable<Institution>{

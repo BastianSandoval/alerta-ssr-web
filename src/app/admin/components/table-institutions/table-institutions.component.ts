@@ -67,7 +67,7 @@ public loader: boolean;
     
     await this.setInstitutions();
     this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
-    this.institutions[0].categories = this.categoryList;
+    // this.institutions[0].categories = this.categoryList;
     console.log(this.institutions);
   }
 
@@ -136,6 +136,7 @@ public loader: boolean;
   async setInstitutions(){
     let data: Institution[];
     data = await this.reportProviderService.getAllInstitutions().toPromise();
+    console.log(data);
     if(this.isCategory) {
       let dataFiltered: Institution[] = [];
 

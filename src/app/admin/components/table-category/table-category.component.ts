@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryProviderService} from '../../../core/providers/category/category-provider.service';
-import { Category} from '../../../core/models/category.model';
+import { CategoryProviderService } from '../../../core/providers/category/category-provider.service';
+import { Category } from '../../../core/models/category.model';
 import { ReportProviderService } from '../../../core/providers/report/report-provider.service';
-import { Report} from '../../../core/models/report.model';
+import { Report } from '../../../core/models/report.model';
 import { NotificationService } from '@core/services/notification/notification.service';
-
-
 
 @Component({
   selector: 'app-table-category',
   templateUrl: './table-category.component.html',
-  styleUrls: ['./table-category.component.css']
+  styleUrls: ['./table-category.component.css'],
 })
 export class TableCategoryComponent implements OnInit {
-
   breeds?: string[];
   category: Category[];
   filterBreed!: string;
@@ -25,89 +22,86 @@ export class TableCategoryComponent implements OnInit {
   categorysSlice!: Category[];
   sizePageTable: number = 7;
   titleCategory: string;
-  
+
   startPage: number = 0;
   endPage: number = 7;
-  public mostrar:Boolean;
-  visualizar:boolean;
+  public mostrar: Boolean;
+  visualizar: boolean;
   numberPage: number = 1;
 
   //buttoms pages
-  numberPages:number = 1;
+  numberPages: number = 1;
   page: number = 1;
 
   //cargar pagina
-public loader: boolean;
-  
+  public loader: boolean;
 
-
-
-
-
-  constructor(private categoryProviderService: CategoryProviderService,
-              private reportProviderService: ReportProviderService,
-              private notificationService: NotificationService
-    ) {
-    this.categorySelected =null;
-    this.category= [];
-    this.visualizar=true;
+  constructor(
+    private categoryProviderService: CategoryProviderService,
+    private reportProviderService: ReportProviderService,
+    private notificationService: NotificationService
+  ) {
+    this.categorySelected = null;
+    this.category = [];
+    this.visualizar = true;
     this.loader = false;
-   }
+  }
 
-   async setCategory(){
-    const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
+  async setCategory() {
+    const data: any = await this.categoryProviderService
+      .getAllCategories()
+      .toPromise();
     this.category = data;
 
-    this.numberPages = Math.ceil(this.category.length / this.sizePageTable) ;
-   }
+    this.numberPages = Math.ceil(this.category.length / this.sizePageTable);
+  }
 
-
-   async ngOnInit(): Promise<void> {
-
+  async ngOnInit(): Promise<void> {
     this.setCategory();
     this.loader = true;
   }
 
-  ngDoCheck(){
+  ngDoCheck() {
     this.categorysSlice = this.category.slice(this.startPage, this.endPage);
 
-    let prevButton = document.getElementById("prevButton");
-    let nextButton = document.getElementById("nextButton");
+    let prevButton = document.getElementById('prevButton');
+    let nextButton = document.getElementById('nextButton');
 
     if (this.startPage === 0) {
       prevButton?.setAttribute('disabled', 'disabled');
-
     } else {
       prevButton?.removeAttribute('disabled');
-      
     }
 
     if (this.endPage >= this.category.length) {
-      nextButton?.setAttribute('disabled', 'disabled');      
+      nextButton?.setAttribute('disabled', 'disabled');
     } else {
       nextButton?.removeAttribute('disabled');
     }
-    
   }
 
-  categorySelect(category: Category){
+  categorySelect(category: Category) {
     this.idSelected = category._id;
     this.titleCategory = category.name;
   }
 
-  async deleteItem(categoryId){
-    let index:number=0;
-    let existeReporte : any = await this.reportProviderService.getComplaintsPerCategory(categoryId).toPromise();
-    if (!existeReporte.docs.length){
+  async deleteItem(categoryId) {
+    let index: number = 0;
+    let existeReporte: any = await this.reportProviderService
+      .getComplaintsPerCategory(categoryId)
+      .toPromise();
+    if (!existeReporte.docs.length) {
       await this.categoryProviderService.deleteCategory(categoryId).toPromise();
-      if (categoryId){
+      if (categoryId) {
         this.category.forEach((category: Category) => {
           if (categoryId === category._id) {
-            this.category.splice(index,1);
+            this.category.splice(index, 1);
           }
-        index++;
+          index++;
         });
-        const data :any = await this.categoryProviderService.getAllCategories().toPromise(); 
+        const data: any = await this.categoryProviderService
+          .getAllCategories()
+          .toPromise();
         this.category = data;
         this.numberPages = Math.ceil(this.category.length / this.sizePageTable);
         if (!this.categorysSlice.length) {
@@ -117,29 +111,28 @@ public loader: boolean;
         }
         this.notificationService.success('Categoría eliminado exitosamente');
       }
-    }
-    else{
-        this.notificationService.warning('No es posible eliminar, reportes vinculados a la categoría correspondiente');
+    } else {
+      this.notificationService.warning(
+        'No es posible eliminar, reportes vinculados a la categoría correspondiente'
+      );
     }
   }
 
-
-  categoryFilter(event:any) {
+  categoryFilter(event: any) {
     this.filterCategory = event.target.value;
   }
 
   clearFilter() {
-    this.filterCategory= '';
+    this.filterCategory = '';
   }
 
   onValue(value: string) {
     this.value = value;
-    if(this.value === ''){
+    if (this.value === '') {
       this.clearFilter();
     } else {
       this.filterCategory = this.value;
     }
-    
   }
 
   onEnter(value: string) {
@@ -147,20 +140,19 @@ public loader: boolean;
   }
 
   searchButton() {
-    if(this.value){
+    if (this.value) {
       this.filterCategory = this.value;
-    }else{
+    } else {
       this.clearFilter();
     }
   }
-  
+
   sizePage(event: any) {
     this.sizePageTable = parseInt(event.target.value);
-    this.numberPages = Math.ceil(this.category.length / this.sizePageTable) ;
+    this.numberPages = Math.ceil(this.category.length / this.sizePageTable);
 
     this.startPage = 0;
     this.endPage = this.sizePageTable;
-
   }
 
   prevPage() {
@@ -175,17 +167,15 @@ public loader: boolean;
     this.page++;
   }
 
-  selectReport(category: Category){
+  selectReport(category: Category) {
     this.categorySelected = category;
-
   }
 
-  show(mostrar:boolean){
-    if (!mostrar){
-      this.mostrar=true;
-    }else{
-      this.mostrar=false;
+  show(mostrar: boolean) {
+    if (!mostrar) {
+      this.mostrar = true;
+    } else {
+      this.mostrar = false;
     }
   }
-
 }

@@ -1,0 +1,32 @@
+<agm-map #gp
+    [latitude]="marker.lat"
+    [longitude]="marker.lng"
+    [zoom]="zoom"
+    [mapDraggable]="false"
+    >
+    
+     [streetViewControl]="false" 
+    [zoomControl]="false" 
+   (mapClick)="mapClicked($event)">
+    <agm-marker
+      [latitude]="marker.lat"
+      [longitude]="marker.lng"
+      [iconUrl]="UrlPinAsset"
+      [markerDraggable]="marker.draggable"
+      >
+      
+        <!-- (dragEnd)="markerDragEnd(marker, $event)"
+          <agm-info-window #infoWindow>
+            <p class="bolder text-secondary lead">{{marker.label}}</p>
+            <p><span class="bolder justificar text-secondary">Proyecto: </span>{{marker.label}}</p>
+            <a href="{{marker.url}}" tarjet="_blank">{{marker.url}}</a>
+        </agm-info-window> -->
+    </agm-marker>
+    
+    <!-- <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+        [radius]="5000"
+        [fillColor]="'red'"
+        [circleDraggable]="true"
+        [editable]="true">
+    </agm-circle> -->
+</agm-map>

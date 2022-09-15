@@ -29,7 +29,9 @@ export class ModalDeleteComponent implements OnInit {
       this.idDelete.emit(this.id);
       // this.notificationService.success('Reporte eliminado exitosamente');
     }
-    else {}
+    else {
       // this.notificationService.error('Error al eliminar reporte intente nuevamente');
+    }
+      
   }
 }

@@ -36,18 +36,22 @@ import { InstitutionsScreenComponent } from './screens/institutions-screen/insti
 import { TableInstitutionsComponent } from './components/table-institutions/table-institutions.component';
 import { EditInstitutionsScreenComponent } from './screens/edit-institutions-screen/edit-institutions-screen.component';
 import { FormEditInstitutionsComponent } from './components/form-edit-institutions/form-edit-institutions.component';
+import { GlobalMapComponent } from './components/global-map/global-map.component';
+import { TableValidatorsComponent } from './components/table-validators/table-validators.component';
+import { InstitutionInfoComponent } from './components/institution-info/institution-info.component';
+import { InstitutionInfoScreenComponent } from './screens/institution-info-screen/institution-info-screen.component';
 
 const component = [
   AdminComponent,SidebarComponent,
  TableReportsComponent,EditReportsScreenComponent,FormEditReportComponent
   , ModalDeleteComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
-  TableCasesComponent,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
+  TableCasesComponent, GlobalMapComponent ,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
   ,FormEditCaseComponent, LoginScreenComponent, ModalLogoutComponent
 ]
 
 @NgModule({
-  declarations: [...component, FormEditDonationComponent, EditDonationScreenComponent, InstitutionsScreenComponent, TableInstitutionsComponent, EditInstitutionsScreenComponent, FormEditInstitutionsComponent],
+  declarations: [...component, FormEditDonationComponent, EditDonationScreenComponent, InstitutionsScreenComponent, TableInstitutionsComponent, EditInstitutionsScreenComponent, FormEditInstitutionsComponent, TableValidatorsComponent, InstitutionInfoComponent, InstitutionInfoScreenComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

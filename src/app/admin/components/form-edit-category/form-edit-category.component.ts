@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from '../../../core/services/form/form.service';
 import { NotificationService} from '../../../core/services/notification/notification.service'
 import { CategoryProviderService} from '../../../core/providers/category/category-provider.service'
@@ -59,6 +59,7 @@ export class FormEditCategoryComponent implements OnInit {
       this.checkoutForm = this.formService.buildFormGroup({
       name: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
+      message: new FormControl('',[Validators.required]),
     })
   }
 
@@ -92,7 +93,8 @@ export class FormEditCategoryComponent implements OnInit {
 
           this.checkoutForm.setValue({
             name: data.name,
-            description: data.description
+            description: data.description,
+            message: data.message || '',
           });
         } catch (error) {
           console.log(error);
@@ -101,7 +103,7 @@ export class FormEditCategoryComponent implements OnInit {
       }
     });
   }
-
+  // static route
   cancel() {
     this.router.navigate(['admin/categories'])
   }

@@ -39,44 +39,46 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
-                            <th scope="col">NOMBRE</th>
-                            <th scope="col">ALERTAS</th>
+                            <th scope="col" width="70%">NOMBRE</th>
+                            <th scope="col" width="5%">ALERTAS</th>
                             <!-- <th scope="col">REGIONES</th> -->
-                            <th scope="col">COMUNAS</th>
-                            <th scope="col" width="19%" style="padding-left: 20px;">ACCIONES</th>
+                            <th scope="col" width="5%">COMUNAS</th>
+                            <th scope="col" width="20%" style="padding-left: 20px;">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let institution of institutionSlice ; let index = index">
 
-                        <tr (click)="selectInstitution(institution)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
-                            <td scope="col">{{institution.name | capitalize}}</td>
-                            <td scope="col">
-                                <ng-container *ngFor="let categorie of institution.categories ; let i = index">
-                                    <ng-container *ngIf="i == institution.categories.length - 1 ; else elseTemplate">
-                                        {{categorie.name | capitalize}}
-                                    </ng-container>
-                                    <ng-template #elseTemplate>
-                                        {{categorie.name | capitalize}},
-                                    </ng-template>
-                                </ng-container>
-                            </td>
-                            <td scope="col">
-                                <ng-container *ngFor="let commune of institution.assignedCommunes ; let i = index">
-                                    <ng-container *ngIf="i == institution.assignedCommunes.length - 1 ; else elseTemplate">
-                                        {{commune.name | capitalize}}
-                                    </ng-container>
-                                    <ng-template #elseTemplate>
-                                        {{commune.name | capitalize}},
-                                    </ng-template>
-                                </ng-container>
-                            </td>
-                            <td class="btnRight text-center" scope="col" width="19%">
-                                <a class="btn rounded-pill editar" [routerLink]="['/admin/institution', institution._id]">Editar</a>
-
-                                <button class="btn rounded-pill eliminar-table" (click)="institutionSelect(institution)" type="submit" data-bs-toggle="modal" data-bs-target="#delete"><span>Eliminar</span></button>
-                                <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleReport" [report]="institutionSelect"></app-modal-delete>
-                            </td>
-                        </tr>
+                        <!-- <div class="noActive" routerLink="/admin/validators" routerLinkActive="active"> -->
+                            <tr class="noActive" [routerLink]="['/admin/institution-info',institution._id]" routerLinkActive="active" (click)="selectInstitution(institution)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
+                                <td scope="col">{{institution.name | capitalize}}</td>
+                                <td scope="col">{{institution.categories.length}}
+                                    <!-- <ng-container *ngFor="let categorie of institution.categories ; let i = index">
+                                        <ng-container *ngIf="i == institution.categories.length - 1 ; else elseTemplate">
+                                            {{categorie.name | capitalize}}
+                                        </ng-container>
+                                        <ng-template #elseTemplate>
+                                            {{categorie.name | capitalize}},
+                                        </ng-template>
+                                    </ng-container> -->
+                                </td>
+                                <td scope="col">{{institution.assignedCommunes.length}}
+                                    <!-- <ng-container *ngFor="let commune of institution.assignedCommunes ; let i = index">
+                                        <ng-container *ngIf="i == institution.assignedCommunes.length - 1 ; else elseTemplate">
+                                            {{commune.name | capitalize}}
+                                        </ng-container>
+                                        <ng-template #elseTemplate>
+                                            {{commune.name | capitalize}},
+                                        </ng-template>
+                                    </ng-container> -->
+                                </td>
+                                <td class="btnRight text-center" scope="col" width="19%">
+                                    <a class="btn rounded-pill editar" [routerLink]="['/admin/institution', institution._id]">Editar</a>
+    
+                                    <button class="btn rounded-pill eliminar-table" (click)="institutionSelect(institution)" type="submit" data-bs-toggle="modal" data-bs-target="#delete"><span>Eliminar</span></button>
+                                    <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleReport" [report]="institutionSelect"></app-modal-delete>
+                                </td>
+                            </tr>
+                        <!-- </div> -->
 
 
 

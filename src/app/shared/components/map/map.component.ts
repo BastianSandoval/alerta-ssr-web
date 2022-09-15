@@ -14,6 +14,22 @@ export interface Marker {
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+
+  // google maps zoom level
+  zoom: number = 17;
+  // initial center position for the map
+  UrlPinAsset: string = '../../../assets/complaint-marker.svg';
+  marker: Marker;
+
+  @Input()
+  lat: string;
+  @Input()
+  lng: string;
+
+  constructor(){
+    
+  }
+
   ngOnInit(): void {
     this.marker = {
       lat: parseFloat(this.lat),
@@ -21,21 +37,4 @@ export class MapComponent implements OnInit {
       draggable: false
     }
   }
-  
-  @Input()
-  lat: string;
-  @Input()
-  lng: string;
-
-  marker: Marker;
-
-  constructor(){
-    
-  }
-
-  // google maps zoom level
-  zoom: number = 17;
-  // initial center position for the map
-
-  url = '../../../assets/complaint-marker.svg';
 }

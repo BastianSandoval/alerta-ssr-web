@@ -2,21 +2,62 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpService} from './../../services/http/http.service';
 import { Report } from './../../../core/models/report.model';
+import { stringify } from 'querystring';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportProviderService {
-
+  // &with_review=${withReview}&rejected${rejected}
   constructor(private http: HttpService) { }
 
-  getAllReports(page?:number, limite?: number): Observable<Report[]>{
-    return this.http.get<Report[]>(`/complaint/all?page=${page}&limit=${limite}`);
+  getAllReports(page?:number, limite?: number, withReview?: boolean, rejected?:boolean): Observable<Report[]>{
+    let url: string = `/complaint/all?page=${page}&limit=${limite}`;
+    if (withReview != null) {
+      if (rejected != null) {
+        url += `&with_review=${withReview}&rejected=${rejected}`;
+      } else {
+        url += `&with_review=${withReview}`;
+      }
+    }
+    return this.http.get<Report[]>(url);
   }
 
-  getAllInstitutionReports(id: string): Observable<Report[]>{
-    return this.http.get<Report[]>(`/complaint/${id}/all`);
+  getAllInstitutionReports(id: string, page?: number ,limit?:number, withReview?: boolean, rejected?:boolean): Observable<Report[]>{
+    let url: string = `/complaint/${id}/all?page=${page}&limit=${limit}`;
+    if (withReview != null) {
+      if (rejected != null) {
+        url += `&with_review=${withReview}&rejected=${rejected}`;
+      } else {
+        url += `&with_review=${withReview}`;
+      }
+    }
+    return this.http.get<Report[]>(url);
+  }
+
+  getComplaintsPerCategory(id:string, limit?:number, page?:number, withReview?: boolean, rejected?:boolean): Observable<Report[]>{
+    let url: string = `/complaint/category/${id}?page=${page}&limit=${limit}`;
+    if (withReview != null) {
+      if (rejected != null) {
+        url += `&with_review=${withReview}&rejected=${rejected}`;
+      } else {
+        url += `&with_review=${withReview}`;
+      }
+    }
+    return this.http.get<Report[]>(url);
+  }
+
+  getAllInstitutionReportsByCategory(institutionId:string, categoryId?: string, page?:number, limit?:number,  withReview?: boolean, rejected?:boolean): Observable<Report[]>{
+    let url: string = `/complaint/${institutionId}/all?page=${page}&limit=${limit}&categoryId=${categoryId}`;
+    if (withReview != null) {
+      if (rejected != null) {
+        url += `&with_review=${withReview}&rejected=${rejected}`;
+      } else {
+        url += `&with_review=${withReview}`;
+      }
+    }
+    return this.http.get<Report[]>(url);
   }
 
   getReport(id: string): Observable<Report>{
@@ -40,10 +81,6 @@ export class ReportProviderService {
 
   deleteReport(id: string): Observable<Report>{
     return this.http.delete<Report>(`/complaint/${id}`);
-  }
-
-  getComplaintsPerCategory(id:string, limit?:number, page?:number): Observable<Report[]>{
-    return this.http.get<Report[]>(`/complaint/category/${id}?page=${page}&limit=${limit}`);
   }
 
 

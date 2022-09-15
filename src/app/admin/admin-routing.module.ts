@@ -16,6 +16,7 @@ import { AdminGuard } from './../core/guards/admin/admin.guard';
 import { EditDonationScreenComponent } from './screens/edit-donation-screen/edit-donation-screen.component';
 import { InstitutionsScreenComponent } from './screens/institutions-screen/institutions-screen.component';
 import { EditInstitutionsScreenComponent } from './screens/edit-institutions-screen/edit-institutions-screen.component';
+import { InstitutionInfoScreenComponent } from './screens/institution-info-screen/institution-info-screen.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path:'institution',
         component: EditInstitutionsScreenComponent
+      },
+      {
+        path:'institution-info/:id',
+        component: InstitutionInfoScreenComponent
       },
       {
         path: 'report/:id',

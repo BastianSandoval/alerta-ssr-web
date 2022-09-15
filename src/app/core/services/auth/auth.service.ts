@@ -42,7 +42,8 @@ export class AuthService {
         if (data.entity === 'Admin') {
           const token: string = data.token;
           this.currentUser = { user: data.authenticated, entity: data.entity };
-          this.tokenService.addToken(token);
+          const userData = {userId: this.currentUser.user._id, token: token };
+          this.tokenService.addToken(JSON.stringify(userData));
           this.authenticated = true;
           this.router.navigate(['admin/reports']);
         } else if(data.entity === 'Institution'){

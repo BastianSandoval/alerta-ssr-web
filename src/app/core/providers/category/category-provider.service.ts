@@ -14,6 +14,10 @@ export class CategoryProviderService {
     return this.http.get<Category[]>('/category/all');
   }
 
+  getInstitutionCategories(institutionId: string): Observable<Category[]>{
+    return this.http.get<Category[]>(`/category/${institutionId}/all`);
+  }
+
   getCategory(id: string): Observable<Category>{
     return this.http.get<Category>(`/category/${id}`);
   }

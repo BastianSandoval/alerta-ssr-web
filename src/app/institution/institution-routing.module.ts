@@ -10,6 +10,7 @@ import { SettingsComponent } from './screens/settings/settings.component';
 import { DetailReportComponent } from './components/detail-report/detail-report.component';
 import { PerfilScreenComponent } from './screens/perfil-screen/perfil-screen.component';
 import { InstitutionGuard } from '../core/guards/institution/institution.guard';
+import { ValidatorsScreenComponent } from './screens/validators-screen/validators-screen.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'cases',
         component: CasesScreenComponent
+      },
+      {
+        path: 'validators',
+        component: ValidatorsScreenComponent
       },
       {
         path: 'cases/:id',

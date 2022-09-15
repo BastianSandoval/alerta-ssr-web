@@ -38,6 +38,6 @@ export class InstitutionComponent implements OnInit {
   }
 
   public showSidebar(){
-    this.show= !this.show;
+    this.show = !this.show;
   }
 }

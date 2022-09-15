@@ -8,16 +8,22 @@ import { CapitalizePipe } from './pipes/capitalize/capitalize.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { EventFilterPipe } from './pipes/event-filter/event-filter.pipe';
 import { CommentFilterPipe } from './pipes/comment-filter/comment-filter.pipe';
+import { GlobalMapComponent } from './components/global-map/global-map.component';
+import { MapComponent } from './components/map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 
 @NgModule({
   declarations: [
     ReportFilterPipe, CategoryFilterPipe, DonationFilterPipe, CategoryFilterNamePipe,
-    CapitalizePipe, LoaderComponent, EventFilterPipe, CommentFilterPipe
+    CapitalizePipe, LoaderComponent, EventFilterPipe, CommentFilterPipe, GlobalMapComponent, MapComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'
+    }),
   ],
   exports: [
     ReportFilterPipe,
@@ -27,7 +33,8 @@ import { CommentFilterPipe } from './pipes/comment-filter/comment-filter.pipe';
     CapitalizePipe,
     LoaderComponent,
     EventFilterPipe,
-    CommentFilterPipe
+    CommentFilterPipe,
+    GlobalMapComponent
   ]
 })
 export class SharedModule { }

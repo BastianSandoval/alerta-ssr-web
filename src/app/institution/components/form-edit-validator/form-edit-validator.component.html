@@ -1,0 +1,71 @@
+<div class="row justify-content-center mb-4">
+    <div class="col-12 col-lg-4" style="background-color: rgb(234, 238, 226)">
+        <div class="container-fluid pt-4 pb-4">
+            <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
+                <div class="col">
+                    <div class="col-12 col-lg-12">
+                        <label for="nameTitle" class="fw-bolder">NOMBRE</label>
+                        <input (input)="changeInput($event)" id="nameTitle" placeholder="Ingrese su nombre" type="text"
+                            class="form-control" formControlName="name" aria-label="nameTitle">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsRequired('name')"> Requerido </small>
+                            <small id="nameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsInvalidPattern('name')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                        <label for="lastNameTitle" class="fw-bolder">APELLIDO</label>
+                        <input (input)="changeInput($event)" id="lastNameTitle" placeholder="Ingrese su apellido" type="text"
+                            class="form-control" formControlName="lastName" aria-label="lastNameTitle">
+                        <div id='mensaje'>
+                            <small id="lastNameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsRequired('lastName')"> Requerido </small>
+                            <small id="lastNameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsInvalidPattern('lastName')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                        <label for="rutTitle" class="fw-bolder">RUT</label>
+                        <input (input)="changeInput($event)" id="rutTitle" placeholder="Ingrese su rut" type="text"
+                            class="form-control" formControlName="rut" aria-label="rutTitle">
+                        <div id='mensaje'>
+                            <small id="rutTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsRequired('rut')"> Requerido </small>
+                            <small id="rutTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsInvalidPattern('rut')"> Invalido </small>
+                        </div>
+                    </div>
+                    <!-- <div class="col-12 col-lg-12">
+                        <label for="namePassword" class="fw-bolder">CONSTRASEÑA</label>
+                        <input (input)="changeInput($event)" id="namePassword" placeholder="Ingrese constraseña"
+                            type="text" class="form-control" formControlName="password" aria-label="namePassword">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsRequired('password')"> Requerido </small>
+                            <small id="nameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsInvalidPattern('password')"> Invalido </small>
+                        </div>
+                    </div> -->
+                    <div class="col-12 col-lg-12">
+                        <label for="nameEmail" class="fw-bolder">EMAIL</label>
+                        <input (input)="changeInput($event)" id="nameEmail" placeholder="Ingrese el email" type="email"
+                            class="form-control" formControlName="email" aria-label="nameEmail">
+                        <div id='mensaje'>
+                            <small id="nameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsRequired('email')"> Requerido </small>
+                            <small id="nameTitle" class="form-text text-muted"
+                                *ngIf=" reportForm.submitted && controlIsInvalidPattern('email')"> Invalido </small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                        <div class="button-group text-center mt-3">
+                            <button type="submit" [disabled]="disableButton"
+                                class="btn btn-lg btn-primary text-center">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
