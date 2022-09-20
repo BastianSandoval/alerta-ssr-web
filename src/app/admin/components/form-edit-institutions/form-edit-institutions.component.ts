@@ -137,17 +137,11 @@ export class FormEditInstitutionsComponent implements OnInit {
     }
 
     async ngOnInit(){
-      
-      const users: any = await this.userProviderService.getAllUsers().toPromise();
-      this.user= users;
-
       const categories: any = await this.categoryProviderService.getAllCategories().toPromise();
       this.category = categories;
 
       const communes: any = await this.communeProviderService.getAllCommunes().toPromise();
       this.communes = communes;
-      
-      console.log(this.category);
 
       this.settings = {
         labelKey: 'names',
