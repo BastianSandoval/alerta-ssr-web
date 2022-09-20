@@ -49,9 +49,9 @@
                     <tbody *ngFor="let institution of institutionSlice ; let index = index">
 
                         <!-- <div class="noActive" routerLink="/admin/validators" routerLinkActive="active"> -->
-                            <tr class="noActive" [routerLink]="['/admin/institution-info',institution._id]" routerLinkActive="active" (click)="selectInstitution(institution)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
-                                <td scope="col">{{institution.name | capitalize}}</td>
-                                <td scope="col">{{institution.categories.length}}
+                            <tr class="noActive" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false" aria-controls="collapse">
+                                <td [routerLink]="['/admin/institution-info',institution._id]" routerLinkActive="active" (click)="selectInstitution(institution)" scope="col">{{institution.name | capitalize}}</td>
+                                <td [routerLink]="['/admin/institution-info',institution._id]" routerLinkActive="active" (click)="selectInstitution(institution)" scope="col">{{institution.categories.length}}
                                     <!-- <ng-container *ngFor="let categorie of institution.categories ; let i = index">
                                         <ng-container *ngIf="i == institution.categories.length - 1 ; else elseTemplate">
                                             {{categorie.name | capitalize}}
@@ -61,7 +61,7 @@
                                         </ng-template>
                                     </ng-container> -->
                                 </td>
-                                <td scope="col">{{institution.assignedCommunes.length}}
+                                <td [routerLink]="['/admin/institution-info',institution._id]" routerLinkActive="active" (click)="selectInstitution(institution)" scope="col">{{institution.assignedCommunes.length}}
                                     <!-- <ng-container *ngFor="let commune of institution.assignedCommunes ; let i = index">
                                         <ng-container *ngIf="i == institution.assignedCommunes.length - 1 ; else elseTemplate">
                                             {{commune.name | capitalize}}
