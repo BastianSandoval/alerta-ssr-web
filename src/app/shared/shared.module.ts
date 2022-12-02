@@ -9,8 +9,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { EventFilterPipe } from './pipes/event-filter/event-filter.pipe';
 import { CommentFilterPipe } from './pipes/comment-filter/comment-filter.pipe';
 import { GlobalMapComponent } from './components/global-map/global-map.component';
-import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { MapComponent } from './components/map/map.component';
 
 
 
@@ -34,7 +34,7 @@ import { AgmCoreModule } from '@agm/core';
     LoaderComponent,
     EventFilterPipe,
     CommentFilterPipe,
-    GlobalMapComponent
+    GlobalMapComponent,
   ]
 })
 export class SharedModule { }

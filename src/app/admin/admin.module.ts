@@ -40,6 +40,7 @@ import { GlobalMapComponent } from './components/global-map/global-map.component
 import { TableValidatorsComponent } from './components/table-validators/table-validators.component';
 import { InstitutionInfoComponent } from './components/institution-info/institution-info.component';
 import { InstitutionInfoScreenComponent } from './screens/institution-info-screen/institution-info-screen.component';
+import { DetailReportComponent } from './components/detail-report/detail-report.component';
 
 const component = [
   AdminComponent,SidebarComponent,
@@ -47,7 +48,7 @@ const component = [
   , ModalDeleteComponent, ReportsScreenComponent, TableCategoryComponent,
   CategoryScreenComponent, CasesScreenComponent, DonationScreenComponent, TableDonationsComponent, SettingsScreenComponent,
   TableCasesComponent, GlobalMapComponent ,MapComponent, SidebarBootstrapComponent, EditCasesScreenComponent, EditCategorysScreenComponent, TableCategoryComponent, FormEditCategoryComponent
-  ,FormEditCaseComponent, LoginScreenComponent, ModalLogoutComponent
+  ,FormEditCaseComponent, LoginScreenComponent, ModalLogoutComponent, DetailReportComponent
 ]
 
 @NgModule({

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: /* 'https://prod-alertaverde-api.alertaverde.cl/api' */"http://localhost:23000/api"/* 'https://dev-alertaverde-api.alertaverde.cl/api' *//* 'https://master-api.alertaverde.cl/api''https://dev-api-alertaverde.tribul.cl/api' */,
+  baseUrl: 'https://prod-alertaverde-api.alertaverde.cl/api' /* "http://localhost:23000/api" *//* 'https://dev-alertaverde-api.alertaverde.cl/api' *//* 'https://master-api.alertaverde.cl/api''https://dev-api-alertaverde.tribul.cl/api' */,
   PRIVATE_KEY: `-----BEGIN RSA PRIVATE KEY-----\n\
   MIIBOgIBAAJBAL7g8KpvjcJEa4nOJIpzOuDmXec25Sw2Pzmm9GWmuO2sXP7WaPdQ\n\
   lCAz6ZkOGb9yoxghShIvOnEMkofDZrbNoKsCAwEAAQJAXM4RNUy3p9SMVJwduBL+\n\

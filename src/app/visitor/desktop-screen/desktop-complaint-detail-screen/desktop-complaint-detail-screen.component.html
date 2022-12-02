@@ -2,43 +2,50 @@
   *ngIf="report$ | async;
   let report;"
 >
-  <div class="row pt-2 d-flex justify-content-between">
-    <div class="col-5">
-      <img [src]="report.imageUrl" alt="" class="img-fluid img-thumbnail shadow-sm" style="max-height: 220px;" data-toggle="modal" data-target="#exampleModal2">
-    </div>
-
-    <div class="col-7 ps-5 w-50">
-      <app-map
-        [lat]="report.location.latitude"
-        [lng]="report.location.longitude"
-      ></app-map>
-    </div>
-  </div>
-  
-  <div class="row mt-4">
-    <div class="col-5 pe-5">
-      <h4 class="mb-0" style="color: #000000; font-size: 24px;">{{report.title | uppercase}}</h4>
-      <p class="mb-5" class="lead text-brand" style="font-size: 18px; font-weight: normal;">
-        Latitud: {{report.location.latitude | slice:0:11 }} <span class="ps-3">Longitud: {{report.location.longitude | slice:0:11}}</span></p>
-
-      <h5 class="text-uppercase mt-5" style="color: #000000; font-size:20px">Descripción de la denuncia</h5>
-      <p class="pe-4 mb-1" style="color: #676767;">{{report.description | capitalize}}</p>
-
-      <p class="mb-5" class="lead" style="color: #96AC78; font-size: 17px; font-weight: normal;">Fecha: {{report.createdAt | date: 'd/M/yy h:mm:ss'}}</p>
-      
-      <div class="row mt-5">
-        <div class="col-6">
-          <div class="card bg-brand" style="border-radius: 20px;">
-            <div class="card-body py-1 text-center">
-              <h5 class="text-white" style="font-weight: normal;">Validaciones</h5>
-              <h4 class="lead text-white text-brand-secondary mb-0">{{report.checks}}</h4>
+  <div class="row justify-content-around mt-5">
+    <div class="col-6">
+      <div class="col-12">
+        <app-map
+          [lat]="report.location.latitude"
+          [lng]="report.location.longitude"
+        ></app-map>
+      </div>
+      <div class="col-12">
+        
+          <h4 class="mb-0 mt-2" style="color: #000000; font-size: 24px;">{{report.title | uppercase}}</h4>
+          <p class="lead text-brand" style="font-size: 18px; font-weight: normal; margin-bottom: 0;">
+            Latitud: {{report.location.latitude | slice:0:11 }} <span class="ps-3">Longitud: {{report.location.longitude | slice:0:11}}</span></p>
+          <p class="lead" style="color: #96AC78; font-size: 17px; font-weight: normal;">Fecha: {{report.createdAt | date: 'd/M/yy HH:mm'}}</p>
+    
+          <h5 class="text-uppercase mt-2" style="color: #000000; font-size:20px">Descripción de la denuncia</h5>
+          <p class="pe-4 mb-1" style="color: #676767;">{{report.description | capitalize}}</p>
+    
+          
+          
+          <!-- <div class="row mt-5">
+            <div class="col-6">
+              <div class="card bg-brand" style="border-radius: 20px;">
+                <div class="card-body py-1 text-center">
+                  <h5 class="text-white" style="font-weight: normal;">Validaciones</h5>
+                  <h4 class="lead text-white text-brand-secondary mb-0">{{report.checks}}</h4>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </div> -->
+        
       </div>
     </div>
+    <div class="col-auto">
+      <img [src]="report.imageUrl" alt="" class="img-fluid img-thumbnail shadow-sm " style="height: auto;" data-toggle="modal" data-target="#exampleModal2">
+    </div>
+    
+  </div>
 
-    <div class="col-7 ps-5">
+  
+  
+  
+
+    <!-- <div class="col-7 ps-5">
       <h4 class="text-uppercase" style="color: #000000; font-size:20px">Comentarios</h4>
       <hr class="py-0">
 
@@ -49,15 +56,15 @@
           >
             <ng-container *ngIf="reportId === comment.complaint">
               <div class="card-body py-2">
-                <!-- <h5 class="card-title text-brand">{{comment.user.names | uppercase}}</h5> -->
+                <h5 class="card-title text-brand">{{comment.user.names | uppercase}}</h5>
                 <p class="card-text" style="color: #000000;">{{comment.description | capitalize}}</p>
               </div>
             </ng-container>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

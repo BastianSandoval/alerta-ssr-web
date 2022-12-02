@@ -10,6 +10,14 @@
     border: none;
 }
 
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
 .btn:hover {
     background-color: rgb(183, 194, 166);
 }
@@ -84,7 +92,7 @@
 /*responsive table*/
 td{
     font-size: 2.3vh;
-    font-family: 'Roboto Condensed';
+    font-family: 'Roboto Condensed';   
 }
 
 th{

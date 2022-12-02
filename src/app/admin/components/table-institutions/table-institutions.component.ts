@@ -24,7 +24,7 @@ export class TableInstitutionsComponent implements OnInit {
   idSelected: any;
   reportSelected: boolean;
   institutionSlice!: Institution[];
-  sizePageTable: number = 7;
+  sizePageTable: number = 20;
   startPage: number = 0;
   endPage: number = 7;
   visualizar:boolean;
@@ -165,7 +165,6 @@ public loader: boolean;
     this.pagingCounter= 0;
     this.prevPages= 0;
     this.totalPages= 1;
-   
     this.institutions = data;
     // this.communes = await this.communeProviderService.getAllCommunes().toPromise();
     // this.regions = await this.regionProviderService.getAllRegions().toPromise();

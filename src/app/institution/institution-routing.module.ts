@@ -7,7 +7,7 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 import { PasswordRecoveryComponent } from './screens/password-recovery/password-recovery.component';
 import { CasesScreenComponent } from './screens/cases-screen/cases-screen.component'
 import { SettingsComponent } from './screens/settings/settings.component';
-import { DetailReportComponent } from './components/detail-report/detail-report.component';
+import { DetailReportComponent } from './components/detail-report copy/detail-report.component';
 import { PerfilScreenComponent } from './screens/perfil-screen/perfil-screen.component';
 import { InstitutionGuard } from '../core/guards/institution/institution.guard';
 import { ValidatorsScreenComponent } from './screens/validators-screen/validators-screen.component';

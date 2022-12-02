@@ -59,8 +59,6 @@
                             <th scope="col">CATEGORÍA</th>
                             <th scope="col" width="10%">FECHA</th>
                             <th scope="col">UBICACIÓN</th>
-                            <!-- <th scope="col">VALIDACIONES</th>
-                            <th scope="col">RECHAZOS</th> -->
                             <th scope="col" width="19%" style="padding-left: 20px;">ACCIONES</th>
                         </tr>
                     </thead>
@@ -69,10 +67,10 @@
                         <tr (click)="selectReport(report)" data-bs-toggle="collapse"
                             [attr.data-bs-target]="'#collapse' + index" role="button" aria-expanded="false"
                             aria-controls="collapse">
-                            <td scope="col">{{report.title | capitalize}}</td>
-                            <td scope="col">{{report.category.name | capitalize}}</td>
-                            <td scope="col">{{report.createdAt |date:'dd-MM-yyyy'}}</td>
-                            <td scope="col">{{report.ubication | titlecase}}</td>
+                            <td [routerLink]="['/admin/report',report._id]" routerLinkActive="active" (click)="selectReport(report)" scope="col">{{report.title | capitalize}}</td>
+                            <td [routerLink]="['/admin/report',report._id]" routerLinkActive="active" (click)="selectReport(report)" scope="col">{{report.category.name | capitalize}}</td>
+                            <td [routerLink]="['/admin/report',report._id]" routerLinkActive="active" (click)="selectReport(report)" scope="col">{{report.createdAt |date:'dd-MM-yyyy'}}</td>
+                            <td [routerLink]="['/admin/report',report._id]" routerLinkActive="active" (click)="selectReport(report)" scope="col">{{report.ubication | titlecase}}</td>
                             <!-- <td scope="col">{{report.checks}}
                                 <span *ngIf="report.lastCheckAt" style="font-size: 12px;"> última {{report.lastCheckAt |
                                     date:'dd-MM-yyyy'}}</span>
@@ -80,7 +78,7 @@
                             <td scope="col">{{report.rejections}}</td> -->
                             <td class="btnRight text-center" scope="col" width="19%">
                                 <a class="btn rounded-pill editar"
-                                    [routerLink]="['/admin/report', report._id]">Editar</a>
+                                    [routerLink]="['/admin/report/edit', report._id]">Editar</a>
 
                                 <button class="btn rounded-pill eliminar-table" (click)="reportSelect(report)"
                                     type="submit" data-bs-toggle="modal"
@@ -121,17 +119,11 @@
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="container-fluid ps-0">
                     <div style="font-size: 2.3vh;" class="ms-auto p-2 bd-highlight nextPage">
-                        <span> Ítems por página:</span>
-                        <select id="page" type="number" (change)="sizePage($event)" class="btn btn1 btn-sm">
-                            <option selected>9</option>
-                            <option type="number">5</option>
-                            <option>4</option>
-                        </select>
                     </div>
                     <div class="p-0 p-lg-2">
                         <button id="prevButton" type="button" (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i style="padding: 0.2vh;" class="fas fa-angle-left"></i>
-                        </button> <span style="font-size: 2.3vh;"> {{page}} - {{totalPages}} de {{totalPages}} </span>
+                        </button>
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i style="padding: 0.2vh;" class="fas fa-angle-right"></i>
                         </button>

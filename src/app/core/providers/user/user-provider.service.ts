@@ -18,6 +18,10 @@ export class UserProviderService {
     return this.http.get<User>(`/user/${id}`);
   }
 
+  getValidator(id: string): Observable<User>{
+    return this.http.get<User>(`/validator/${id}`);
+  }
+
   addUser(user: User): Observable<User>{
     return this.http.post<User>('/user', user);
   }

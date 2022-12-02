@@ -30,9 +30,9 @@ export class TableReportsComponent implements OnInit {
   idSelected: any;
   reportSelected: boolean;
   reportsSlice!: Report[];
-  sizePageTable: number = 9;
+  sizePageTable: number = 20;
   startPage: number = 0;
-  endPage: number = 9;
+  endPage: number = 20;
   visualizar: boolean;
   reportId: string;
   numberPage: number = 1;
@@ -79,8 +79,9 @@ export class TableReportsComponent implements OnInit {
     this.withReviewStatusList = [
       new StatusList('Sin Revisar', 0),
       new StatusList('Rechazado', 1),
-      new StatusList('Aprovado', 2),
+      new StatusList('Aprobado', 2),
     ];
+    console.log(...this.withReviewStatusList)
     this.categoryList = await this.categoryProviderService
       .getAllCategories()
       .toPromise();
@@ -237,6 +238,7 @@ export class TableReportsComponent implements OnInit {
 
   onValue(value: string) {
     this.value = value;
+    console.log(value);
     if (this.value === '') {
       this.clearFilter();
     } else {

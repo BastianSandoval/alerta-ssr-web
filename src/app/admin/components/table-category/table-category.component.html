@@ -30,15 +30,15 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr class="cabezera">
-                            <th width="5%" scope="col-3">NOMBRE</th>
-                            <th width="20%"  scope="col-6">DESCRIPCIÓN</th>
+                            <th width="5%"  scope="col-3">NOMBRE</th>
+                            <th width="20%" scope="col-6">DESCRIPCIÓN</th>
                             <th width="10%" style="text-align: center;"scope="col-3 ">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let category of categorysSlice | categoryFilterName: filterCategory">
+                    <tbody *ngFor="let category of categorysSlice">
                         <tr>
                             <td scope="col-2">{{category.name | capitalize }}</td>
-                            <td scope="col-2">{{category.description | capitalize}}</td>
+                            <td class="line-clamp" scope="col-2">{{category.description | capitalize}}</td>
                             <td class="btnRight" scope="col-2">
                                 <a style="font-size: 2.3vh;" class="btn rounded-pill editar" [routerLink]="['/admin/category', category._id]">Editar</a>
                                 
@@ -54,17 +54,12 @@
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="container-fluid ps-0">
                     <div style="font-size: 2.3vh;" class="ms-auto p-2 bd-highlight nextPage">
-                        Ítems por página:
-                        <select id="page" type="number" (change)="sizePage($event)" class="btn btn1 btn-sm">
-                            <option selected >7</option>
-                            <option type="number" >5</option>
-                            <option>4</option>                          
-                        </select>
+                        
                     </div>
                     <div class="p-0 p-lg-2">
                         <button id="prevButton" type="button" disabled (click)="prevPage()" class="btn btn1 rounded-circle">
                             <i style="font-size: 2.3vh; padding: 0.2vh;" class="fas fa-angle-left"></i>
-                        </button> <span style="font-size: 2.3vh;"> {{page}} - {{numberPages}} de {{numberPages}}</span>
+                        </button>
                         <button id="nextButton" type="button" (click)="nextPage()" class="btn  btn1 rounded-circle">
                             <i style="font-size: 2.3vh; padding: 0.2vh;" class="fas fa-angle-right"></i>
                         </button>

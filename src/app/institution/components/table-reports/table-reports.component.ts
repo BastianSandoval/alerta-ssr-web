@@ -87,7 +87,7 @@ export class TableReportsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     await this.setReport();
-    this.withReviewStatusList = [new StatusList("Sin Revisar", 0), new StatusList("Rechazado", 1), new StatusList("Aprovado", 2)];
+    this.withReviewStatusList = [new StatusList("Sin Revisar", 0), new StatusList("Rechazado", 1), new StatusList("Aprobado", 2)];
     // this.rejectedStatusList = [new StatusList("Rechazado", true), new StatusList("Aprovado", false)];
     this.categoryList = await this.categoryProviderService.getAllCategories().toPromise();
     this.categoryList = this.categoryList.filter((category: Category) => this.institution.categories.find((institutionCategory: any) => category._id == institutionCategory._id));

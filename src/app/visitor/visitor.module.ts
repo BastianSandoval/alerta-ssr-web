@@ -23,8 +23,6 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     VisitorRoutingModule,
     AgmCoreModule.forRoot({
-      // please get your own API key here:
-      // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
       apiKey: 'AIzaSyCz0du8BFvXV2u4H8FeUWCLdmSwiSBy_cs'
   }),
     SharedModule

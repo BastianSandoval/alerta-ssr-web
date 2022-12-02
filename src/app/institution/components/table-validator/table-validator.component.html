@@ -7,7 +7,7 @@
                         <div class="col-11 col-lg-6 col-xl-4 py-2 py-lg-0 pe-0">
                             <input class="form-control border-0" list="datalistOptions" #box
                                 (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" id="exampleDataList"
-                                placeholder="Buscar reportes" size="80"
+                                placeholder="Buscar validaador" size="80"
                                 style="background-color:rgb(234, 238, 226); font-size: 2.3vh; font-family: 'Roboto Condensed'">
                             <datalist id="datalistOptions">
                                 <option *ngFor="let report of reportsSlice" value="{{report.title}}">
@@ -32,8 +32,8 @@
                         <tr class="cabezera">
                             <th scope="col">RUT</th>
                             <th scope="col">NOMBRE</th>
+                            <th scope="col">CORREO</th>
                             <th scope="col" width="20%">FECHA</th>
-                            <th scope="col">UBICACIÓN</th>
                             <th scope="col">ESTATUS</th>
                             <!-- <th scope="col" width="19%" style="padding-left: 20px;">ACCIONES</th> -->
                         </tr>
@@ -47,8 +47,8 @@
                         <tr>
                             <td scope="col">{{validator.rut}}</td>
                             <td scope="col">{{validator.username | capitalize}}</td>
+                            <td scope="col">{{validator.email}}</td>
                             <td scope="col">{{validator.createdAt | date:'dd-MM-yyyy'}}</td>
-                            <td scope="col">{{validator.address.streetName | titlecase}}</td>
                             <td scope="col">{{validator.isAuth ? "Aprobado" : "Sin Revisar" | titlecase}}</td>
                         </tr>
 

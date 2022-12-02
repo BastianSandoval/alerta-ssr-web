@@ -37,5 +37,5 @@ export class MapComponent implements OnInit {
   zoom: number = 17;
   // initial center position for the map
 
-  url = '../../../assets/icons/place-visitor.svg';
+  url = '../../../assets/complaint-marker.svg';
 }

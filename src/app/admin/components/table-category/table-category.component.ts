@@ -20,11 +20,11 @@ export class TableCategoryComponent implements OnInit {
   idSelected: any;
   categorySelected: any;
   categorysSlice!: Category[];
-  sizePageTable: number = 7;
+  sizePageTable: number = 20;
   titleCategory: string;
 
   startPage: number = 0;
-  endPage: number = 7;
+  endPage: number = 20;
   public mostrar: Boolean;
   visualizar: boolean;
   numberPage: number = 1;
@@ -48,9 +48,17 @@ export class TableCategoryComponent implements OnInit {
   }
 
   async setCategory() {
-    const data: any = await this.categoryProviderService
+    let data: any;
+    console.log(this.filterCategory);
+    if(!!this.filterCategory) {
+      data = await this.categoryProviderService
+      .searchCategories(this.filterCategory)
+      .toPromise();
+    } else {
+      data = await this.categoryProviderService
       .getAllCategories()
       .toPromise();
+    }
     this.category = data;
 
     this.numberPages = Math.ceil(this.category.length / this.sizePageTable);
@@ -130,8 +138,10 @@ export class TableCategoryComponent implements OnInit {
     this.value = value;
     if (this.value === '') {
       this.clearFilter();
+      this.setCategory();
     } else {
       this.filterCategory = this.value;
+      this.setCategory();
     }
   }
 

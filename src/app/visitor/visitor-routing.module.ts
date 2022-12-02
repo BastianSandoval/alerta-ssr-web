@@ -15,7 +15,7 @@ const routes: Routes = [
     component: VisitorComponent,
     children: [
       { path: 'home', component: HomeScreenComponent },
-      { path: 'complaint/:id', component: ComplaintDetailComponent},
+      { path: 'report/:id', component: ComplaintDetailComponent},
     ]
   }
 ];

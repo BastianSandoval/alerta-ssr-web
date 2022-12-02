@@ -17,6 +17,7 @@ import { EditDonationScreenComponent } from './screens/edit-donation-screen/edit
 import { InstitutionsScreenComponent } from './screens/institutions-screen/institutions-screen.component';
 import { EditInstitutionsScreenComponent } from './screens/edit-institutions-screen/edit-institutions-screen.component';
 import { InstitutionInfoScreenComponent } from './screens/institution-info-screen/institution-info-screen.component';
+import { DetailReportComponent } from './components/detail-report/detail-report.component';
 
 const routes: Routes = [
   {
@@ -58,8 +59,12 @@ const routes: Routes = [
         component: InstitutionInfoScreenComponent
       },
       {
-        path: 'report/:id',
+        path: 'report/edit/:id',
         component: EditReportsScreenComponent
+      },
+      {
+        path: 'report/:id',
+        component: DetailReportComponent
       },
       {
         path: 'cases',

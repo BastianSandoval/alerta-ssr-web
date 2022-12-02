@@ -64,6 +64,10 @@ export class ReportProviderService {
     return this.http.get<Report>(`/complaint/${id}`);
   }
 
+  getReportReview(id: string): Observable<any>{
+    return this.http.get<Report>(`/complaint/review/${id}`);
+  }
+
   addReport(report: Report): Observable<Report>{
     const reportForm = this.getFormData(report);
     return this.http.post<Report>('/complaint', reportForm);
