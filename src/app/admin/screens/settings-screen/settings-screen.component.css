@@ -14,7 +14,7 @@ i{
 }
 
 .form-control{
-    background: #EEF2E9;
+    background: #CEDADF;
 }
 
 ::placeholder{
@@ -22,7 +22,7 @@ i{
 }
 
 .title{
-    color: #96AC78;
+    color: #1D3E6A;
     font-size: 20px;
     font-family: 'Roboto Condensed';
 }

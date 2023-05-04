@@ -6,7 +6,7 @@
 }
 
 .navbar-active{
-    background:#EEF2E9;
+    background:#CEDADF;
     /* padding-top:1px; */
 } 
 
@@ -22,13 +22,13 @@
 
 .sidebar{
     padding:0px 0px;
-    background-color: #EEF2E9;
+    background-color: #CEDADF;
     margin:0;
 }
 
 
 .options{
-    background: #EEF2E9;
+    background: #CEDADF;
     text-align: center;
 }
 
@@ -49,7 +49,7 @@
 }
 
 i{
-    color: #96AC78;
+    color: #1D3E6A;
     font-size: 26px;
 }
 .logout{

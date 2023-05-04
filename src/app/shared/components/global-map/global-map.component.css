@@ -13,23 +13,23 @@ i{
 }
 
 .cabezera {
-    background-color: rgb(234, 238, 226);
+    background-color: #CEDADF;
     font-family:'Roboto Condensed';
 }
 
 .btn {
-    background-color: rgb(158, 172, 136);
+    background-color: #E8A143;
     color: white;
     margin-right: 0.7vh;
     border: none;
 }
 
 .btn:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }
 
 .style {
-    background-color: rgb(158, 172, 136);
+    background-color: #E8A143;
     color: white;
     margin-right: 5px;
     border: none;
@@ -40,5 +40,5 @@ i{
 }
 
 .btn1:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }

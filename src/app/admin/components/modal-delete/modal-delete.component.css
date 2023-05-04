@@ -17,14 +17,14 @@
 }
 
 .btn-cancelar{
-    background:  rgb(185, 197, 167);
+    background:  #E8A143;
     color: rgb(236, 233, 233);
     cursor: pointer;
     border: none;
 }
 
 .btn-cancelar:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }
 
 .btn-eliminar:hover {

@@ -6,7 +6,7 @@
 }
 
 .navbar-active{
-    background:#EEF2E9;
+    background:#CEDADF;
     /* padding-top:1px; */
 } 
 
@@ -16,19 +16,19 @@
 } 
 .dogAPI{
     padding: 10vh 5px;
-    color: rgb(171, 209, 171)
+    color: #CEDADF;
 }
 
 
 .sidebar{
     padding:0px 0px;
-    background-color: #EEF2E9;
+    background-color: #CEDADF;
     margin:0;
 }
 
 
 .options{
-    background: #EEF2E9;
+    background: #CEDADF;
     text-align: center;
 }
 

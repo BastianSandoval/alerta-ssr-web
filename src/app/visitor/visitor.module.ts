@@ -15,10 +15,11 @@ import { DesktopComplaintDetailScreenComponent } from './desktop-screen/desktop-
 import { MobileHomeScreenComponent } from './mobile-screen/mobile-home-screen/mobile-home-screen.component';
 import { MobileComplaintDetailScreenComponent } from './mobile-screen/mobile-complaint-detail-screen/mobile-complaint-detail-screen.component';
 import { SharedModule } from '../shared/shared.module';
+import { TendersComponent } from './screens/tenders/tenders.component';
 
 
 @NgModule({
-  declarations: [ComplaintDetailComponent, NavbarComponent, HomeScreenComponent, VisitorComponent, DonateModalComponent, FooterComponent, MapComponent, DesktopHomeScreenComponent, DesktopComplaintDetailScreenComponent, MobileHomeScreenComponent, MobileComplaintDetailScreenComponent],
+  declarations: [ComplaintDetailComponent, NavbarComponent, HomeScreenComponent, VisitorComponent, DonateModalComponent, FooterComponent, MapComponent, DesktopHomeScreenComponent, DesktopComplaintDetailScreenComponent, MobileHomeScreenComponent, MobileComplaintDetailScreenComponent, TendersComponent],
   imports: [
     CommonModule,
     VisitorRoutingModule,

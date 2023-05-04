@@ -11,6 +11,7 @@ import { DetailReportComponent } from './components/detail-report copy/detail-re
 import { PerfilScreenComponent } from './screens/perfil-screen/perfil-screen.component';
 import { InstitutionGuard } from '../core/guards/institution/institution.guard';
 import { ValidatorsScreenComponent } from './screens/validators-screen/validators-screen.component';
+import { TendersScreenComponent } from './screens/tenders-screen/tenders-screen.component';
 
 const routes: Routes = [
   {
@@ -40,8 +41,8 @@ const routes: Routes = [
         component: DetailReportComponent
       },
       {
-        path: 'cases',
-        component: CasesScreenComponent
+        path: 'tenders',
+        component: TendersScreenComponent
       },
       {
         path: 'validators',

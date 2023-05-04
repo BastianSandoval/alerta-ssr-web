@@ -1,10 +1,9 @@
 <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content rounded-3" style="background-color:rgb(219, 224, 212) ;">
+        <div class="modal-content rounded-3" style="background-color:#CEDADF;">
             <div class="modal-header header">
                 <h4 class="modal-title col-12 text-center" id="exampleModalLabel">¿Estás seguro que deseas eliminar "{{title}}"?</h4>
             </div>
-
             <div class="modal-footer justify-content-evenly pb-4">
                 <button type="button" class="btn btn-secondary btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" (click)="deleteReport()" class="btn btn-secondary btn-eliminar" data-bs-dismiss="modal">Sí, eliminar</button>

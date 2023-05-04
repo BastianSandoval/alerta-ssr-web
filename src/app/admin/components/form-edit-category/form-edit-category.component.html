@@ -1,5 +1,5 @@
 <div class="row justify-content-center ">
-    <div class="col-12" style="background-color: rgb(234, 238, 226)">
+    <div class="col-12" style="background-color: #CEDADF">
         <div class="container-fluid pt-4 pb-4">
             <form [formGroup]="checkoutForm" #categoryForm="ngForm" (ngSubmit)="saveCategory($event,categoryForm)">
                 <div class="row justify-content-center">
@@ -30,7 +30,7 @@
 
                 <div class="button-group text-center mt-3">
                     <button class="btn btn-lg btn-danger text-center me-4" (click)="cancel()">Cancelar</button>
-                    <button type="submit" class="btn btn-lg btn-primary text-center" (click)="enviar()">Guardar</button>
+                    <button type="submit" class="btn btn-lg save text-center" (click)="enviar()">Guardar</button>
                 </div>
             </form>
         </div>

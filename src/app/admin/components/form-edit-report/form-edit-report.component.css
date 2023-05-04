@@ -64,3 +64,9 @@ label, button, input, textarea{
   font-family: 'Roboto Condensed';
   font-size: 2.3vh;
 }
+
+.save{
+  background-color: #E8A143;
+  border-color: #E8A143;
+  color: white;
+}

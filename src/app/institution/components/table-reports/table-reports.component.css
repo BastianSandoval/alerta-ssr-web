@@ -7,7 +7,7 @@ i{
     font-size: 2.3vh;
 }
 .card{
-    background-color: #EEF2E9;
+    background-color: #CEDADF;
 }
 .card:hover{
     background-color: #eef2e988;
@@ -37,18 +37,18 @@ i{
 }
 
 .btn {
-    background-color: rgb(158, 172, 136);
+    background-color: #E8A143;
     color: white;
     margin-right: 0.7vh;
     border: none;
 }
 
 .btn:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }
 
 .style {
-    background-color: rgb(158, 172, 136);
+    background-color: #E8A143;
     color: white;
     margin-right: 5px;
     border: none;
@@ -59,7 +59,7 @@ i{
 }
 
 .btn1:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }
 
 @media only screen and (max-width: 992px) {
@@ -75,14 +75,14 @@ i{
 }
 
 .editar {
-    background: rgb(158, 172, 136);
+    background: #E8A143;
     color: rgb(236, 233, 233);
     border: none;
     padding: 0.5vh 2vh;
 }
 
 .ver {
-    background: rgb(158, 172, 136);
+    background: #E8A143;
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;

@@ -1,11 +1,10 @@
-<div class="container-fluid vh-100" style="background: #EEF2E9!important">
+<div class="container-fluid vh-100" style="background: #CEDADF!important">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-12">
             <div class="container-fluid pt-2">
                 <div class="alertaAPI text-center pt-3">
-                    <img class="img-fluid" style="height: 100px; width: 450px;" src="../../../../assets/icons/logo-icon.svg">
+                    <img class="img-fluid" style="height: 400px; width: 450px;" src="../../../../assets/icons/logo-icon.svg">
                 </div>
-                <h1 class="mt-3 mb-5 xs title-screen text-center" style="color: #96AC78;">Bienvenido a Alerta Verde</h1>
                 <form [formGroup]="checkoutForm" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
                     <div class="class">
                         <div class="row justify-content-center align-items-center">
@@ -34,9 +33,7 @@
                                 placeholder="contraseña"
                                 [ngClass]="{ 'is-invalid': controlIsInvalid('password') && loginForm.submitted }">
                             </div>
-                            <!-- <div class="row">
-                                <small [routerLink]="['/institution/login/recovery']">Olvidé la contraseña</small>
-                            </div> -->
+                            
                         </div>
                     </div>
                     <div class="button-group text-center mt-3 col-12">

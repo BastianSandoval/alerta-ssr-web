@@ -1,10 +1,10 @@
 .cabezera {
-    background-color: rgb(234, 238, 226);
+    background-color: #CEDADF;
     font-family:'Roboto Condensed';
 }
 
 .btn {
-    background-color: rgb(158, 172, 136);
+    background-color: #E8A143;
     color: white;
     margin-right: 5px;
     border: none;
@@ -19,11 +19,11 @@
 }
 
 .btn:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }
 
 .style {
-    background-color: rgb(158, 172, 136);
+    background-color: #E8A143;
     color: white;
     margin-right: 5px;
     border: none;
@@ -34,7 +34,7 @@
 }
 
 .btn1:hover {
-    background-color: rgb(183, 194, 166);
+    background-color: #E8A143;
 }
 
 @media only screen and (max-width: 992px) {
@@ -50,7 +50,7 @@
 }
 
 .editar {
-    background: rgb(158, 172, 136);
+    background: #E8A143;
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;
@@ -60,7 +60,7 @@
 }
 
 .ver {
-    background: rgb(158, 172, 136);
+    background: #E8A143;
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;

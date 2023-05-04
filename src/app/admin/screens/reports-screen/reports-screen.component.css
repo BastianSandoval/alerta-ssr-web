@@ -1,5 +1,5 @@
 .mapa {
-    background: rgb(158, 172, 136);
+    background: #E8A143;
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;
@@ -13,7 +13,7 @@
     border-radius: 1.4vh;
 }
 .lista {
-    background: rgb(158, 172, 136);
+    background: #E8A143;
     color: rgb(236, 233, 233);
     padding-left: 3vh;
     padding-right: 3vh;
@@ -33,13 +33,14 @@ h5{
 
 
 .btn{
-    background: #B3C1A0;
+    background: #E8A143;
+    color: #E8A143;
 } 
 
 .activo{
-    background: #96AC78;
+    background: #E8A143;
 }
 
 .noActivo{
-    background: #B3C1A0;
+    background: #E8A143;
 }

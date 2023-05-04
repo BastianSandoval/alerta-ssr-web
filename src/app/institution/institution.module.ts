@@ -27,13 +27,15 @@ import { AgmCoreModule} from '@agm/core';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { MapComponent } from './components/map/map.component';
+import { TendersScreenComponent } from './screens/tenders-screen/tenders-screen.component';
+import { TableTendersComponent } from './components/table-tenders/table-tenders.component';
 
 
 @NgModule({
   declarations: [InstitutionComponent, LoginScreenComponent, PasswordRecoveryComponent, VerifyCodeComponent,
      NewPasswordComponent, SidebarComponent, SidebarBootstrapComponent, ModalLogoutComponent, 
      ReportsScreenComponent, TableReportsComponent, TableCasesComponent, CasesScreenComponent, 
-     SettingsComponent, DetailReportComponent, PerfilScreenComponent, ValidatorsScreenComponent, FormEditValidatorComponent, TableValidatorComponent, MapComponent],
+     SettingsComponent, DetailReportComponent, PerfilScreenComponent, ValidatorsScreenComponent, FormEditValidatorComponent, TableValidatorComponent, MapComponent, TendersScreenComponent, TableTendersComponent],
   imports: [
     CommonModule,
     InstitutionRoutingModule,

@@ -1,5 +1,5 @@
 <div class="row justify-content-center mb-4">
-    <div class="col-12 col-lg-4" style="background-color: rgb(234, 238, 226)">
+    <div class="col-12 col-lg-4" style="background-color: #CEDADF">
         <div class="container-fluid pt-4 pb-4">
             <form [formGroup]="checkoutForm" #reportForm="ngForm" (ngSubmit)="saveReport($event, reportForm)">
                 <div class="col">
@@ -61,7 +61,7 @@
                     <div class="col-12 col-lg-12">
                         <div class="button-group text-center mt-3">
                             <button type="submit" [disabled]="disableButton"
-                                class="btn btn-lg btn-primary text-center">Guardar</button>
+                                class="btn btn-lg save text-center">Guardar</button>
                         </div>
                     </div>
                 </div>
