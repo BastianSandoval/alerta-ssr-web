@@ -15,6 +15,11 @@ import { TendersScreenComponent } from './screens/tenders-screen/tenders-screen.
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'institution',
+    pathMatch: 'full'
+  },
+  {
     path:'login',
     component: LoginScreenComponent
   },
