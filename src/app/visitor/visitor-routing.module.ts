@@ -8,14 +8,14 @@ import { TendersComponent } from './screens/tenders/tenders.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'tenders',
     pathMatch: 'full'
   },
   {
     path: '',
     component: VisitorComponent,
     children: [
-      { path: 'home', component: HomeScreenComponent },
+     // { path: 'home', component: HomeScreenComponent },
       { path: 'report/:id', component: ComplaintDetailComponent},
       { path: 'tenders', component: TendersComponent},
     ]
