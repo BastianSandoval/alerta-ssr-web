@@ -18,6 +18,7 @@ import { InstitutionsScreenComponent } from './screens/institutions-screen/insti
 import { EditInstitutionsScreenComponent } from './screens/edit-institutions-screen/edit-institutions-screen.component';
 import { InstitutionInfoScreenComponent } from './screens/institution-info-screen/institution-info-screen.component';
 import { DetailReportComponent } from './components/detail-report/detail-report.component';
+import { TendersScreenComponent } from './screens/tenders-screen/tenders-screen.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,10 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingsScreenComponent
+      },
+      {
+        path: 'tenders',
+        component: TendersScreenComponent,
       },
     ]
   },

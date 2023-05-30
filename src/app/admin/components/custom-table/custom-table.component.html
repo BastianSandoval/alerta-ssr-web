@@ -1,0 +1,67 @@
+<section id="table-dogs">
+  <div class="row">
+      <div class="col-12">
+          <nav class="navbar navbar-expand-lg navbar-light">
+              <form class="container-fluid ps-0 pe-lg-0">
+                  <div class="row">
+                      <div class="col-11 col-lg-6 col-xl-4 py-2 py-lg-0 pe-0">
+                          <input class="form-control border-0" list="datalistOptions" #box
+                              (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" id="exampleDataList"
+                              placeholder="Buscar" size="80"
+                              style="background-color:#CEDADF;">
+                      </div>
+                  </div>
+                  <div id="limpiar" class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-4 text-end pt-lg-4 pt-xl-0">
+                    <button style="width: 20vh;" type="reset" routerLink="/admin/institution" (click)="clearFilter()" class="btn btn-secondary  mx-0 ms-lg-3 my-2 my-lg-0">
+                        <i style="font-size: 2.3vh;" class="far fa-plus-square"></i>
+                        <span> Agregar</span>
+                    </button>
+                </div>
+              </form>
+          </nav>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12" *ngIf="loader; else showLoader">
+          <div class="table-responsive">
+              <table class="table table-borderless">
+                  <thead>
+                      <tr class="cabezera">
+                          <th scope="col" *ngFor="let header of headers">{{ header }}</th>
+                          <th scope="col" width="19%" style="padding-left: 20px;">ACCIONES</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of data">
+                          <td *ngFor="let field of fields" [routerLink]="['/admin/data', item._id]" routerLinkActive="active"
+                              (click)="selectData(item)" scope="col">{{item[field]}}</td>
+                          <td scope="col" width="19%">
+                              <a class="btn rounded-pill editar" [routerLink]="['/admin/data/edit', item._id]">Editar</a>
+                              <button class="btn rounded-pill eliminar-table" (click)="dataSelect(item)"
+                                  type="submit" data-bs-toggle="modal" data-bs-target="#delete"><span>Eliminar</span></button>
+                              <app-modal-delete (idDelete)="deleteItem($event)" [id]="idSelected" [title]="titleData"
+                                  [data]="dataSelected"></app-modal-delete>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <nav class="navbar navbar-expand-lg navbar-light">
+              <div class="container-fluid ps-0">
+                  <div style="font-size: 2.3vh;" class="ms-auto p-2 bd-highlight nextPage"></div>
+                  <div class="p-0 p-lg-2">
+                      <button *ngIf="hasPrev" id="prevButton" type="button" (click)="prevPage()" class="btn btn1 rounded-circle">
+                          <i style="padding: 0.2vh;" class="fas fa-angle-left"></i>
+                      </button>
+                      <button *ngIf="hasNext" id="nextButton" type="button" (click)="nextPage()" class="btn btn1 rounded-circle">
+                          <i style="padding: 0.2vh;" class="fas fa-angle-right"></i>
+                      </button>
+                  </div>
+              </div>
+          </nav>
+      </div>
+      <ng-template #showLoader>
+          <shared-loader></shared-loader>
+      </ng-template>
+  </div>
+</section>

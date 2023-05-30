@@ -8,8 +8,8 @@ export interface Tender {
     contract_conditions: string;
     execution_date: Date;
     address: string;
-    documents: string;
-    media: string;
+    documents: string[];
+    media: string[];
     start_date: Date;
     end_date: Date;
     createdAt?: Date;

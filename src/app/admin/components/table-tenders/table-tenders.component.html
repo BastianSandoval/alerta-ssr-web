@@ -1,0 +1,16 @@
+<app-custom-table
+  [data]="tenders"
+  [loader]="loader"
+  [headers]="headers"
+  [fields]="fields"
+  [currentPage]="page"
+  [itemsPerPage]="limit"
+  [hasPrev]="hasPrev"
+  [hasNext]="hasNext"
+  (selectData)="selectData($event)"
+  (dataSelected)="dataSelected($event)"
+  (deleteItem)="deleteItem($event)"
+  (changePage)="changePage($event)"
+  (searchData)="searchTenders($event)"
+>
+</app-custom-table>
